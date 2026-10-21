@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VocabMaster - Ôn Tập Từ Vựng Tiếng Anh</title>
+    <title>VocabMaster - Ôn Tập Từ Vựng Tiếng Anh & SRS Anki</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -33,6 +33,10 @@
         .animate-pop {
             animation: pulse-subtle 0.25s ease-out;
         }
+        /* Flashcard Flip CSS */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
     </style>
 </head>
 <body class="h-full text-slate-800 flex flex-col antialiased">
@@ -48,7 +52,7 @@
                     </div>
                     <div>
                         <h1 class="font-extrabold text-lg leading-tight bg-gradient-to-r from-blue-700 to-teal-600 bg-clip-text text-transparent">VocabMaster</h1>
-                        <p class="text-xs text-slate-500 font-medium">Luyện từ vựng thông minh</p>
+                        <p class="text-xs text-slate-500 font-medium">Luyện từ vựng & SRS Anki</p>
                     </div>
                 </div>
 
@@ -62,14 +66,17 @@
 
                     <!-- Nav Tabs -->
                     <nav class="flex space-x-1 bg-slate-100 p-1 rounded-xl">
-                        <button id="tab-input-btn" onclick="switchTab('input')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-blue-600 bg-white shadow-sm">
-                            <i class="fa-solid fa-file-import mr-1.5"></i>Nguồn từ
+                        <button id="tab-input-btn" onclick="switchTab('input')" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-blue-600 bg-white shadow-sm">
+                            <i class="fa-solid fa-file-import mr-1"></i>Nguồn từ
                         </button>
-                        <button id="tab-quiz-btn" onclick="switchTab('quiz')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
-                            <i class="fa-solid fa-circle-play mr-1.5"></i>Luyện tập
+                        <button id="tab-anki-btn" onclick="switchTab('anki')" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-brain text-teal-600 mr-1"></i>Học SRS (Anki)
                         </button>
-                        <button id="tab-stats-btn" onclick="switchTab('stats')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
-                            <i class="fa-solid fa-chart-pie mr-1.5"></i>Kết quả
+                        <button id="tab-quiz-btn" onclick="switchTab('quiz')" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-circle-play mr-1"></i>Kiểm tra
+                        </button>
+                        <button id="tab-stats-btn" onclick="switchTab('stats')" class="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-chart-pie mr-1"></i>Kết quả
                         </button>
                     </nav>
                 </div>
@@ -156,10 +163,13 @@
                             </div>
                         </div>
 
-                        <!-- Start Button -->
-                        <div class="pt-4 mt-auto border-t border-slate-100">
-                            <button id="start-quiz-from-input" onclick="prepareAndStartQuiz()" disabled class="w-full py-3 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center">
-                                <i class="fa-solid fa-play mr-2"></i>Luyện tập ngay
+                        <!-- Start Buttons -->
+                        <div class="pt-4 mt-auto border-t border-slate-100 space-y-2">
+                            <button id="start-anki-from-input" onclick="switchTab('anki')" disabled class="w-full py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-brain mr-2"></i>Học Flashcard SRS (Anki)
+                            </button>
+                            <button id="start-quiz-from-input" onclick="prepareAndStartQuiz()" disabled class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-list-check mr-2"></i>Kiểm tra Trắc nghiệm
                             </button>
                         </div>
                     </div>
@@ -167,7 +177,118 @@
             </div>
         </div>
 
-        <!-- TAB 2: QUIZ SECTION -->
+        <!-- TAB 2: SPACED REPETITION (ANKI MODE) -->
+        <div id="tab-anki" class="hidden max-w-3xl mx-auto space-y-6">
+            <!-- SRS Stat Header -->
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-extrabold text-slate-800 text-base sm:text-lg">Học Lặp Lại Ngắt Quãng (Spaced Repetition)</h2>
+                        <p class="text-xs text-slate-500">Thuật toán SuperMemo-2 tối ưu hóa trí nhớ dài hạn</p>
+                    </div>
+                </div>
+
+                <!-- Anki Counters -->
+                <div class="flex items-center space-x-2 text-xs font-bold">
+                    <div class="px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 rounded-xl text-center" title="Thẻ cần ôn hôm nay">
+                        <div class="text-[10px] uppercase text-blue-500 font-semibold">Cần ôn</div>
+                        <div id="srs-due-count" class="text-sm font-extrabold">0</div>
+                    </div>
+                    <div class="px-3 py-1.5 bg-amber-50 border border-amber-200 text-amber-700 rounded-xl text-center" title="Thẻ đang học / mới">
+                        <div class="text-[10px] uppercase text-amber-500 font-semibold">Đang học</div>
+                        <div id="srs-learning-count" class="text-sm font-extrabold">0</div>
+                    </div>
+                    <div class="px-3 py-1.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl text-center" title="Thẻ đã thuộc">
+                        <div class="text-[10px] uppercase text-emerald-500 font-semibold">Đã thuộc</div>
+                        <div id="srs-mastered-count" class="text-sm font-extrabold">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcard Display Area -->
+            <div id="anki-card-container" class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-lg min-h-[360px] flex flex-col justify-between items-center text-center relative transition-all">
+                
+                <!-- Card Front Badge -->
+                <div class="w-full flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span id="anki-card-status-badge" class="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full">
+                        Mặt trước: Term
+                    </span>
+                    <span class="text-xs text-slate-400 font-medium">Phím tắt: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">Space</code> để lật, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">1-4</code> đánh giá</span>
+                </div>
+
+                <!-- Card Content -->
+                <div class="my-8 space-y-4 w-full max-w-xl">
+                    <!-- Front Text -->
+                    <div id="anki-front-text" class="text-3xl sm:text-4xl font-black text-slate-800 leading-tight">
+                        --
+                    </div>
+
+                    <!-- Divider & Answer Reveal -->
+                    <div id="anki-back-container" class="hidden pt-6 border-t border-dashed border-slate-200 space-y-3 animate-pop">
+                        <div class="text-xs font-bold uppercase tracking-wider text-teal-600">Định nghĩa & Nghĩa</div>
+                        <div id="anki-back-text" class="text-xl sm:text-2xl font-bold text-slate-700">
+                            --
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show Answer Button (Front View) -->
+                <div id="anki-reveal-btn-box" class="w-full pt-4">
+                    <button onclick="revealAnkiAnswer()" class="w-full py-4 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-extrabold rounded-2xl shadow-lg shadow-teal-100 transition-all text-base flex items-center justify-center">
+                        <i class="fa-solid fa-eye mr-2"></i>Hiển thị đáp án (Phím Space)
+                    </button>
+                </div>
+
+                <!-- Rating Buttons (Back View) -->
+                <div id="anki-rating-btn-box" class="hidden w-full grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-100">
+                    <!-- Again (1) -->
+                    <button onclick="rateAnkiCard(1)" class="p-3 bg-rose-50 hover:bg-rose-100 border-2 border-rose-200 text-rose-800 rounded-2xl transition-all flex flex-col items-center group">
+                        <span class="text-xs font-extrabold text-rose-600 group-hover:scale-105 transition-transform"><i class="fa-solid fa-rotate-left mr-1"></i>Again (Phím 1)</span>
+                        <span id="interval-again" class="text-[11px] font-semibold text-rose-500 mt-1">&lt; 1 phút</span>
+                    </button>
+
+                    <!-- Hard (2) -->
+                    <button onclick="rateAnkiCard(2)" class="p-3 bg-amber-50 hover:bg-amber-100 border-2 border-amber-200 text-amber-800 rounded-2xl transition-all flex flex-col items-center group">
+                        <span class="text-xs font-extrabold text-amber-600 group-hover:scale-105 transition-transform"><i class="fa-solid fa-face-frown mr-1"></i>Hard (Phím 2)</span>
+                        <span id="interval-hard" class="text-[11px] font-semibold text-amber-500 mt-1">1 ngày</span>
+                    </button>
+
+                    <!-- Good (3) -->
+                    <button onclick="rateAnkiCard(3)" class="p-3 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 text-blue-800 rounded-2xl transition-all flex flex-col items-center group">
+                        <span class="text-xs font-extrabold text-blue-600 group-hover:scale-105 transition-transform"><i class="fa-solid fa-face-smile mr-1"></i>Good (Phím 3)</span>
+                        <span id="interval-good" class="text-[11px] font-semibold text-blue-500 mt-1">3 ngày</span>
+                    </button>
+
+                    <!-- Easy (4) -->
+                    <button onclick="rateAnkiCard(4)" class="p-3 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-800 rounded-2xl transition-all flex flex-col items-center group">
+                        <span class="text-xs font-extrabold text-emerald-600 group-hover:scale-105 transition-transform"><i class="fa-solid fa-face-grin-stars mr-1"></i>Easy (Phím 4)</span>
+                        <span id="interval-easy" class="text-[11px] font-semibold text-emerald-500 mt-1">6 ngày</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty Queue Message -->
+            <div id="anki-empty-msg" class="hidden bg-white rounded-3xl p-10 text-center border border-slate-200 shadow-sm space-y-4">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-800">Tuyệt vời! Đã hoàn thành các thẻ SRS hôm nay!</h3>
+                <p class="text-slate-500 text-sm max-w-md mx-auto">Tất cả thẻ từ vựng đã được ôn tập đúng hạn. Hãy quay lại vào ngày mai để tiếp tục củng cố trí nhớ dài hạn.</p>
+                <div class="pt-2 flex justify-center space-x-3">
+                    <button onclick="resetAnkiProgress()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-all">
+                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i>Làm mới hàng chờ học lại
+                    </button>
+                    <button onclick="switchTab('quiz')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-all">
+                        <i class="fa-solid fa-list-check mr-1.5"></i>Chuyển sang Trắc nghiệm
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: QUIZ SECTION -->
         <div id="tab-quiz" class="hidden max-w-3xl mx-auto space-y-6">
             <!-- Setup Panel -->
             <div id="quiz-setup-panel" class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
@@ -200,7 +321,7 @@
                             <span class="text-xs text-slate-500">Xáo trộn ngẫu nhiên cả 2 dạng trắc nghiệm</span>
                         </label>
 
-                        <!-- Mode 4: TYPE WORD (NEW) -->
+                        <!-- Mode 4: TYPE WORD -->
                         <label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer mode-option hover:border-slate-300 transition-all" onclick="selectMode('type-word', this)">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-keyboard text-teal-600 mr-1.5"></i>Điền từ (Type Word)</span>
@@ -279,7 +400,7 @@
                                 </div>
                             </div>
 
-                            <!-- Revealed Correct Answer Box (Shown when wrong) -->
+                            <!-- Revealed Correct Answer Box -->
                             <div id="type-correct-reveal" class="hidden p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs sm:text-sm text-rose-900 font-medium">
                                 Đáp án chính xác: <strong id="type-correct-word" class="font-extrabold text-rose-700 text-base ml-1"></strong>
                             </div>
@@ -299,7 +420,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: STATS & RESULTS -->
+        <!-- TAB 4: STATS & RESULTS -->
         <div id="tab-stats" class="hidden max-w-4xl mx-auto space-y-6">
             <div id="no-stats-view" class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm">
                 <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -423,6 +544,12 @@
         let isAnswering = false;
         let soundEnabled = true;
 
+        // SRS State (Anki SuperMemo-2)
+        let srsItems = {}; // key: term.toLowerCase(), val: { term, def, interval, easeFactor, repetitions, dueDate }
+        let currentAnkiCard = null;
+        let isAnkiRevealed = false;
+        let activeTab = 'input';
+
         // Web Audio API Context
         let audioCtx = null;
 
@@ -439,7 +566,7 @@
             return audioCtx;
         }
 
-        // Sound Synthesis (Pure JS Web Audio API - No external files)
+        // Sound Synthesis (Pure JS Web Audio API)
         function playSound(type) {
             if (!soundEnabled) return;
             try {
@@ -447,7 +574,6 @@
                 if (!ctx) return;
 
                 if (type === 'correct') {
-                    // Happy two-tone chime (E5 -> A5)
                     const now = ctx.currentTime;
                     const osc1 = ctx.createOscillator();
                     const gain1 = ctx.createGain();
@@ -466,7 +592,6 @@
                     osc1.stop(now + 0.35);
 
                 } else if (type === 'wrong') {
-                    // Low error buzzer tone (180Hz)
                     const now = ctx.currentTime;
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
@@ -482,6 +607,23 @@
 
                     osc.start(now);
                     osc.stop(now + 0.3);
+                } else if (type === 'flip') {
+                    const now = ctx.currentTime;
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 0.08);
                 }
             } catch (e) {
                 console.log('Audio playback error:', e);
@@ -545,19 +687,55 @@
         // --- INIT & TABS ---
         window.onload = function() {
             setupDragAndDrop();
-            const saved = localStorage.getItem('vocab_master_data');
-            if (saved) {
+            setupKeyboardHotkeys();
+
+            // Load saved Vocab List
+            const savedVocab = localStorage.getItem('vocab_master_data');
+            if (savedVocab) {
                 try {
-                    vocabList = JSON.parse(saved);
-                    renderVocabPreview();
+                    vocabList = JSON.parse(savedVocab);
                 } catch(e) {
                     vocabList = [];
                 }
             }
+
+            // Load saved SRS Data
+            const savedSRS = localStorage.getItem('vocab_master_srs');
+            if (savedSRS) {
+                try {
+                    srsItems = JSON.parse(savedSRS);
+                } catch(e) {
+                    srsItems = {};
+                }
+            }
+
+            syncSRSWithVocabList();
+            renderVocabPreview();
         };
 
+        function setupKeyboardHotkeys() {
+            document.addEventListener('keydown', (e) => {
+                // Hotkeys only active in Anki tab and not typing in an input
+                if (activeTab !== 'anki') return;
+                if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+                if (e.code === 'Space' || e.code === 'Enter') {
+                    e.preventDefault();
+                    if (!isAnkiRevealed) {
+                        revealAnkiAnswer();
+                    }
+                } else if (isAnkiRevealed) {
+                    if (e.key === '1') { rateAnkiCard(1); }
+                    else if (e.key === '2') { rateAnkiCard(2); }
+                    else if (e.key === '3') { rateAnkiCard(3); }
+                    else if (e.key === '4') { rateAnkiCard(4); }
+                }
+            });
+        }
+
         function switchTab(tabName) {
-            ['input', 'quiz', 'stats'].forEach(t => {
+            activeTab = tabName;
+            ['input', 'anki', 'quiz', 'stats'].forEach(t => {
                 document.getElementById(`tab-${t}`).classList.add('hidden');
                 const btn = document.getElementById(`tab-${t}-btn`);
                 btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
@@ -568,6 +746,11 @@
             const activeBtn = document.getElementById(`tab-${tabName}-btn`);
             activeBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
             activeBtn.classList.remove('text-slate-600');
+
+            if (tabName === 'anki') {
+                syncSRSWithVocabList();
+                loadNextAnkiCard();
+            }
         }
 
         function showToast(message, type = 'info') {
@@ -588,6 +771,207 @@
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
+        }
+
+        // --- SPACED REPETITION SYSTEM (SUPERMEMO-2 ALGORITHM) ---
+        function syncSRSWithVocabList() {
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            vocabList.forEach(item => {
+                const key = item.term.toLowerCase();
+                if (!srsItems[key]) {
+                    // Initialize new SM-2 item
+                    srsItems[key] = {
+                        term: item.term,
+                        def: item.def,
+                        interval: 0,      // Days
+                        easeFactor: 2.5,  // Default SM-2 Ease Factor
+                        repetitions: 0,   // Number of consecutive correct reviews
+                        dueDate: todayStr // Due today
+                    };
+                } else {
+                    // Update definition if changed
+                    srsItems[key].def = item.def;
+                    srsItems[key].term = item.term;
+                }
+            });
+
+            saveSRSData();
+            updateSRSStats();
+        }
+
+        function saveSRSData() {
+            localStorage.setItem('vocab_master_srs', JSON.stringify(srsItems));
+        }
+
+        function updateSRSStats() {
+            const todayStr = new Date().toISOString().split('T')[0];
+            let dueCount = 0;
+            let learningCount = 0;
+            let masteredCount = 0;
+
+            Object.values(srsItems).forEach(item => {
+                if (item.repetitions >= 4 && item.interval >= 14) {
+                    masteredCount++;
+                } else if (item.dueDate <= todayStr || item.interval === 0) {
+                    dueCount++;
+                } else {
+                    learningCount++;
+                }
+            });
+
+            document.getElementById('srs-due-count').textContent = dueCount;
+            document.getElementById('srs-learning-count').textContent = learningCount;
+            document.getElementById('srs-mastered-count').textContent = masteredCount;
+        }
+
+        function getAnkiDueQueue() {
+            const todayStr = new Date().toISOString().split('T')[0];
+            const due = [];
+
+            Object.values(srsItems).forEach(item => {
+                if (item.dueDate <= todayStr || item.interval === 0) {
+                    due.push(item);
+                }
+            });
+
+            return shuffle(due);
+        }
+
+        function loadNextAnkiCard() {
+            const queue = getAnkiDueQueue();
+            const container = document.getElementById('anki-card-container');
+            const emptyMsg = document.getElementById('anki-empty-msg');
+
+            if (queue.length === 0) {
+                container.classList.add('hidden');
+                emptyMsg.classList.remove('hidden');
+                currentAnkiCard = null;
+                return;
+            }
+
+            container.classList.remove('hidden');
+            emptyMsg.classList.add('hidden');
+
+            currentAnkiCard = queue[0];
+            isAnkiRevealed = false;
+
+            // Reset UI
+            document.getElementById('anki-front-text').textContent = currentAnkiCard.term;
+            document.getElementById('anki-back-text').textContent = currentAnkiCard.def;
+
+            document.getElementById('anki-back-container').classList.add('hidden');
+            document.getElementById('anki-reveal-btn-box').classList.remove('hidden');
+            document.getElementById('anki-rating-btn-box').classList.add('hidden');
+
+            // Calculate interval previews for buttons
+            calculateAnkiPreviewIntervals(currentAnkiCard);
+
+            // Pop Animation
+            container.classList.remove('animate-pop');
+            void container.offsetWidth;
+            container.classList.add('animate-pop');
+        }
+
+        function calculateAnkiPreviewIntervals(item) {
+            // Again
+            document.getElementById('interval-again').textContent = '< 10 phút';
+            // Hard
+            const hardInt = Math.max(1, Math.round((item.interval || 1) * 1.2));
+            document.getElementById('interval-hard').textContent = `${hardInt} ngày`;
+            // Good
+            const goodInt = item.repetitions === 0 ? 1 : Math.round((item.interval || 1) * (item.easeFactor || 2.5));
+            document.getElementById('interval-good').textContent = `${goodInt} ngày`;
+            // Easy
+            const easyInt = item.repetitions === 0 ? 4 : Math.round((item.interval || 1) * (item.easeFactor || 2.5) * 1.3);
+            document.getElementById('interval-easy').textContent = `${easyInt} ngày`;
+        }
+
+        function revealAnkiAnswer() {
+            if (!currentAnkiCard || isAnkiRevealed) return;
+            isAnkiRevealed = true;
+
+            playSound('flip');
+
+            document.getElementById('anki-back-container').classList.remove('hidden');
+            document.getElementById('anki-reveal-btn-box').classList.add('hidden');
+            document.getElementById('anki-rating-btn-box').classList.remove('hidden');
+        }
+
+        // Apply SuperMemo-2 Rating (1: Again, 2: Hard, 3: Good, 4: Easy)
+        function rateAnkiCard(quality) {
+            if (!currentAnkiCard || !isAnkiRevealed) return;
+
+            const key = currentAnkiCard.term.toLowerCase();
+            let item = srsItems[key];
+            if (!item) return;
+
+            // SM-2 Math
+            let ef = item.easeFactor || 2.5;
+            let rep = item.repetitions || 0;
+            let interval = item.interval || 0;
+
+            // Quality mapping: 1->0 (Again), 2->3 (Hard), 3->4 (Good), 4->5 (Easy)
+            let qScore = 0;
+            if (quality === 1) qScore = 0;
+            else if (quality === 2) qScore = 3;
+            else if (quality === 3) qScore = 4;
+            else if (quality === 4) qScore = 5;
+
+            // Calculate Ease Factor adjustment
+            ef = ef + (0.1 - (5 - qScore) * (0.08 + (5 - qScore) * 0.02));
+            if (ef < 1.3) ef = 1.3;
+
+            if (qScore < 3) { // Repetition failed (Again)
+                rep = 0;
+                interval = 0; // Due immediately / today
+                playSound('wrong');
+            } else { // Correct
+                if (rep === 0) {
+                    interval = quality === 4 ? 4 : 1;
+                } else if (rep === 1) {
+                    interval = quality === 4 ? 6 : 3;
+                } else {
+                    interval = Math.round(interval * ef * (quality === 4 ? 1.3 : 1.0));
+                }
+                rep += 1;
+                playSound('correct');
+            }
+
+            // Calculate Due Date
+            const nextDue = new Date();
+            nextDue.setDate(nextDue.getDate() + interval);
+            const dueStr = nextDue.toISOString().split('T')[0];
+
+            // Save back
+            srsItems[key] = {
+                ...item,
+                easeFactor: parseFloat(ef.toFixed(2)),
+                repetitions: rep,
+                interval: interval,
+                dueDate: dueStr
+            };
+
+            saveSRSData();
+            updateSRSStats();
+
+            // Load next card
+            loadNextAnkiCard();
+        }
+
+        function resetAnkiProgress() {
+            if (confirm('Khôi phục tất cả lịch ôn SRS về hôm nay?')) {
+                const todayStr = new Date().toISOString().split('T')[0];
+                Object.keys(srsItems).forEach(k => {
+                    srsItems[k].dueDate = todayStr;
+                    srsItems[k].interval = 0;
+                    srsItems[k].repetitions = 0;
+                });
+                saveSRSData();
+                updateSRSStats();
+                loadNextAnkiCard();
+                showToast('Đã làm mới hàng chờ SRS!', 'success');
+            }
         }
 
         // --- PARSING DATA ---
@@ -691,28 +1075,38 @@
         function clearVocabList() {
             if (confirm('Xác nhận xóa toàn bộ danh sách từ vựng?')) {
                 vocabList = [];
+                srsItems = {};
+                saveSRSData();
                 saveAndUpdateVocabUI();
                 showToast('Đã xóa danh sách từ vựng.', 'info');
             }
         }
 
         function removeVocabItem(index) {
+            const removed = vocabList[index];
+            if (removed) {
+                delete srsItems[removed.term.toLowerCase()];
+                saveSRSData();
+            }
             vocabList.splice(index, 1);
             saveAndUpdateVocabUI();
         }
 
         function saveAndUpdateVocabUI() {
             localStorage.setItem('vocab_master_data', JSON.stringify(vocabList));
+            syncSRSWithVocabList();
             renderVocabPreview();
         }
 
         function renderVocabPreview() {
             const container = document.getElementById('vocab-preview-list');
             const countElem = document.getElementById('vocab-count');
-            const startBtn = document.getElementById('start-quiz-from-input');
+            const startQuizBtn = document.getElementById('start-quiz-from-input');
+            const startAnkiBtn = document.getElementById('start-anki-from-input');
 
             countElem.textContent = vocabList.length;
-            startBtn.disabled = vocabList.length < 4;
+            startQuizBtn.disabled = vocabList.length < 4;
+            startAnkiBtn.disabled = vocabList.length === 0;
 
             if (vocabList.length === 0) {
                 container.innerHTML = `
@@ -815,7 +1209,6 @@
                 return;
             }
 
-            // Initialize Audio Context on user click
             getAudioContext();
 
             let total = selectedQuestionCount === 'all' ? sourceList.length : parseInt(selectedQuestionCount);
@@ -889,7 +1282,6 @@
             document.getElementById('auto-advance-indicator').classList.add('hidden');
 
             if (q.type === 'type-word') {
-                // Fill-in-the-blank UI Setup
                 badge.textContent = "Điền từ: Gõ từ Tiếng Anh tương ứng";
                 badge.className = "inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4";
 
@@ -914,7 +1306,6 @@
                 setTimeout(() => { input.focus(); }, 100);
 
             } else {
-                // Multiple Choice ABCD UI Setup
                 if (q.type === 'def-to-word') {
                     badge.textContent = "Trắc nghiệm: Cho Def ➔ Chọn Word";
                     badge.className = "inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-4";
@@ -942,14 +1333,12 @@
                 });
             }
 
-            // Pop Animation
             const card = document.getElementById('question-card');
             card.classList.remove('animate-pop');
             void card.offsetWidth;
             card.classList.add('animate-pop');
         }
 
-        // Multiple Choice Answer Selection
         function selectOptionAnswer(selectedOption, buttonElem) {
             if (isAnswering) return;
             isAnswering = true;
@@ -957,7 +1346,6 @@
             const q = currentQuizQuestions[currentQuestionIndex];
             const isCorrect = selectedOption === q.correctAnswer;
 
-            // Sound feedback
             playSound(isCorrect ? 'correct' : 'wrong');
 
             userAnswers.push({
@@ -998,7 +1386,6 @@
             }, 850);
         }
 
-        // Fill-in-the-blank Answer Submission
         function submitFillInAnswer(e) {
             e.preventDefault();
             if (isAnswering) return;
@@ -1014,13 +1401,11 @@
             isAnswering = true;
             const q = currentQuizQuestions[currentQuestionIndex];
 
-            // Normalize strings (case-insensitive & space trimmed)
             const normalizedTyped = typedVal.toLowerCase().replace(/\s+/g, ' ');
             const normalizedCorrect = q.correctAnswer.trim().toLowerCase().replace(/\s+/g, ' ');
 
             const isCorrect = normalizedTyped === normalizedCorrect;
 
-            // Sound feedback
             playSound(isCorrect ? 'correct' : 'wrong');
 
             userAnswers.push({
@@ -1043,7 +1428,6 @@
                 input.className = "w-full p-4 pr-12 text-lg font-bold text-rose-900 bg-rose-50 rounded-xl border-2 border-rose-500 transition-all";
                 statusIcon.className = "fa-solid fa-circle-xmark text-rose-500 text-xl absolute right-4 top-1/2 -translate-y-1/2";
 
-                // Reveal correct word
                 const revealBox = document.getElementById('type-correct-reveal');
                 document.getElementById('type-correct-word').textContent = q.correctAnswer;
                 revealBox.classList.remove('hidden');
@@ -1164,13 +1548,11 @@
                             </span>
                         </div>
 
-                        <!-- Question Prompt -->
                         <div>
                             <p class="text-[11px] text-slate-400 uppercase font-bold">CÂU HỎI / ĐỀ BÀI:</p>
                             <p class="font-bold text-slate-800 text-sm sm:text-base">${escapeHtml(q.prompt)}</p>
                         </div>
 
-                        <!-- Answer Comparison -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-200/50">
                             <div class="p-2 rounded-lg ${isCorrect ? 'bg-emerald-100/60 text-emerald-900' : 'bg-rose-100/60 text-rose-900'}">
                                 <span class="font-medium block text-[11px] opacity-75">Bạn đã chọn/gõ:</span>
@@ -1183,7 +1565,6 @@
                             </div>
                         </div>
 
-                        <!-- Note -->
                         <div class="text-[11px] text-slate-500 italic">
                             <i class="fa-solid fa-circle-info mr-1 text-slate-400"></i>Từ gốc: <strong>${escapeHtml(q.originalTerm)}</strong> = ${escapeHtml(q.originalDef)}
                         </div>
