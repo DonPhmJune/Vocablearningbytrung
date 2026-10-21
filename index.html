@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-full">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,6 +107,26 @@
         .mana-pulse {
             animation: manaPulse 3s infinite ease-in-out;
         }
+
+        .heatmap-cell {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            flex: 0 0 auto;
+        }
+        .heatmap-day {
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            border: 1px solid rgba(148, 163, 184, 0.08);
+            cursor: pointer;
+            padding: 0;
+        }
+        .heatmap-day:hover, .heatmap-day:focus {
+            outline: 2px solid #38bdf8;
+            outline-offset: 1px;
+        }
     </style>
 </head>
 <body class="h-full flex flex-col font-sans select-none antialiased">
@@ -132,7 +152,7 @@
                             <h1 class="font-fantasy text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-mana-400 via-emerald-400 to-elven-300">
                                 VocabMaster
                             </h1>
-                            <p class="text-xs text-slate-400">Ôn Tập Từ Vựng & SRS Anki • Frieren Edition</p>
+                            <p class="text-xs text-slate-400">Vocabulary Review & Anki SRS • Frieren Edition</p>
                         </div>
                     </div>
 
@@ -141,7 +161,7 @@
                         <!-- Sound Toggle Button -->
                         <button id="sound-toggle-btn" class="px-3 py-1.5 rounded-lg border border-mana-500/30 bg-slate-900/80 hover:bg-slate-800 text-xs font-medium text-mana-300 transition-all flex items-center gap-2">
                             <i id="sound-icon" class="fa-solid fa-volume-high text-emerald-400"></i>
-                            <span id="sound-text" class="hidden md:inline">Âm thanh: Bật</span>
+                            <span id="sound-text" class="hidden md:inline">Sound: On</span>
                         </button>
                     </div>
                 </div>
@@ -164,19 +184,23 @@
                 <nav class="flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-mana-500/30 w-full sm:w-auto justify-center overflow-x-auto">
                     <button id="tab-input-btn" onclick="switchTab('tab-input')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 bg-mana-600 text-white shadow-md">
                         <i class="fa-solid fa-book-bookmark"></i>
-                        <span>Nguồn từ</span>
+                        <span>Vocabulary Input</span>
                     </button>
                     <button id="tab-anki-btn" onclick="switchTab('tab-anki')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Học SRS (Anki)</span>
+                        <span>SRS Learning (Anki)</span>
                     </button>
                     <button id="tab-quiz-btn" onclick="switchTab('tab-quiz')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
                         <i class="fa-solid fa-vial"></i>
-                        <span>Kiểm tra</span>
+                        <span>Quiz</span>
                     </button>
                     <button id="tab-stats-btn" onclick="switchTab('tab-stats')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
                         <i class="fa-solid fa-chart-line"></i>
-                        <span>Kết quả</span>
+                        <span>Results</span>
+                    </button>
+                    <button id="tab-heatmap-btn" onclick="switchTab('tab-heatmap')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Heatmap</span>
                     </button>
                 </nav>
             </div>
@@ -195,10 +219,10 @@
                     </div>
                     <div class="max-w-2xl">
                         <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-mana-500/20 text-mana-300 border border-mana-400/30">
-                            Pháp Thuật Nạp Từ Vựng
+                            Vocabulary Loading Magic
                         </span>
-                        <h2 class="font-fantasy text-2xl md:text-3xl font-bold mt-2 text-white">Thêm Nguồn Từ Vựng Ôn Tập</h2>
-                        <p class="text-slate-300 text-sm mt-1">Tải tệp tin (.txt, .csv, .json) hoặc dán danh sách từ vựng kèm định nghĩa để chuyển hóa thành ma pháp ghi nhớ SRS.</p>
+                        <h2 class="font-fantasy text-2xl md:text-3xl font-bold mt-2 text-white">Add a Vocabulary Source</h2>
+                        <p class="text-slate-300 text-sm mt-1">Upload a file (.txt, .csv, .json) or paste a vocabulary list with definitions to turn it into SRS memory magic.</p>
                     </div>
                 </div>
 
@@ -212,12 +236,12 @@
                         <div class="frieren-glass rounded-xl p-5">
                             <h3 class="text-sm font-semibold text-mana-300 mb-3 flex items-center gap-2">
                                 <i class="fa-solid fa-file-arrow-up"></i>
-                                <span>Tải tệp từ vựng (TXT, CSV, JSON)</span>
+                                <span>Upload Vocabulary File (TXT, CSV, JSON)</span>
                             </h3>
                             <div id="drop-zone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-mana-500/40 hover:border-mana-400 bg-slate-900/50 hover:bg-slate-900/80 rounded-xl p-6 text-center cursor-pointer transition-all">
                                 <i class="fa-solid fa-cloud-arrow-up text-4xl text-mana-400 mb-2"></i>
-                                <p class="text-sm text-slate-200 font-medium">Kéo & Thả tệp vào đây hoặc <span class="text-mana-400 underline">chọn tệp</span></p>
-                                <p class="text-xs text-slate-400 mt-1">Định dạng hỗ trợ: Từ gốc [dấu phân cách] Định nghĩa (Ví dụ: hello - xin chào)</p>
+                                <p class="text-sm text-slate-200 font-medium">Drag & drop a file here or <span class="text-mana-400 underline">choose a file</span></p>
+                                <p class="text-xs text-slate-400 mt-1">Supported format: Word [separator] Definition (e.g., hello - greeting)</p>
                                 <input type="file" id="file-input" accept=".txt,.csv,.json" class="hidden" onchange="handleFileSelect(event)">
                             </div>
                         </div>
@@ -227,19 +251,19 @@
                             <div class="flex items-center justify-between">
                                 <h3 class="text-sm font-semibold text-emerald-400 flex items-center gap-2">
                                     <i class="fa-solid fa-align-left"></i>
-                                    <span>Dán văn bản trực tiếp</span>
+                                    <span>Paste Text Directly</span>
                                 </h3>
                                 <button onclick="loadSampleData()" class="text-xs text-elven-400 hover:text-elven-300 flex items-center gap-1">
                                     <i class="fa-solid fa-wand-sparkles"></i>
-                                    <span>Nạp 30 từ mẫu (Frieren Magic)</span>
+                                    <span>Load 30 Sample Words (Frieren Magic)</span>
                                 </button>
                             </div>
-                            <textarea id="raw-text-input" rows="8" placeholder="Dán từ vựng tại đây, mỗi dòng một từ:&#10;apple - quả táo&#10;book : sách&#10;magic = phép thuật&#10;spell   lời chú" class="w-full bg-slate-900/90 border border-slate-700 focus:border-mana-400 rounded-lg p-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none transition-all"></textarea>
+                            <textarea id="raw-text-input" rows="8" placeholder="Paste vocabulary here, one word per line:&#10;apple - a fruit&#10;book : something to read&#10;magic = supernatural power&#10;spell   a magic formula" class="w-full bg-slate-900/90 border border-slate-700 focus:border-mana-400 rounded-lg p-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none transition-all"></textarea>
                             
                             <div class="flex items-center justify-between pt-2">
                                 <button onclick="processRawText()" class="w-full bg-gradient-to-r from-mana-600 to-emerald-600 hover:from-mana-500 hover:to-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg shadow-lg transition-all flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-gear"></i>
-                                    <span>Xử Lý & Cập Nhật Nguồn Từ</span>
+                                    <span>Process & Update Vocabulary</span>
                                 </button>
                             </div>
                         </div>
@@ -252,10 +276,10 @@
                             <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                                 <div class="flex items-center gap-2">
                                     <i class="fa-solid fa-list-check text-elven-400"></i>
-                                    <h3 class="font-semibold text-white">Danh sách từ đã nạp</h3>
+                                    <h3 class="font-semibold text-white">Loaded Vocabulary List</h3>
                                 </div>
                                 <span id="vocab-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-mana-500/20 text-mana-300 border border-mana-500/40">
-                                    0 từ
+                                    0 words
                                 </span>
                             </div>
 
@@ -264,8 +288,8 @@
                                 <!-- Dynamic vocabulary items will be rendered here -->
                                 <div class="text-center text-slate-500 py-12 text-sm">
                                     <i class="fa-solid fa-scroll text-3xl mb-2 text-slate-600"></i>
-                                    <p>Chưa có từ vựng nào được nạp.</p>
-                                    <p class="text-xs mt-1">Hãy dán văn bản hoặc bấm "Nạp 30 từ mẫu".</p>
+                                    <p>No vocabulary has been loaded yet.</p>
+                                    <p class="text-xs mt-1">Paste text or click "Load 30 Sample Words".</p>
                                 </div>
                             </div>
 
@@ -274,15 +298,15 @@
                                 <div class="grid grid-cols-2 gap-2">
                                     <button id="start-anki-from-input" onclick="startAnkiFromInput()" class="bg-emerald-600 hover:bg-emerald-500 text-white py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 shadow">
                                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                        <span>Học Flashcard SRS</span>
+                                        <span>Study SRS Flashcards</span>
                                     </button>
                                     <button id="start-quiz-from-input" onclick="startQuizFromInput()" class="bg-mana-600 hover:bg-mana-500 text-white py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 shadow">
                                         <i class="fa-solid fa-circle-play"></i>
-                                        <span>Kiểm tra Trắc nghiệm</span>
+                                        <span>Multiple-Choice Quiz</span>
                                     </button>
                                 </div>
                                 <button onclick="clearAllVocab()" class="w-full text-center text-xs text-rose-400 hover:text-rose-300 py-1 transition-colors">
-                                    <i class="fa-solid fa-trash-can mr-1"></i> Xóa toàn bộ từ vựng
+                                    <i class="fa-solid fa-trash-can mr-1"></i> Clear All Vocabulary
                                 </button>
                             </div>
 
@@ -299,15 +323,15 @@
                 <!-- Header Stats SRS -->
                 <div class="grid grid-cols-3 gap-3 md:gap-6">
                     <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-rose-500">
-                        <p class="text-xs text-slate-400">Cần ôn ngay (Due)</p>
+                        <p class="text-xs text-slate-400">Due for Review</p>
                         <p id="srs-due-count" class="text-2xl md:text-3xl font-bold text-rose-400 mt-1">0</p>
                     </div>
                     <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-elven-400">
-                        <p class="text-xs text-slate-400">Đang học (Learning)</p>
+                        <p class="text-xs text-slate-400">Learning</p>
                         <p id="srs-learning-count" class="text-2xl md:text-3xl font-bold text-elven-300 mt-1">0</p>
                     </div>
                     <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-emerald-500">
-                        <p class="text-xs text-slate-400">Đã thuộc (Mastered)</p>
+                        <p class="text-xs text-slate-400">Mastered</p>
                         <p id="srs-mastered-count" class="text-2xl md:text-3xl font-bold text-emerald-400 mt-1">0</p>
                     </div>
                 </div>
@@ -323,7 +347,7 @@
                             <span id="anki-card-status-badge" class="px-2.5 py-1 rounded-md bg-mana-500/20 text-mana-300 border border-mana-500/30 font-semibold">
                                 SRS Review
                             </span>
-                            <span class="text-slate-500"><i class="fa-regular fa-keyboard mr-1"></i> [Phím cách] Hiện đáp án</span>
+                            <span class="text-slate-500"><i class="fa-regular fa-keyboard mr-1"></i> [Spacebar] Reveal Answer</span>
                         </div>
 
                         <!-- Front Card Text (Word) -->
@@ -331,12 +355,12 @@
                             <h2 class="text-3xl md:text-5xl font-bold text-white tracking-wide font-fantasy">
                                 Loading...
                             </h2>
-                            <p class="text-xs text-mana-400 mt-3 font-mono">Nhấn hiện đáp án để xem nghĩa</p>
+                            <p class="text-xs text-mana-400 mt-3 font-mono">Reveal the answer to see the definition</p>
                         </div>
 
                         <!-- Revealed Back Card Text (Definition) -->
                         <div id="anki-back-container" class="hidden border-t border-slate-700/80 pt-6 mt-4">
-                            <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-1">Định nghĩa & Ý nghĩa</p>
+                            <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-1">Definition & Meaning</p>
                             <h3 id="anki-back-text" class="text-2xl md:text-3xl font-semibold text-elven-300">
                                 ...
                             </h3>
@@ -345,31 +369,31 @@
                         <!-- Action Button 1: Reveal Button -->
                         <div id="anki-reveal-btn-box" class="mt-6">
                             <button onclick="revealAnkiCard()" class="w-full bg-gradient-to-r from-mana-600 to-emerald-600 hover:from-mana-500 hover:to-emerald-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all text-base tracking-wide">
-                                Hiện Đáp Án <span class="text-xs opacity-75 font-normal">(Phím Space / Enter)</span>
+                                Reveal Answer <span class="text-xs opacity-75 font-normal">(Space / Enter)</span>
                             </button>
                         </div>
 
                         <!-- Action Button 2: SuperMemo-2 SRS Rating Buttons (Hidden by default) -->
                         <div id="anki-rating-btn-box" class="hidden grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-6">
                             <button onclick="rateAnkiCard(1)" class="bg-rose-900/60 hover:bg-rose-800 border border-rose-500/50 text-rose-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Phím 1</span>
-                                <span class="font-bold text-sm">Học lại (Again)</span>
+                                <span class="text-xs opacity-80">Key 1</span>
+                                <span class="font-bold text-sm">Again</span>
                                 <span class="text-[10px] text-rose-300/80 mt-0.5">&lt; 1 min</span>
                             </button>
                             <button onclick="rateAnkiCard(2)" class="bg-amber-900/60 hover:bg-amber-800 border border-amber-500/50 text-amber-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Phím 2</span>
-                                <span class="font-bold text-sm">Khó (Hard)</span>
-                                <span class="text-[10px] text-amber-300/80 mt-0.5">1 ngày</span>
+                                <span class="text-xs opacity-80">Key 2</span>
+                                <span class="font-bold text-sm">Hard</span>
+                                <span class="text-[10px] text-amber-300/80 mt-0.5">1 day</span>
                             </button>
                             <button onclick="rateAnkiCard(3)" class="bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-500/50 text-emerald-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Phím 3</span>
-                                <span class="font-bold text-sm">Tốt (Good)</span>
-                                <span class="text-[10px] text-emerald-300/80 mt-0.5">3 ngày</span>
+                                <span class="text-xs opacity-80">Key 3</span>
+                                <span class="font-bold text-sm">Good</span>
+                                <span class="text-[10px] text-emerald-300/80 mt-0.5">3 days</span>
                             </button>
                             <button onclick="rateAnkiCard(4)" class="bg-mana-900/60 hover:bg-mana-800 border border-mana-500/50 text-mana-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Phím 4</span>
-                                <span class="font-bold text-sm">Dễ (Easy)</span>
-                                <span class="text-[10px] text-mana-300/80 mt-0.5">6 ngày</span>
+                                <span class="text-xs opacity-80">Key 4</span>
+                                <span class="font-bold text-sm">Easy</span>
+                                <span class="text-[10px] text-mana-300/80 mt-0.5">6 days</span>
                             </button>
                         </div>
 
@@ -378,10 +402,10 @@
                     <!-- Empty SRS State -->
                     <div id="anki-empty-msg" class="hidden frieren-glass rounded-2xl p-12 text-center space-y-4">
                         <i class="fa-solid fa-circle-check text-6xl text-emerald-400"></i>
-                        <h3 class="text-2xl font-bold text-white">Đã Hoàn Thành Ôn Tập SRS!</h3>
-                        <p class="text-slate-300 text-sm max-w-md mx-auto">Không còn từ vựng nào cần ôn lại vào lúc này. Hãy quay lại sau hoặc thêm bộ từ vựng mới.</p>
+                        <h3 class="text-2xl font-bold text-white">SRS Review Complete!</h3>
+                        <p class="text-slate-300 text-sm max-w-md mx-auto">There are no vocabulary items due for review right now. Come back later or add a new vocabulary set.</p>
                         <button onclick="switchTab('tab-input')" class="bg-mana-600 hover:bg-mana-500 text-white font-medium py-2 px-6 rounded-lg text-sm transition-all">
-                            Thêm từ mới
+                            Add New Words
                         </button>
                     </div>
 
@@ -395,40 +419,40 @@
                 <!-- Setup Screen -->
                 <div id="quiz-setup-panel" class="max-w-2xl mx-auto frieren-glass rounded-2xl p-6 md:p-8 space-y-6">
                     <div class="border-b border-slate-800 pb-4">
-                        <h2 class="font-fantasy text-2xl font-bold text-white">Cấu Hình Bài Kiểm Tra</h2>
-                        <p class="text-sm text-slate-400 mt-1">Lựa chọn chế độ ôn tập và số lượng câu hỏi mong muốn.</p>
+                        <h2 class="font-fantasy text-2xl font-bold text-white">Quiz Setup</h2>
+                        <p class="text-sm text-slate-400 mt-1">Choose a quiz mode and the number of questions you want.</p>
                     </div>
 
                     <!-- Quiz Mode Selector -->
                     <div class="space-y-3">
-                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Chế độ kiểm tra</label>
+                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Quiz Mode</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
                                 <input type="radio" name="quiz-mode" value="def-word" checked class="text-mana-500 focus:ring-0">
                                 <div>
-                                    <div class="text-sm font-semibold text-white">Định Nghĩa ➔ Từ Gốc</div>
-                                    <div class="text-xs text-slate-400">Chọn từ đúng dựa trên nghĩa</div>
+                                    <div class="text-sm font-semibold text-white">Definition ➔ Word</div>
+                                    <div class="text-xs text-slate-400">Choose the correct word based on its definition</div>
                                 </div>
                             </label>
                             <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
                                 <input type="radio" name="quiz-mode" value="word-def" class="text-mana-500 focus:ring-0">
                                 <div>
-                                    <div class="text-sm font-semibold text-white">Từ Gốc ➔ Định Nghĩa</div>
-                                    <div class="text-xs text-slate-400">Chọn nghĩa đúng của từ</div>
+                                    <div class="text-sm font-semibold text-white">Word ➔ Definition</div>
+                                    <div class="text-xs text-slate-400">Choose the correct definition of the word</div>
                                 </div>
                             </label>
                             <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
                                 <input type="radio" name="quiz-mode" value="mix" class="text-mana-500 focus:ring-0">
                                 <div>
-                                    <div class="text-sm font-semibold text-white">Hỗn Hợp (Mix ABCD)</div>
-                                    <div class="text-xs text-slate-400">Trộn ngẫu nhiên câu hỏi</div>
+                                    <div class="text-sm font-semibold text-white">Mixed (Multiple Choice)</div>
+                                    <div class="text-xs text-slate-400">Randomize question types</div>
                                 </div>
                             </label>
                             <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
                                 <input type="radio" name="quiz-mode" value="fillin" class="text-mana-500 focus:ring-0">
                                 <div>
-                                    <div class="text-sm font-semibold text-elven-300">Điền Từ (Type Word)</div>
-                                    <div class="text-xs text-slate-400">Gõ từ gốc chính xác</div>
+                                    <div class="text-sm font-semibold text-elven-300">Type the Word</div>
+                                    <div class="text-xs text-slate-400">Type the exact word</div>
                                 </div>
                             </label>
                         </div>
@@ -436,18 +460,18 @@
 
                     <!-- Question Count Selector -->
                     <div class="space-y-3">
-                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Số lượng câu hỏi</label>
+                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Number of Questions</label>
                         <div class="flex items-center space-x-3">
-                            <button onclick="setQuizCount(10)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">10 câu</button>
-                            <button onclick="setQuizCount(20)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">20 câu</button>
-                            <button onclick="setQuizCount(30)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">30 câu</button>
-                            <button onclick="setQuizCount('all')" class="q-count-btn flex-1 py-2 rounded-lg bg-mana-600 border border-mana-400 text-xs font-semibold text-white shadow">Tất cả</button>
+                            <button onclick="setQuizCount(10)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">10 questions</button>
+                            <button onclick="setQuizCount(20)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">20 questions</button>
+                            <button onclick="setQuizCount(30)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">30 questions</button>
+                            <button onclick="setQuizCount('all')" class="q-count-btn flex-1 py-2 rounded-lg bg-mana-600 border border-mana-400 text-xs font-semibold text-white shadow">All</button>
                         </div>
                     </div>
 
                     <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-mana-600 via-emerald-600 to-elven-500 hover:opacity-95 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-base flex items-center justify-center gap-2">
                         <i class="fa-solid fa-play"></i>
-                        <span>Bắt Đầu Kiểm Tra</span>
+                        <span>Start Quiz</span>
                     </button>
                 </div>
 
@@ -459,8 +483,8 @@
                         <div class="flex items-center space-x-4 w-full">
                             <div class="flex-1">
                                 <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                    <span>Tiến độ: <strong id="current-q-num">1</strong>/<span id="total-q-num">10</span></span>
-                                    <span class="text-emerald-400">Đúng: <strong id="score-correct">0</strong> | Sai: <strong id="score-wrong" class="text-rose-400">0</strong></span>
+                                    <span>Progress: <strong id="current-q-num">1</strong>/<span id="total-q-num">10</span></span>
+                                    <span class="text-emerald-400">Correct: <strong id="score-correct">0</strong> | Incorrect: <strong id="score-wrong" class="text-rose-400">0</strong></span>
                                 </div>
                                 <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
                                     <div id="quiz-progress-bar" class="bg-gradient-to-r from-mana-400 to-emerald-400 h-2 rounded-full transition-all duration-300 w-0"></div>
@@ -474,16 +498,16 @@
                         
                         <div class="flex items-center justify-between">
                             <span id="question-type-badge" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-mana-500/20 text-mana-300 border border-mana-500/30">
-                                Trắc nghiệm
+                                Multiple Choice
                             </span>
                             <div id="auto-advance-indicator" class="hidden flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i> Chuyển câu tiếp...
+                                <i class="fa-solid fa-circle-notch fa-spin"></i> Moving to the next question...
                             </div>
                         </div>
 
                         <!-- Question Prompt -->
                         <div class="text-center py-4">
-                            <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Câu hỏi</p>
+                            <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Question</p>
                             <h3 id="question-text" class="text-2xl md:text-4xl font-bold text-white font-fantasy">
                                 ...
                             </h3>
@@ -497,9 +521,9 @@
                         <!-- Fill-in-the-blank Form Container (Type word mode) -->
                         <div id="fillin-container" class="hidden space-y-4">
                             <div class="flex gap-2">
-                                <input type="text" id="type-answer-input" placeholder="Gõ từ gốc chính xác tại đây..." class="flex-1 bg-slate-900 border border-slate-700 focus:border-mana-400 rounded-xl px-4 py-3 text-white focus:outline-none text-base">
+                                <input type="text" id="type-answer-input" placeholder="Type the exact word here..." class="flex-1 bg-slate-900 border border-slate-700 focus:border-mana-400 rounded-xl px-4 py-3 text-white focus:outline-none text-base">
                                 <button id="type-submit-btn" onclick="submitTypedAnswer()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 rounded-xl transition-all">
-                                    Gửi
+                                    Submit
                                 </button>
                             </div>
                             <div id="type-correct-reveal" class="hidden p-3 rounded-xl bg-slate-900 border text-center text-sm">
@@ -519,10 +543,10 @@
                 <!-- Empty State -->
                 <div id="no-stats-view" class="frieren-glass rounded-2xl p-12 text-center max-w-xl mx-auto space-y-4">
                     <i class="fa-solid fa-chart-pie text-5xl text-slate-600"></i>
-                    <h3 class="text-xl font-bold text-white">Chưa Có Kết Quả Kiểm Tra</h3>
-                    <p class="text-slate-400 text-sm">Hãy hoàn thành ít nhất một bài kiểm tra trắc nghiệm để xem kết quả và phân tích chi tiết tại đây.</p>
+                    <h3 class="text-xl font-bold text-white">No Quiz Results Yet</h3>
+                    <p class="text-slate-400 text-sm">Complete at least one quiz to see your results and detailed analysis here.</p>
                     <button onclick="switchTab('tab-quiz')" class="bg-mana-600 hover:bg-mana-500 text-white text-sm font-semibold py-2 px-5 rounded-lg transition-all">
-                        Làm Bài Kiểm Tra Ngay
+                        Take a Quiz Now
                     </button>
                 </div>
 
@@ -532,19 +556,19 @@
                     <!-- Summary Grid -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-mana-500">
-                            <p class="text-xs text-slate-400">Tổng câu hỏi</p>
+                            <p class="text-xs text-slate-400">Total Questions</p>
                             <p id="stat-total-q" class="text-2xl font-bold text-white mt-1">0</p>
                         </div>
                         <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-emerald-500">
-                            <p class="text-xs text-slate-400">Trả lời đúng</p>
+                            <p class="text-xs text-slate-400">Correct Answers</p>
                             <p id="stat-correct-q" class="text-2xl font-bold text-emerald-400 mt-1">0</p>
                         </div>
                         <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-elven-500">
-                            <p class="text-xs text-slate-400">Tỷ lệ chính xác</p>
+                            <p class="text-xs text-slate-400">Accuracy Rate</p>
                             <p id="stat-accuracy" class="text-2xl font-bold text-elven-300 mt-1">0%</p>
                         </div>
                         <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-purple-500">
-                            <p class="text-xs text-slate-400">Thời gian trung bình</p>
+                            <p class="text-xs text-slate-400">Average Time</p>
                             <p id="stat-speed" class="text-2xl font-bold text-purple-300 mt-1">0s</p>
                         </div>
                     </div>
@@ -554,14 +578,14 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
                             <h3 class="text-lg font-bold text-white flex items-center gap-2">
                                 <i class="fa-solid fa-magnifying-glass text-mana-400"></i>
-                                <span>Xem Lại Chi Tiết Các Câu Hỏi</span>
+                                <span>Review Questions in Detail</span>
                             </h3>
 
                             <!-- Filters -->
                             <div class="flex items-center space-x-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs">
-                                <button onclick="filterReviewList('all')" id="filter-all-btn" class="px-3 py-1 rounded-md bg-mana-600 text-white font-medium">Tất cả</button>
-                                <button onclick="filterReviewList('correct')" id="filter-correct-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Chỉ câu Đúng</button>
-                                <button onclick="filterReviewList('incorrect')" id="filter-incorrect-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Chỉ câu Sai</button>
+                                <button onclick="filterReviewList('all')" id="filter-all-btn" class="px-3 py-1 rounded-md bg-mana-600 text-white font-medium">All</button>
+                                <button onclick="filterReviewList('correct')" id="filter-correct-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Correct Only</button>
+                                <button onclick="filterReviewList('incorrect')" id="filter-incorrect-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Incorrect Only</button>
                             </div>
                         </div>
 
@@ -574,10 +598,10 @@
                         <div class="pt-2 flex justify-between items-center">
                             <button onclick="practiceIncorrectWords()" id="practice-wrong-btn" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition-all flex items-center gap-1.5 shadow">
                                 <i class="fa-solid fa-rotate-right"></i>
-                                <span>Ôn lại các từ bị sai</span>
+                                <span>Review Incorrect Words</span>
                             </button>
                             <button onclick="switchTab('tab-quiz')" class="bg-mana-600 hover:bg-mana-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition-all">
-                                Làm bài test mới
+                                Take a New Quiz
                             </button>
                         </div>
 
@@ -585,6 +609,64 @@
 
                 </div>
 
+            </section>
+
+            <!-- ================= TAB 5: VOCABULARY HEATMAP ================= -->
+            <section id="tab-heatmap" class="hidden space-y-6">
+                <div class="frieren-glass rounded-2xl p-6 border border-mana-500/30">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div>
+                            <span class="text-xs font-semibold uppercase tracking-widest text-emerald-400">Consistency Tracker</span>
+                            <h2 class="font-fantasy text-2xl md:text-3xl font-bold text-white mt-1">Vocabulary Heatmap</h2>
+                            <p class="text-sm text-slate-400 mt-2">Each square represents one day. The brighter the color, the more vocabulary reviews completed that day.</p>
+                        </div>
+                        <button onclick="exportHeatmapData()" class="bg-mana-600 hover:bg-mana-500 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-emerald-500">
+                        <p class="text-xs text-slate-400">Active Study Days</p>
+                        <p id="heatmap-active-days" class="text-3xl font-bold text-emerald-400 mt-1">0</p>
+                    </div>
+                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-mana-500">
+                        <p class="text-xs text-slate-400">Vocabulary Reviews</p>
+                        <p id="heatmap-total-reviews" class="text-3xl font-bold text-mana-400 mt-1">0</p>
+                    </div>
+                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-elven-400">
+                        <p class="text-xs text-slate-400">Current Study Streak</p>
+                        <p id="heatmap-current-streak" class="text-3xl font-bold text-elven-300 mt-1">0 days</p>
+                    </div>
+                </div>
+
+                <div class="frieren-glass rounded-2xl p-5 md:p-6">
+                    <div class="flex items-center justify-between gap-3 mb-4">
+                        <h3 class="font-semibold text-white">Activity Over the Past 365 Days</h3>
+                        <span id="heatmap-year-label" class="text-xs text-slate-400"></span>
+                    </div>
+                    <div class="overflow-x-auto pb-2">
+                        <div id="vocab-heatmap-grid" class="grid gap-1 min-w-max" style="grid-template-rows: repeat(7, 13px); grid-auto-flow: column; grid-auto-columns: 13px;"></div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 mt-4 text-xs text-slate-400">
+                        <span>Less</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="heatmap-cell" style="background:#1e293b"></span>
+                            <span class="heatmap-cell" style="background:#14532d"></span>
+                            <span class="heatmap-cell" style="background:#15803d"></span>
+                            <span class="heatmap-cell" style="background:#22c55e"></span>
+                            <span class="heatmap-cell" style="background:#86efac"></span>
+                        </div>
+                        <span>More</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4">Reviews are recorded automatically when you rate an SRS flashcard or answer a quiz question. Days with no activity remain dark.</p>
+                </div>
+
+                <div class="frieren-glass rounded-2xl p-5 md:p-6">
+                    <h3 class="font-semibold text-white mb-3">Selected Day Details</h3>
+                    <div id="heatmap-selected-day" class="text-sm text-slate-300">Click a square on the heatmap to view that day’s activity.</div>
+                </div>
             </section>
 
         </main>
@@ -622,36 +704,36 @@
 
         // 30 Sample Words - Frieren Theme
         const SAMPLE_WORDS = [
-            { word: "Zoltraak", def: "Phép thuật tấn công ma đạo cơ bản (Ordinary Attack Magic)" },
-            { word: "Spell", def: "Lời chú / Phép thuật" },
-            { word: "Grimoire", def: "Sách phép thuật cổ đại" },
-            { word: "Mage", def: "Pháp sư / Thuật sĩ" },
-            { word: "Mana", def: "Năng lượng ma thuật" },
-            { word: "Staff", def: "Gậy phép thuật" },
-            { word: "Barrier", def: "Màn chắn phòng thủ" },
-            { word: "Aura", def: "Khí thế / Khí ma thuật" },
-            { word: "Eternity", def: "Sự vĩnh hằng" },
-            { word: "Journey", def: "Hành trình / Chuyến đi" },
-            { word: "Companion", def: "Bạn đồng hành" },
-            { word: "Hero", def: "Anh hùng" },
-            { word: "Demons", def: "Quỷ tộc" },
-            { word: "Frenzy", def: "Sự điên loạn / Hăng hái" },
-            { word: "Perception", def: "Khả năng nhận thức / Cảm nhận" },
-            { word: "Suppression", def: "Sự đè nén / Che giấu Mana" },
-            { word: "Immortality", def: "Sự bất tử" },
-            { word: "Reminiscence", def: "Hồi ức / Kỷ niệm" },
-            { word: "Resilience", def: "Khả năng kiên cường" },
-            { word: "Wisdom", def: "Tri thức / Trí tuệ" },
-            { word: "Dungeon", def: "Hầm ngục / Mê cung" },
-            { word: "Mimic", def: "Con Rương Quái Vật (Bẫy)" },
-            { word: "Nostalgia", def: "Lòng hoài niệm" },
-            { word: "Ephemerality", def: "Tính ngắn ngủi / Phù du" },
-            { word: "Resolve", def: "Quyết tâm" },
-            { word: "Legacy", def: "Di sản" },
-            { word: "Serenity", def: "Sự thanh bình" },
-            { word: "Labyrinth", def: "Mê cung phức tạp" },
-            { word: "Enchantment", def: "Bùa yêu / Phép mê hoặc" },
-            { word: "Endurance", def: "Sức chịu đựng" }
+            { word: "Zoltraak", def: "Basic offensive magic (Ordinary Attack Magic)" },
+            { word: "Spell", def: "A spoken formula / magic spell" },
+            { word: "Grimoire", def: "An ancient book of spells" },
+            { word: "Mage", def: "Mage / sorcerer" },
+            { word: "Mana", def: "Magical energy" },
+            { word: "Staff", def: "Magic staff" },
+            { word: "Barrier", def: "Defensive barrier" },
+            { word: "Aura", def: "Aura / magical presence" },
+            { word: "Eternity", def: "Eternity" },
+            { word: "Journey", def: "Journey / trip" },
+            { word: "Companion", def: "Companion" },
+            { word: "Hero", def: "Hero" },
+            { word: "Demons", def: "Demons" },
+            { word: "Frenzy", def: "Frenzy / intense enthusiasm" },
+            { word: "Perception", def: "Perception / awareness" },
+            { word: "Suppression", def: "Suppression / concealing mana" },
+            { word: "Immortality", def: "Immortality" },
+            { word: "Reminiscence", def: "Reminiscence / memory" },
+            { word: "Resilience", def: "Resilience" },
+            { word: "Wisdom", def: "Knowledge / wisdom" },
+            { word: "Dungeon", def: "Dungeon / maze" },
+            { word: "Mimic", def: "A monster disguised as a treasure chest (mimic)" },
+            { word: "Nostalgia", def: "Nostalgia" },
+            { word: "Ephemerality", def: "Ephemerality / transience" },
+            { word: "Resolve", def: "Resolve / determination" },
+            { word: "Legacy", def: "Legacy" },
+            { word: "Serenity", def: "Serenity" },
+            { word: "Labyrinth", def: "Complex labyrinth" },
+            { word: "Enchantment", def: "Enchantment / bewitchment" },
+            { word: "Endurance", def: "Endurance" }
         ];
 
         /* -------------------------------------------------------------
@@ -731,10 +813,10 @@
             const text = document.getElementById('sound-text');
             if (state.soundEnabled) {
                 icon.className = 'fa-solid fa-volume-high text-emerald-400';
-                text.textContent = 'Âm thanh: Bật';
+                text.textContent = 'Sound: On';
             } else {
                 icon.className = 'fa-solid fa-volume-xmark text-rose-400';
-                text.textContent = 'Âm thanh: Tắt';
+                text.textContent = 'Sound: Off';
             }
         });
 
@@ -792,7 +874,7 @@
            4. TAB NAVIGATION SYSTEM
         ------------------------------------------------------------- */
         function switchTab(tabId) {
-            ['tab-input', 'tab-anki', 'tab-quiz', 'tab-stats'].forEach(id => {
+            ['tab-input', 'tab-anki', 'tab-quiz', 'tab-stats', 'tab-heatmap'].forEach(id => {
                 const el = document.getElementById(id);
                 const btn = document.getElementById(`${id}-btn`);
                 if (id === tabId) {
@@ -809,6 +891,7 @@
             });
 
             if (tabId === 'tab-anki') initAnkiSession();
+            if (tabId === 'tab-heatmap') renderVocabularyHeatmap();
         }
 
         /* -------------------------------------------------------------
@@ -890,14 +973,14 @@
         function renderVocabPreview() {
             const container = document.getElementById('vocab-preview-list');
             const countEl = document.getElementById('vocab-count');
-            countEl.textContent = `${state.vocabList.length} từ`;
+            countEl.textContent = `${state.vocabList.length} words`;
 
             if (state.vocabList.length === 0) {
                 container.innerHTML = `
                     <div class="text-center text-slate-500 py-12 text-sm">
                         <i class="fa-solid fa-scroll text-3xl mb-2 text-slate-600"></i>
-                        <p>Chưa có từ vựng nào được nạp.</p>
-                        <p class="text-xs mt-1">Hãy dán văn bản hoặc bấm "Nạp 30 từ mẫu".</p>
+                        <p>No vocabulary has been loaded yet.</p>
+                        <p class="text-xs mt-1">Paste text or click "Load 30 Sample Words".</p>
                     </div>`;
                 return;
             }
@@ -923,7 +1006,7 @@
         }
 
         function clearAllVocab() {
-            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ từ vựng?')) {
+            if (confirm('Are you sure you want to delete all vocabulary?')) {
                 state.vocabList = [];
                 saveToLocalStorage();
                 renderVocabPreview();
@@ -946,7 +1029,7 @@
                             renderVocabPreview();
                         }
                     } catch (err) {
-                        alert('Tệp JSON không đúng định dạng!');
+                        alert('Invalid JSON file format!');
                     }
                 } else {
                     document.getElementById('raw-text-input').value = content;
@@ -957,12 +1040,12 @@
         }
 
         function startAnkiFromInput() {
-            if (state.vocabList.length === 0) return alert('Vui lòng thêm từ vựng trước!');
+            if (state.vocabList.length === 0) return alert('Please add vocabulary first!');
             switchTab('tab-anki');
         }
 
         function startQuizFromInput() {
-            if (state.vocabList.length === 0) return alert('Vui lòng thêm từ vựng trước!');
+            if (state.vocabList.length === 0) return alert('Please add vocabulary first!');
             switchTab('tab-quiz');
         }
 
@@ -1025,6 +1108,8 @@
             const item = state.ankiQueue[state.currentAnkiIndex];
             if (!item) return;
 
+            recordVocabularyActivity(1);
+
             // SM-2 Calculation
             if (quality >= 3) {
                 if (item.repetition === 0) item.interval = 1;
@@ -1061,7 +1146,7 @@
 
         function startQuiz() {
             if (state.vocabList.length < 2) {
-                alert('Cần ít nhất 2 từ vựng để bắt đầu kiểm tra!');
+                alert('At least 2 vocabulary items are required to start a quiz!');
                 return;
             }
 
@@ -1149,12 +1234,12 @@
                 input.disabled = false;
                 document.getElementById('type-submit-btn').disabled = false;
                 document.getElementById('type-correct-reveal').classList.add('hidden');
-                document.getElementById('question-type-badge').textContent = 'Điền Từ';
+                document.getElementById('question-type-badge').textContent = 'Type the Word';
                 setTimeout(() => input.focus(), 100);
             } else {
                 fillinBox.classList.add('hidden');
                 optionsBox.classList.remove('hidden');
-                document.getElementById('question-type-badge').textContent = q.type === 'def-word' ? 'Nghĩa ➔ Từ' : 'Từ ➔ Nghĩa';
+                document.getElementById('question-type-badge').textContent = q.type === 'def-word' ? 'Definition ➔ Word' : 'Word ➔ Definition';
 
                 optionsBox.innerHTML = q.options.map((opt, i) => `
                     <button onclick="handleOptionClick(this, '${escapeHtml(opt)}')" class="quiz-option-btn w-full p-4 rounded-xl frieren-glass border border-slate-700 hover:border-mana-400 text-left font-medium text-slate-200 transition-all flex items-center justify-between">
@@ -1201,6 +1286,8 @@
                 wordItem: q.item
             });
 
+            recordVocabularyActivity(1);
+
             document.getElementById('auto-advance-indicator').classList.remove('hidden');
 
             // Auto advance delay 800ms
@@ -1231,14 +1318,14 @@
 
             if (isCorrect) {
                 revealBox.className = 'p-3 rounded-xl bg-emerald-900/80 border border-emerald-400 text-emerald-200 text-center text-sm font-bold';
-                revealBox.textContent = '✨ Chính xác!';
+                revealBox.textContent = '✨ Correct!';
                 AudioEngine.playCorrect();
                 triggerMascotReaction('correct');
                 quiz.correctCount++;
                 addXP(20);
             } else {
                 revealBox.className = 'p-3 rounded-xl bg-rose-900/80 border border-rose-400 text-rose-200 text-center text-sm font-bold';
-                revealBox.textContent = `💥 Sai rồi! Đáp án đúng: "${q.correctAnswer}"`;
+                revealBox.textContent = `💥 Incorrect! Correct answer: "${q.correctAnswer}"`;
                 AudioEngine.playWrong();
                 triggerMascotReaction('wrong');
                 quiz.wrongCount++;
@@ -1251,6 +1338,8 @@
                 isCorrect,
                 wordItem: q.item
             });
+
+            recordVocabularyActivity(1);
 
             document.getElementById('auto-advance-indicator').classList.remove('hidden');
 
@@ -1317,24 +1406,24 @@
             if (filter === 'incorrect') items = items.filter(i => !i.isCorrect);
 
             if (items.length === 0) {
-                container.innerHTML = `<div class="text-center text-slate-500 py-6 text-sm">Không có câu hỏi nào thuộc bộ lọc này.</div>`;
+                container.innerHTML = `<div class="text-center text-slate-500 py-6 text-sm">No questions match this filter.</div>`;
                 return;
             }
 
             container.innerHTML = items.map((item, index) => `
                 <div class="frieren-glass p-3.5 rounded-xl border ${item.isCorrect ? 'border-emerald-500/30 bg-emerald-950/20' : 'border-rose-500/30 bg-rose-950/20'} flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                     <div class="space-y-1">
-                        <div class="text-slate-400">Câu hỏi: <span class="text-white font-semibold">${escapeHtml(item.question)}</span></div>
+                        <div class="text-slate-400">Question: <span class="text-white font-semibold">${escapeHtml(item.question)}</span></div>
                         <div class="flex items-center gap-3">
                             <span class="${item.isCorrect ? 'text-emerald-400' : 'text-rose-400'} font-bold">
-                                Trả lời: ${escapeHtml(item.userAnswer)}
+                                Your answer: ${escapeHtml(item.userAnswer)}
                             </span>
-                            ${!item.isCorrect ? `<span class="text-elven-300">Đúng là: ${escapeHtml(item.correctAnswer)}</span>` : ''}
+                            ${!item.isCorrect ? `<span class="text-elven-300">Correct answer: ${escapeHtml(item.correctAnswer)}</span>` : ''}
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="px-2 py-0.5 rounded ${item.isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'} text-[10px] font-bold">
-                            ${item.isCorrect ? 'ĐÚNG' : 'SAI'}
+                            ${item.isCorrect ? 'CORRECT' : 'INCORRECT'}
                         </span>
                     </div>
                 </div>
@@ -1344,7 +1433,7 @@
         function practiceIncorrectWords() {
             const incorrectItems = state.currentQuiz.answers.filter(a => !a.isCorrect).map(a => a.wordItem);
             if (incorrectItems.length === 0) {
-                alert('Tất cả các câu trả lời của bạn đều đúng!');
+                alert('All of your answers are correct!');
                 return;
             }
 
@@ -1366,6 +1455,136 @@
         /* -------------------------------------------------------------
            10. UTILITIES & KEYBOARD LISTENERS
         ------------------------------------------------------------- */
+        /* -------------------------------------------------------------
+           11. VOCABULARY ACTIVITY TRACKER & HEATMAP
+        ------------------------------------------------------------- */
+        const HEATMAP_STORAGE_KEY = 'vocabmaster_frieren_activity_v1';
+
+        function getLocalDateKey(date = new Date()) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function loadVocabularyActivity() {
+            try {
+                const saved = localStorage.getItem(HEATMAP_STORAGE_KEY);
+                return saved ? JSON.parse(saved) : {};
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function saveVocabularyActivity(activity) {
+            localStorage.setItem(HEATMAP_STORAGE_KEY, JSON.stringify(activity));
+        }
+
+        // One activity unit is logged for each SRS rating or quiz answer.
+        function recordVocabularyActivity(amount = 1) {
+            const activity = loadVocabularyActivity();
+            const today = getLocalDateKey();
+            if (!activity[today]) activity[today] = 0;
+            activity[today] += amount;
+            saveVocabularyActivity(activity);
+
+            const heatmapSection = document.getElementById('tab-heatmap');
+            if (heatmapSection && !heatmapSection.classList.contains('hidden')) {
+                renderVocabularyHeatmap();
+            }
+        }
+
+        function getHeatmapLevel(count) {
+            if (!count) return 0;
+            if (count < 5) return 1;
+            if (count < 15) return 2;
+            if (count < 30) return 3;
+            return 4;
+        }
+
+        function getCurrentStudyStreak(activity) {
+            const today = new Date();
+            const todayKey = getLocalDateKey(today);
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            // If there has been no activity today, a streak can still continue from yesterday.
+            let cursor = new Date(activity[todayKey] ? today : yesterday);
+            let streak = 0;
+            while (activity[getLocalDateKey(cursor)] > 0) {
+                streak++;
+                cursor.setDate(cursor.getDate() - 1);
+            }
+            return streak;
+        }
+
+        function renderVocabularyHeatmap() {
+            const grid = document.getElementById('vocab-heatmap-grid');
+            if (!grid) return;
+
+            const activity = loadVocabularyActivity();
+            const today = new Date();
+            const start = new Date(today);
+            start.setHours(0, 0, 0, 0);
+            start.setDate(start.getDate() - 364);
+
+            // Align the first cell to Sunday so the grid has seven weekday rows.
+            start.setDate(start.getDate() - start.getDay());
+
+            const palette = ['#1e293b', '#14532d', '#15803d', '#22c55e', '#86efac'];
+            const cells = [];
+            const cursor = new Date(start);
+
+            while (cursor <= today) {
+                const dateKey = getLocalDateKey(cursor);
+                const count = activity[dateKey] || 0;
+                const level = getHeatmapLevel(count);
+                const label = `${dateKey}: ${count} reviews`;
+                cells.push(
+                    `<button type="button" class="heatmap-day" style="background:${palette[level]}" title="${label}" aria-label="${label}" onclick="showHeatmapDay('${dateKey}')"></button>`
+                );
+                cursor.setDate(cursor.getDate() + 1);
+            }
+
+            grid.innerHTML = cells.join('');
+            document.getElementById('heatmap-year-label').textContent =
+                `${start.getFullYear()} – ${today.getFullYear()}`;
+
+            const activeDays = Object.values(activity).filter(value => value > 0).length;
+            const totalReviews = Object.values(activity).reduce((sum, value) => sum + (Number(value) || 0), 0);
+            document.getElementById('heatmap-active-days').textContent = activeDays;
+            document.getElementById('heatmap-total-reviews').textContent = totalReviews;
+            document.getElementById('heatmap-current-streak').textContent = `${getCurrentStudyStreak(activity)} days`;
+
+            showHeatmapDay(getLocalDateKey(today));
+        }
+
+        function showHeatmapDay(dateKey) {
+            const activity = loadVocabularyActivity();
+            const count = activity[dateKey] || 0;
+            const displayDate = new Date(`${dateKey}T00:00:00`).toLocaleDateString('vi-VN', {
+                weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
+            });
+            const message = count > 0
+                ? `<strong class="text-emerald-400">${count} reviews</strong> have been recorded.`
+                : 'No reviews recorded on this day.';
+            document.getElementById('heatmap-selected-day').innerHTML =
+                `<div class="font-semibold text-white mb-1">${displayDate}</div><div>${message}</div>`;
+        }
+
+        function exportHeatmapData() {
+            const activity = loadVocabularyActivity();
+            const rows = [['date', 'review_count'], ...Object.keys(activity).sort().map(date => [date, activity[date]])];
+            const csv = rows.map(row => row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(',')).join('\\n');
+            const blob = new Blob(['\\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'vocabmaster-heatmap.csv';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
         function saveToLocalStorage() {
             localStorage.setItem('vocabmaster_frieren_data', JSON.stringify(state.vocabList));
         }
