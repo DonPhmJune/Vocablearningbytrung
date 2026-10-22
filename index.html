@@ -77,6 +77,49 @@
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
+        /* Anki study mode: readable typography and a wide, distraction-free workspace */
+        #tab-anki {
+            width: 100%;
+        }
+        #tab-anki .anki-study-layout {
+            width: 100%;
+            max-width: none;
+        }
+        #tab-anki #anki-card-container {
+            width: 100%;
+            min-height: min(68vh, 680px);
+            padding: clamp(1.5rem, 4vw, 4.5rem);
+        }
+        #tab-anki #anki-front-text h2 {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+            font-weight: 600;
+            text-transform: none !important;
+            overflow-wrap: anywhere;
+        }
+        #tab-anki #anki-front-text p {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+        }
+        #tab-anki #anki-back-text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(1.35rem, 2.7vw, 2.2rem);
+            line-height: 1.65;
+            font-weight: 500;
+            text-transform: none !important;
+            overflow-wrap: anywhere;
+        }
+        #tab-anki #anki-back-container > p {
+            font-family: 'Inter', sans-serif;
+        }
+        @media (min-width: 768px) {
+            #tab-anki .anki-study-layout {
+                padding-top: 0.5rem;
+            }
+        }
+
         /* Flashcard 3D Perspective Flip */
         .perspective-1000 {
             perspective: 1000px;
@@ -337,7 +380,7 @@
                 </div>
 
                 <!-- Anki Flashcard Area -->
-                <div class="max-w-2xl mx-auto py-4">
+                <div class="anki-study-layout w-full mx-auto py-2">
                     
                     <!-- Flashcard Card Container -->
                     <div id="anki-card-container" class="frieren-glass rounded-2xl p-8 md:p-12 text-center min-h-[320px] flex flex-col justify-between relative frieren-card-glow border border-mana-400/30 transition-all duration-300">
@@ -352,7 +395,7 @@
 
                         <!-- Front Card Text (Word) -->
                         <div id="anki-front-text" class="my-auto py-6">
-                            <h2 class="text-3xl md:text-5xl font-bold text-white tracking-wide font-fantasy">
+                            <h2 class="text-4xl md:text-6xl font-semibold text-white tracking-normal">
                                 Loading...
                             </h2>
                             <p class="text-xs text-mana-400 mt-3 font-mono">Reveal the answer to see the definition</p>
@@ -361,7 +404,7 @@
                         <!-- Revealed Back Card Text (Definition) -->
                         <div id="anki-back-container" class="hidden border-t border-slate-700/80 pt-6 mt-4">
                             <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-1">Definition & Meaning</p>
-                            <h3 id="anki-back-text" class="text-2xl md:text-3xl font-semibold text-elven-300">
+                            <h3 id="anki-back-text" class="text-2xl md:text-3xl font-medium text-elven-300">
                                 ...
                             </h3>
                         </div>
