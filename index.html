@@ -1,1678 +1,1707 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="vi" class="h-full bg-slate-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VocabMaster - Frieren Beyond Journey's End Theme</title>
+    <title>VocabMaster - Ôn Tập Từ Vựng Tiếng Anh</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Medieval/Fantasy Accent -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        mana: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            400: '#38bdf8',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            900: '#0c4a6e',
-                        },
-                        emerald: {
-                            400: '#34d399',
-                            500: '#10b981',
-                            600: '#059669',
-                            900: '#064e3b',
-                        },
-                        elven: {
-                            300: '#fde047',
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
-                        },
-                        slate: {
-                            850: '#0f172a',
-                            950: '#020617',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        fantasy: ['Cinzel', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Custom Frieren Magic Glow Effects */
-        body {
-            background-color: #020617;
-            color: #f8fafc;
-            overflow-x: hidden;
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-
-        /* Glassmorphism panel styling */
-        .frieren-glass {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .frieren-card-glow {
-            box-shadow: 0 0 20px rgba(2, 132, 199, 0.25), inset 0 0 15px rgba(5, 150, 105, 0.15);
-        }
-
-        .frieren-border-glow {
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
-        }
-
-        /* Anki study mode: readable typography and a wide, distraction-free workspace */
-        #tab-anki {
-            width: 100%;
-        }
-        #tab-anki .anki-study-layout {
-            width: 100%;
-            max-width: none;
-        }
-        #tab-anki #anki-card-container {
-            width: 100%;
-            min-height: min(68vh, 680px);
-            padding: clamp(1.5rem, 4vw, 4.5rem);
-        }
-        #tab-anki #anki-front-text h2 {
-            font-family: 'Inter', sans-serif !important;
-            font-size: clamp(2.5rem, 6vw, 5.5rem);
-            line-height: 1.2;
-            letter-spacing: 0.01em;
-            font-weight: 600;
-            text-transform: none !important;
-            overflow-wrap: anywhere;
-        }
-        #tab-anki #anki-front-text p {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
-        }
-        #tab-anki #anki-back-text {
-            font-family: 'Inter', sans-serif !important;
-            font-size: clamp(1.35rem, 2.7vw, 2.2rem);
-            line-height: 1.65;
-            font-weight: 500;
-            text-transform: none !important;
-            overflow-wrap: anywhere;
-        }
-        #tab-anki #anki-back-container > p {
-            font-family: 'Inter', sans-serif;
-        }
-        @media (min-width: 768px) {
-            #tab-anki .anki-study-layout {
-                padding-top: 0.5rem;
-            }
-        }
-
-        /* Flashcard 3D Perspective Flip */
-        .perspective-1000 {
-            perspective: 1000px;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(2, 132, 199, 0.5);
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
             border-radius: 4px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(56, 189, 248, 0.8);
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+        .animate-pop {
+            animation: pulse-subtle 0.25s ease-out;
         }
 
-        /* Pulse Animation for Magic Effects */
-        @keyframes manaPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 12px rgba(56,189,248,0.8)); }
-        }
+        /* Dark mode: neutral surfaces and text are recolored; accent gradients remain intact. */
+        html, body { transition: background-color .18s ease, color .18s ease; }
+        html.dark { color-scheme: dark; }
+        html.dark, html.dark body { background-color: #0b1120 !important; color: #e5e7eb !important; }
+        html.dark header, html.dark .bg-white { background-color: #111827 !important; }
+        html.dark .bg-slate-50 { background-color: #0f172a !important; }
+        html.dark .bg-slate-100 { background-color: #1f2937 !important; }
+        html.dark .bg-slate-200 { background-color: #334155 !important; }
+        html.dark .bg-slate-300 { background-color: #475569 !important; }
+        html.dark .text-slate-900 { color: #f8fafc !important; }
+        html.dark .text-slate-800 { color: #f1f5f9 !important; }
+        html.dark .text-slate-700 { color: #e2e8f0 !important; }
+        html.dark .text-slate-600 { color: #cbd5e1 !important; }
+        html.dark .text-slate-500 { color: #aab7c8 !important; }
+        html.dark .text-slate-400 { color: #94a3b8 !important; }
+        html.dark .text-slate-300 { color: #94a3b8 !important; }
+        html.dark [class~="border-slate-100"] { border-color: #263244 !important; }
+        html.dark [class~="border-slate-200"], html.dark [class~="border-slate-200/60"] { border-color: #334155 !important; }
+        html.dark [class~="border-slate-300"] { border-color: #475569 !important; }
+        html.dark [class~="bg-slate-50/50"] { background-color: #111c2f !important; }
+        html.dark [class~="bg-slate-100/80"] { background-color: #263244 !important; }
+        html.dark [class~="bg-blue-50"], html.dark [class~="bg-blue-50/50"], html.dark [class~="bg-blue-50/30"] { background-color: #172b48 !important; }
+        html.dark [class~="bg-indigo-50"] { background-color: #242447 !important; }
+        html.dark [class~="bg-teal-50"] { background-color: #12343a !important; }
+        html.dark [class~="bg-emerald-50"], html.dark [class~="bg-emerald-50/30"] { background-color: #123127 !important; }
+        html.dark [class~="bg-emerald-100"], html.dark [class~="bg-emerald-100/60"] { background-color: #174536 !important; }
+        html.dark [class~="text-emerald-900"] { color: #d1fae5 !important; }
+        html.dark [class~="text-emerald-800"] { color: #a7f3d0 !important; }
+        html.dark [class~="bg-rose-50"], html.dark [class~="bg-rose-50/30"] { background-color: #3a1b29 !important; }
+        html.dark [class~="bg-rose-100"], html.dark [class~="bg-rose-100/60"] { background-color: #4c1d2e !important; }
+        html.dark [class~="text-rose-900"] { color: #ffe4e6 !important; }
+        html.dark [class~="text-rose-800"] { color: #fecdd3 !important; }
+        html.dark [class~="bg-amber-50/70"] { background-color: #332713 !important; }
+        html.dark [class~="bg-amber-100"] { background-color: #4a3512 !important; }
+        html.dark [class~="border-amber-200/80"] { border-color: #76551f !important; }
+        html.dark input, html.dark textarea, html.dark select { background-color: #111c2f !important; color: #e5e7eb !important; border-color: #475569 !important; }
+        html.dark input::placeholder, html.dark textarea::placeholder { color: #94a3b8 !important; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-track { background: #111827; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        html.dark .shadow-sm, html.dark .shadow-md, html.dark .shadow-lg { --tw-shadow-color: rgb(0 0 0 / .18); }
+        html.dark [class~="hover:bg-slate-100"]:hover, html.dark [class~="hover:bg-slate-100/80"]:hover { background-color: #263244 !important; }
+        html.dark [class~="hover:bg-blue-50"]:hover, html.dark [class~="hover:bg-blue-50/30"]:hover { background-color: #1b3557 !important; }
+        html.dark #drop-zone:hover { background-color: #14253d !important; }
+        html.dark .nav-tab-active { background-color: #1f2937 !important; }
 
-        .mana-pulse {
-            animation: manaPulse 3s infinite ease-in-out;
-        }
-
-        .heatmap-cell {
-            display: inline-block;
-            width: 13px;
-            height: 13px;
-            border-radius: 3px;
-            flex: 0 0 auto;
-        }
-        .heatmap-day {
-            width: 13px;
-            height: 13px;
-            border-radius: 3px;
-            border: 1px solid rgba(148, 163, 184, 0.08);
+        .anki-flashcard {
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             cursor: pointer;
-            padding: 0;
+            user-select: none;
         }
-        .heatmap-day:hover, .heatmap-day:focus {
-            outline: 2px solid #38bdf8;
-            outline-offset: 1px;
+        .anki-flashcard:focus-visible { outline: 3px solid #3b82f6; outline-offset: 4px; }
+        .anki-grade-btn { min-height: 74px; }
+        @media (max-width: 640px) {
+            .anki-flashcard { min-height: 230px; }
+            .anki-grade-btn { min-height: 64px; }
         }
     </style>
+    <script>
+        try {
+            if (localStorage.getItem('vocab_master_theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (e) {}
+    </script>
 </head>
-<body class="h-full flex flex-col font-sans select-none antialiased">
+<body class="h-full text-slate-800 flex flex-col antialiased">
 
-    <!-- Magical Mana Background Canvas -->
-    <canvas id="mana-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
-
-    <div class="relative z-10 flex flex-col min-h-screen">
-        
-        <!-- HEADER -->
-        <header class="frieren-glass sticky top-0 z-50 border-b border-mana-500/30 px-4 py-3">
-            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-                
-                <!-- Logo & Mascot Container -->
-                <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-mana-500 to-elven-400 p-[2px] flex items-center justify-center shadow-lg">
-                            <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                                <i class="fa-solid fa-graduation-cap text-mana-400 text-xl"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <h1 class="font-fantasy text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-mana-400 via-emerald-400 to-elven-300">
-                                VocabMaster
-                            </h1>
-                            <p class="text-xs text-slate-400">Vocabulary Review & Anki SRS • Frieren Edition</p>
-                        </div>
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-gradient-to-tr from-blue-600 to-teal-500 text-white p-2.5 rounded-xl shadow-md shadow-blue-100">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
                     </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg leading-tight bg-gradient-to-r from-blue-700 to-teal-600 bg-clip-text text-transparent">VocabMaster</h1>
+                        <p class="hidden sm:block text-xs text-slate-500 font-medium">Luyện từ vựng thông minh</p>
+                    </div>
+                </div>
 
-                    <!-- Frieren Chibi Mascot Badge & Sound Toggle Mobile -->
-                    <div class="flex items-center gap-2">
-                        <!-- Sound Toggle Button -->
-                        <button id="sound-toggle-btn" class="px-3 py-1.5 rounded-lg border border-mana-500/30 bg-slate-900/80 hover:bg-slate-800 text-xs font-medium text-mana-300 transition-all flex items-center gap-2">
-                            <i id="sound-icon" class="fa-solid fa-volume-high text-emerald-400"></i>
-                            <span id="sound-text" class="hidden md:inline">Sound: On</span>
+                <!-- Sound Toggle & Navigation Tabs -->
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <!-- Persistent Light/Dark Mode Toggle -->
+                    <button id="theme-toggle-btn" onclick="toggleTheme()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-blue-50 text-slate-700 text-xs font-semibold flex items-center transition-all" title="Chuyển giao diện sáng/tối" aria-label="Chuyển giao diện sáng/tối">
+                        <i id="theme-icon" class="fa-solid fa-moon sm:mr-1.5 text-sm"></i>
+                        <span id="theme-text" class="hidden sm:inline">Giao diện: Sáng</span>
+                    </button>
+
+                    <!-- Global Sound Toggle -->
+                    <button id="sound-toggle-btn" onclick="toggleSound()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-blue-50 text-slate-700 text-xs font-semibold flex items-center transition-all" title="Bật/Tắt âm thanh">
+                        <i id="sound-icon" class="fa-solid fa-volume-high text-blue-600 sm:mr-1.5 text-sm"></i>
+                        <span id="sound-text" class="hidden sm:inline">Âm thanh: Bật</span>
+                    </button>
+
+                    <!-- Nav Tabs -->
+                    <nav class="flex space-x-0.5 sm:space-x-1 bg-slate-100 p-1 rounded-xl">
+                        <button id="tab-input-btn" onclick="switchTab('input')" class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-blue-600 bg-white shadow-sm">
+                            <i class="fa-solid fa-file-import sm:mr-1.5"></i><span class="hidden sm:inline">Nguồn từ</span>
                         </button>
-                    </div>
+                        <button id="tab-quiz-btn" onclick="switchTab('quiz')" class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-circle-play sm:mr-1.5"></i><span class="hidden sm:inline">Luyện tập</span>
+                        </button>
+                        <button id="tab-anki-btn" onclick="switchTab('anki')" class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-layer-group sm:mr-1.5"></i><span class="hidden sm:inline">Học Anki</span>
+                        </button>
+                        <button id="tab-stats-btn" onclick="switchTab('stats')" class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-chart-pie sm:mr-1.5"></i><span class="hidden sm:inline">Kết quả</span>
+                        </button>
+                    </nav>
                 </div>
-
-                <!-- Mascot Mini Widget -->
-                <div class="flex items-center gap-3 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-mana-500/20">
-                    <div id="mascot-avatar" class="text-2xl transition-transform duration-300 transform hover:scale-110">
-                        ( -_ -) zzz
-                    </div>
-                    <div class="text-xs border-l border-slate-700 pl-2">
-                        <div class="font-semibold text-elven-300" id="mascot-rank">Novice Mage</div>
-                        <div class="text-slate-400 flex items-center gap-1">
-                            <span>XP:</span>
-                            <span id="mascot-xp" class="text-mana-400 font-bold">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Navigation Tabs -->
-                <nav class="flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-mana-500/30 w-full sm:w-auto justify-center overflow-x-auto">
-                    <button id="tab-input-btn" onclick="switchTab('tab-input')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 bg-mana-600 text-white shadow-md">
-                        <i class="fa-solid fa-book-bookmark"></i>
-                        <span>Vocabulary Input</span>
-                    </button>
-                    <button id="tab-anki-btn" onclick="switchTab('tab-anki')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>SRS Learning (Anki)</span>
-                    </button>
-                    <button id="tab-quiz-btn" onclick="switchTab('tab-quiz')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
-                        <i class="fa-solid fa-vial"></i>
-                        <span>Quiz</span>
-                    </button>
-                    <button id="tab-stats-btn" onclick="switchTab('tab-stats')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>Results</span>
-                    </button>
-                    <button id="tab-heatmap-btn" onclick="switchTab('tab-heatmap')" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span>Heatmap</span>
-                    </button>
-                </nav>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- MAIN CONTENT AREA -->
-        <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-            <!-- ================= TAB 1: INPUT SOURCES ================= -->
-            <section id="tab-input" class="space-y-6">
-                
-                <!-- Banner -->
-                <div class="frieren-glass rounded-2xl p-6 relative overflow-hidden frieren-card-glow border border-mana-500/30">
-                    <div class="absolute -right-10 -bottom-10 opacity-15 text-mana-400 pointer-events-none">
-                        <i class="fa-solid fa-hat-wizard text-9xl"></i>
+        <!-- TAB 1: INPUT SOURCE -->
+        <div id="tab-input" class="space-y-6">
+            <!-- Banner -->
+            <div class="bg-gradient-to-r from-blue-600 via-teal-600 to-emerald-600 rounded-2xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Thêm nguồn từ vựng ôn tập</h2>
+                    <p class="text-blue-100 text-sm sm:text-base">Hỗ trợ dán dữ liệu linh hoạt (<code>word - def</code>, <code>word : def</code>, <code>Tab</code>) hoặc tải file TXT, CSV, JSON.</p>
+                </div>
+                <i class="fa-solid fa-spell-check absolute right-6 -bottom-8 text-9xl text-white/10 pointer-events-none"></i>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Section (File + Raw Text) -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- File Upload Box -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <label class="block text-sm font-bold text-slate-800 mb-3">
+                            <i class="fa-solid fa-file-arrow-up text-blue-600 mr-2"></i>Tải file từ vựng
+                        </label>
+                        <div id="drop-zone" class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-6 text-center transition-all bg-slate-50/50 hover:bg-blue-50/30 cursor-pointer">
+                            <input type="file" id="file-input" accept=".txt,.csv,.json" class="hidden" onchange="handleFileUpload(event)">
+                            <div class="flex flex-col items-center">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-3">
+                                    <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                                </div>
+                                <p class="text-sm font-semibold text-slate-700">Kéo thả file vào đây hoặc <span class="text-blue-600 underline">chọn từ thiết bị</span></p>
+                                <p class="text-xs text-slate-400 mt-1">Định dạng hỗ trợ: .TXT, .CSV, .JSON</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="max-w-2xl">
-                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-mana-500/20 text-mana-300 border border-mana-400/30">
-                            Vocabulary Loading Magic
+
+                    <!-- Text Area Input -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="block text-sm font-bold text-slate-800">
+                                <i class="fa-solid fa-paste text-blue-600 mr-2"></i>Dán dữ liệu từ vựng
+                            </label>
+                            <button onclick="loadSampleData()" class="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Thử dữ liệu mẫu (30 từ)
+                            </button>
+                        </div>
+                        <textarea id="raw-text-input" rows="8" class="w-full p-4 text-sm font-mono bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all custom-scrollbar" placeholder="Dán danh sách từ vựng vào đây...&#10;Ví dụ:&#10;abandon - từ bỏ, ruồng bỏ&#10;benefit : lợi ích, ưu đãi&#10;candidate	ứng cử viên&#10;diligent = cần cù, chăm chỉ"></textarea>
+                        
+                        <div class="mt-4 flex flex-wrap gap-3 justify-between items-center">
+                            <div class="text-xs text-slate-500 font-medium">
+                                Phân cách: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">-</code> <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">:</code> <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">=</code> hoặc <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">Tab</code>
+                            </div>
+                            <button onclick="processInputText()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-200 transition-all flex items-center">
+                                <i class="fa-solid fa-gears mr-2"></i>Cập nhật vào danh sách
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side List Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm sticky top-20 flex flex-col h-[calc(100vh-140px)] min-h-[450px]">
+                        <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                            <div>
+                                <h3 class="font-bold text-slate-800">Danh sách từ vựng</h3>
+                                <p class="text-xs text-slate-500 font-medium">Đã nhận diện: <span id="vocab-count" class="font-bold text-blue-600">0</span> từ</p>
+                            </div>
+                            <button onclick="clearVocabList()" class="text-xs text-rose-500 hover:text-rose-700 p-1.5 hover:bg-rose-50 rounded-lg transition-colors" title="Xóa tất cả">
+                                <i class="fa-solid fa-trash-can mr-1"></i>Xóa sạch
+                            </button>
+                        </div>
+
+                        <!-- Vocab Items Container -->
+                        <div id="vocab-preview-list" class="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                            <div class="text-center py-12 text-slate-400 text-sm">
+                                <i class="fa-solid fa-book-open text-3xl mb-2 text-slate-300"></i>
+                                <p>Chưa có từ vựng nào.</p>
+                                <p class="text-xs mt-1">Dán văn bản hoặc tải file lên.</p>
+                            </div>
+                        </div>
+
+                        <!-- Start Button -->
+                        <div class="pt-4 mt-auto border-t border-slate-100">
+                            <button id="start-quiz-from-input" onclick="prepareAndStartQuiz()" disabled class="w-full py-3 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center">
+                                <i class="fa-solid fa-play mr-2"></i>Luyện tập ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: QUIZ SECTION -->
+        <div id="tab-quiz" class="hidden max-w-3xl mx-auto space-y-6">
+            <!-- Setup Panel -->
+            <div id="quiz-setup-panel" class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <h2 class="text-xl font-extrabold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-sliders text-blue-600 mr-2.5"></i>Tùy chỉnh chế độ kiểm tra
+                </h2>
+
+                <!-- Quiz Mode Select Cards -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-3">Chế độ ôn tập</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Mode 1: Def -> Word (ABCD) -->
+                        <label class="relative flex flex-col p-4 border-2 border-blue-600 bg-blue-50/50 rounded-2xl cursor-pointer mode-option transition-all" onclick="selectMode('def-word', this)">
+                            <input type="radio" name="quiz-mode" value="def-word" checked class="sr-only">
+                            <span class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-list-check text-blue-600 mr-1.5"></i>Trắc nghiệm: Def ➔ Word</span>
+                            <span class="text-xs text-slate-500">Xem Definition ➔ Chọn từ Tiếng Anh (ABCD)</span>
+                        </label>
+
+                        <!-- Mode 2: Word -> Def (ABCD) -->
+                        <label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer mode-option hover:border-slate-300 transition-all" onclick="selectMode('word-def', this)">
+                            <input type="radio" name="quiz-mode" value="word-def" class="sr-only">
+                            <span class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-spell-check text-blue-600 mr-1.5"></i>Trắc nghiệm: Word ➔ Def</span>
+                            <span class="text-xs text-slate-500">Xem từ Tiếng Anh ➔ Chọn Definition (ABCD)</span>
+                        </label>
+
+                        <!-- Mode 3: Mix ABCD -->
+                        <label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer mode-option hover:border-slate-300 transition-all" onclick="selectMode('mix', this)">
+                            <input type="radio" name="quiz-mode" value="mix" class="sr-only">
+                            <span class="font-bold text-slate-800 text-sm mb-1"><i class="fa-solid fa-shuffle text-blue-600 mr-1.5"></i>Trắc nghiệm: Trộn lẫn</span>
+                            <span class="text-xs text-slate-500">Xáo trộn ngẫu nhiên cả 2 dạng trắc nghiệm</span>
+                        </label>
+
+                        <!-- Mode 4: TYPE WORD (NEW) -->
+                        <label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer mode-option hover:border-slate-300 transition-all" onclick="selectMode('type-word', this)">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-keyboard text-teal-600 mr-1.5"></i>Điền từ (Type Word)</span>
+                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Mới</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Xem Definition ➔ Tự gõ từ Tiếng Anh chính xác</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question Count Selection -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-3">Số lượng câu hỏi</label>
+                    <div class="flex flex-wrap gap-2.5">
+                        <button type="button" onclick="setQuestionCount(10, this)" class="q-count-btn px-4 py-2 border-2 border-blue-600 bg-blue-50 font-bold text-blue-600 text-xs sm:text-sm rounded-xl transition-all">10 câu</button>
+                        <button type="button" onclick="setQuestionCount(20, this)" class="q-count-btn px-4 py-2 border-2 border-slate-200 font-semibold text-slate-600 text-xs sm:text-sm rounded-xl hover:border-slate-300 transition-all">20 câu</button>
+                        <button type="button" onclick="setQuestionCount(30, this)" class="q-count-btn px-4 py-2 border-2 border-slate-200 font-semibold text-slate-600 text-xs sm:text-sm rounded-xl hover:border-slate-300 transition-all">30 câu</button>
+                        <button type="button" onclick="setQuestionCount('all', this)" class="q-count-btn px-4 py-2 border-2 border-slate-200 font-semibold text-slate-600 text-xs sm:text-sm rounded-xl hover:border-slate-300 transition-all">Tất cả từ vựng</button>
+                    </div>
+                </div>
+
+                <!-- Start Action -->
+                <div class="pt-4 border-t border-slate-100">
+                    <button onclick="startQuiz()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white font-extrabold rounded-xl shadow-lg shadow-blue-200 transition-all text-base flex items-center justify-center">
+                        <i class="fa-solid fa-bolt mr-2"></i>Bắt đầu kiểm tra
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Quiz Panel -->
+            <div id="active-quiz-panel" class="hidden space-y-6">
+                <!-- Top Progress Bar -->
+                <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center text-sm font-semibold text-slate-600">
+                        <span class="flex items-center">
+                            Câu <span id="current-q-num" class="text-blue-600 text-lg font-extrabold mx-1">1</span>/<span id="total-q-num">10</span>
                         </span>
-                        <h2 class="font-fantasy text-2xl md:text-3xl font-bold mt-2 text-white">Add a Vocabulary Source</h2>
-                        <p class="text-slate-300 text-sm mt-1">Upload a file (.txt, .csv, .json) or paste a vocabulary list with definitions to turn it into SRS memory magic.</p>
+                        <div class="flex items-center space-x-4 font-bold">
+                            <span class="text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i><span id="score-correct">0</span></span>
+                            <span class="text-rose-500"><i class="fa-solid fa-circle-xmark mr-1"></i><span id="score-wrong">0</span></span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-gradient-to-r from-blue-600 to-teal-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <!-- Content Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    
-                    <!-- Left Column: Input Methods (7 Cols) -->
-                    <div class="lg:col-span-7 space-y-6">
-                        
-                        <!-- Drag and Drop Box -->
-                        <div class="frieren-glass rounded-xl p-5">
-                            <h3 class="text-sm font-semibold text-mana-300 mb-3 flex items-center gap-2">
-                                <i class="fa-solid fa-file-arrow-up"></i>
-                                <span>Upload Vocabulary File (TXT, CSV, JSON)</span>
-                            </h3>
-                            <div id="drop-zone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-mana-500/40 hover:border-mana-400 bg-slate-900/50 hover:bg-slate-900/80 rounded-xl p-6 text-center cursor-pointer transition-all">
-                                <i class="fa-solid fa-cloud-arrow-up text-4xl text-mana-400 mb-2"></i>
-                                <p class="text-sm text-slate-200 font-medium">Drag & drop a file here or <span class="text-mana-400 underline">choose a file</span></p>
-                                <p class="text-xs text-slate-400 mt-1">Supported format: Word [separator] Definition (e.g., hello - greeting)</p>
-                                <input type="file" id="file-input" accept=".txt,.csv,.json" class="hidden" onchange="handleFileSelect(event)">
-                            </div>
-                        </div>
-
-                        <!-- Textarea Direct Paste Box -->
-                        <div class="frieren-glass rounded-xl p-5 space-y-3">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-sm font-semibold text-emerald-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-align-left"></i>
-                                    <span>Paste Text Directly</span>
-                                </h3>
-                                <button onclick="loadSampleData()" class="text-xs text-elven-400 hover:text-elven-300 flex items-center gap-1">
-                                    <i class="fa-solid fa-wand-sparkles"></i>
-                                    <span>Load 30 Sample Words (Frieren Magic)</span>
-                                </button>
-                            </div>
-                            <textarea id="raw-text-input" rows="8" placeholder="Paste vocabulary here, one word per line:&#10;apple - a fruit&#10;book : something to read&#10;magic = supernatural power&#10;spell   a magic formula" class="w-full bg-slate-900/90 border border-slate-700 focus:border-mana-400 rounded-lg p-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none transition-all"></textarea>
-                            
-                            <div class="flex items-center justify-between pt-2">
-                                <button onclick="processRawText()" class="w-full bg-gradient-to-r from-mana-600 to-emerald-600 hover:from-mana-500 hover:to-emerald-500 text-white font-medium py-2.5 px-4 rounded-lg shadow-lg transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-gear"></i>
-                                    <span>Process & Update Vocabulary</span>
-                                </button>
-                            </div>
-                        </div>
-
+                <!-- Question Card -->
+                <div id="question-card" class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm relative transition-all">
+                    <!-- Badge type -->
+                    <div class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-4" id="question-type-badge">
+                        Dạng câu hỏi
                     </div>
 
-                    <!-- Right Column: Vocab List Preview & Quick Start (5 Cols) -->
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="frieren-glass rounded-xl p-5 flex flex-col h-full min-h-[420px]">
-                            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-list-check text-elven-400"></i>
-                                    <h3 class="font-semibold text-white">Loaded Vocabulary List</h3>
-                                </div>
-                                <span id="vocab-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-mana-500/20 text-mana-300 border border-mana-500/40">
-                                    0 words
-                                </span>
-                            </div>
-
-                            <!-- Preview List -->
-                            <div id="vocab-preview-list" class="flex-1 my-3 overflow-y-auto max-h-[350px] space-y-2 pr-1">
-                                <!-- Dynamic vocabulary items will be rendered here -->
-                                <div class="text-center text-slate-500 py-12 text-sm">
-                                    <i class="fa-solid fa-scroll text-3xl mb-2 text-slate-600"></i>
-                                    <p>No vocabulary has been loaded yet.</p>
-                                    <p class="text-xs mt-1">Paste text or click "Load 30 Sample Words".</p>
-                                </div>
-                            </div>
-
-                            <!-- Actions Footer -->
-                            <div class="pt-3 border-t border-slate-800 space-y-2">
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button id="start-anki-from-input" onclick="startAnkiFromInput()" class="bg-emerald-600 hover:bg-emerald-500 text-white py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 shadow">
-                                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                        <span>Study SRS Flashcards</span>
-                                    </button>
-                                    <button id="start-quiz-from-input" onclick="startQuizFromInput()" class="bg-mana-600 hover:bg-mana-500 text-white py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 shadow">
-                                        <i class="fa-solid fa-circle-play"></i>
-                                        <span>Multiple-Choice Quiz</span>
-                                    </button>
-                                </div>
-                                <button onclick="clearAllVocab()" class="w-full text-center text-xs text-rose-400 hover:text-rose-300 py-1 transition-colors">
-                                    <i class="fa-solid fa-trash-can mr-1"></i> Clear All Vocabulary
-                                </button>
-                            </div>
-
-                        </div>
+                    <!-- Question Prompt Text -->
+                    <div class="mb-6">
+                        <p class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-1">CÂU HỎI:</p>
+                        <h3 id="question-text" class="text-2xl sm:text-3xl font-extrabold text-slate-800 leading-snug">
+                            --
+                        </h3>
                     </div>
 
+                    <!-- MODE 1: OPTIONS CONTAINER (ABCD) -->
+                    <div id="options-container" class="grid grid-cols-1 gap-3">
+                        <!-- Options generated dynamically -->
+                    </div>
+
+                    <!-- MODE 2: FILL-IN INPUT CONTAINER (Type Word) -->
+                    <div id="fillin-container" class="hidden space-y-4">
+                        <form onsubmit="submitFillInAnswer(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Gõ từ tiếng Anh tương ứng:</label>
+                                <div class="relative">
+                                    <input type="text" id="type-answer-input" autocomplete="off" spellcheck="false" placeholder="Nhập từ tiếng Anh..." class="w-full p-4 pr-12 text-lg font-bold text-slate-800 bg-slate-50 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-blue-500 focus:bg-white transition-all">
+                                    <i id="type-status-icon" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-xl"></i>
+                                </div>
+                            </div>
+
+                            <!-- Revealed Correct Answer Box (Shown when wrong) -->
+                            <div id="type-correct-reveal" class="hidden p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs sm:text-sm text-rose-900 font-medium">
+                                Đáp án chính xác: <strong id="type-correct-word" class="font-extrabold text-rose-700 text-base ml-1"></strong>
+                            </div>
+
+                            <button type="submit" id="type-submit-btn" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center">
+                                <i class="fa-solid fa-paper-plane mr-2"></i>Gửi đáp án (Enter)
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Auto Advance Indicator -->
+                    <div id="auto-advance-indicator" class="hidden mt-5 text-center text-xs font-semibold text-slate-400 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-circle-notch fa-spin text-blue-500"></i>
+                        <span>Đang chuyển câu tiếp theo...</span>
+                    </div>
                 </div>
+            </div>
+        </div>
 
+        <!-- TAB 3: ANKI SPACED REPETITION -->
+        <div id="tab-anki" class="hidden max-w-4xl mx-auto space-y-6">
+            <section class="bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-600 rounded-2xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <p class="text-xs uppercase tracking-widest text-blue-100 font-bold mb-2">Spaced repetition</p>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Học từ vựng kiểu Anki</h2>
+                    <p class="text-sm sm:text-base text-blue-50">Ôn đúng thời điểm: từ khó xuất hiện lại sớm hơn, từ đã nhớ sẽ được giãn khoảng cách ôn. Tiến độ được lưu trên trình duyệt này.</p>
+                </div>
+                <i class="fa-solid fa-layer-group absolute right-6 -bottom-7 text-9xl text-white/10 pointer-events-none"></i>
             </section>
 
-            <!-- ================= TAB 2: ANKI SRS LEARNING ================= -->
-            <section id="tab-anki" class="hidden space-y-6">
-                
-                <!-- Header Stats SRS -->
-                <div class="grid grid-cols-3 gap-3 md:gap-6">
-                    <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-rose-500">
-                        <p class="text-xs text-slate-400">Due for Review</p>
-                        <p id="srs-due-count" class="text-2xl md:text-3xl font-bold text-rose-400 mt-1">0</p>
-                    </div>
-                    <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-elven-400">
-                        <p class="text-xs text-slate-400">Learning</p>
-                        <p id="srs-learning-count" class="text-2xl md:text-3xl font-bold text-elven-300 mt-1">0</p>
-                    </div>
-                    <div class="frieren-glass rounded-xl p-4 text-center border-l-4 border-emerald-500">
-                        <p class="text-xs text-slate-400">Mastered</p>
-                        <p id="srs-mastered-count" class="text-2xl md:text-3xl font-bold text-emerald-400 mt-1">0</p>
-                    </div>
+            <section class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 font-semibold">Từ mới</p>
+                    <p id="anki-new-count" class="text-2xl font-extrabold text-blue-600 mt-1">0</p>
                 </div>
-
-                <!-- Anki Flashcard Area -->
-                <div class="anki-study-layout w-full mx-auto py-2">
-                    
-                    <!-- Flashcard Card Container -->
-                    <div id="anki-card-container" class="frieren-glass rounded-2xl p-8 md:p-12 text-center min-h-[320px] flex flex-col justify-between relative frieren-card-glow border border-mana-400/30 transition-all duration-300">
-                        
-                        <!-- Card Badge Header -->
-                        <div class="flex justify-between items-center text-xs text-slate-400 mb-4">
-                            <span id="anki-card-status-badge" class="px-2.5 py-1 rounded-md bg-mana-500/20 text-mana-300 border border-mana-500/30 font-semibold">
-                                SRS Review
-                            </span>
-                            <span class="text-slate-500"><i class="fa-regular fa-keyboard mr-1"></i> [Spacebar] Reveal Answer</span>
-                        </div>
-
-                        <!-- Front Card Text (Word) -->
-                        <div id="anki-front-text" class="my-auto py-6">
-                            <h2 class="text-4xl md:text-6xl font-semibold text-white tracking-normal">
-                                Loading...
-                            </h2>
-                            <p class="text-xs text-mana-400 mt-3 font-mono">Reveal the answer to see the definition</p>
-                        </div>
-
-                        <!-- Revealed Back Card Text (Definition) -->
-                        <div id="anki-back-container" class="hidden border-t border-slate-700/80 pt-6 mt-4">
-                            <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider mb-1">Definition & Meaning</p>
-                            <h3 id="anki-back-text" class="text-2xl md:text-3xl font-medium text-elven-300">
-                                ...
-                            </h3>
-                        </div>
-
-                        <!-- Action Button 1: Reveal Button -->
-                        <div id="anki-reveal-btn-box" class="mt-6">
-                            <button onclick="revealAnkiCard()" class="w-full bg-gradient-to-r from-mana-600 to-emerald-600 hover:from-mana-500 hover:to-emerald-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all text-base tracking-wide">
-                                Reveal Answer <span class="text-xs opacity-75 font-normal">(Space / Enter)</span>
-                            </button>
-                        </div>
-
-                        <!-- Action Button 2: SuperMemo-2 SRS Rating Buttons (Hidden by default) -->
-                        <div id="anki-rating-btn-box" class="hidden grid grid-cols-2 md:grid-cols-4 gap-2.5 mt-6">
-                            <button onclick="rateAnkiCard(1)" class="bg-rose-900/60 hover:bg-rose-800 border border-rose-500/50 text-rose-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Key 1</span>
-                                <span class="font-bold text-sm">Again</span>
-                                <span class="text-[10px] text-rose-300/80 mt-0.5">&lt; 1 min</span>
-                            </button>
-                            <button onclick="rateAnkiCard(2)" class="bg-amber-900/60 hover:bg-amber-800 border border-amber-500/50 text-amber-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Key 2</span>
-                                <span class="font-bold text-sm">Hard</span>
-                                <span class="text-[10px] text-amber-300/80 mt-0.5">1 day</span>
-                            </button>
-                            <button onclick="rateAnkiCard(3)" class="bg-emerald-900/60 hover:bg-emerald-800 border border-emerald-500/50 text-emerald-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Key 3</span>
-                                <span class="font-bold text-sm">Good</span>
-                                <span class="text-[10px] text-emerald-300/80 mt-0.5">3 days</span>
-                            </button>
-                            <button onclick="rateAnkiCard(4)" class="bg-mana-900/60 hover:bg-mana-800 border border-mana-500/50 text-mana-200 py-2.5 px-2 rounded-xl transition-all flex flex-col items-center">
-                                <span class="text-xs opacity-80">Key 4</span>
-                                <span class="font-bold text-sm">Easy</span>
-                                <span class="text-[10px] text-mana-300/80 mt-0.5">6 days</span>
-                            </button>
-                        </div>
-
-                    </div>
-
-                    <!-- Empty SRS State -->
-                    <div id="anki-empty-msg" class="hidden frieren-glass rounded-2xl p-12 text-center space-y-4">
-                        <i class="fa-solid fa-circle-check text-6xl text-emerald-400"></i>
-                        <h3 class="text-2xl font-bold text-white">SRS Review Complete!</h3>
-                        <p class="text-slate-300 text-sm max-w-md mx-auto">There are no vocabulary items due for review right now. Come back later or add a new vocabulary set.</p>
-                        <button onclick="switchTab('tab-input')" class="bg-mana-600 hover:bg-mana-500 text-white font-medium py-2 px-6 rounded-lg text-sm transition-all">
-                            Add New Words
-                        </button>
-                    </div>
-
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 font-semibold">Đến hạn ôn</p>
+                    <p id="anki-due-count" class="text-2xl font-extrabold text-amber-600 mt-1">0</p>
                 </div>
-
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 font-semibold">Đã học</p>
+                    <p id="anki-learned-count" class="text-2xl font-extrabold text-emerald-600 mt-1">0</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 font-semibold">Đã ôn hôm nay</p>
+                    <p id="anki-today-count" class="text-2xl font-extrabold text-indigo-600 mt-1">0</p>
+                </div>
             </section>
 
-            <!-- ================= TAB 3: QUIZ & PRACTICE ================= -->
-            <section id="tab-quiz" class="hidden space-y-6">
-                
-                <!-- Setup Screen -->
-                <div id="quiz-setup-panel" class="max-w-2xl mx-auto frieren-glass rounded-2xl p-6 md:p-8 space-y-6">
-                    <div class="border-b border-slate-800 pb-4">
-                        <h2 class="font-fantasy text-2xl font-bold text-white">Quiz Setup</h2>
-                        <p class="text-sm text-slate-400 mt-1">Choose a quiz mode and the number of questions you want.</p>
-                    </div>
-
-                    <!-- Quiz Mode Selector -->
-                    <div class="space-y-3">
-                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Quiz Mode</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
-                                <input type="radio" name="quiz-mode" value="def-word" checked class="text-mana-500 focus:ring-0">
-                                <div>
-                                    <div class="text-sm font-semibold text-white">Definition ➔ Word</div>
-                                    <div class="text-xs text-slate-400">Choose the correct word based on its definition</div>
-                                </div>
-                            </label>
-                            <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
-                                <input type="radio" name="quiz-mode" value="word-def" class="text-mana-500 focus:ring-0">
-                                <div>
-                                    <div class="text-sm font-semibold text-white">Word ➔ Definition</div>
-                                    <div class="text-xs text-slate-400">Choose the correct definition of the word</div>
-                                </div>
-                            </label>
-                            <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
-                                <input type="radio" name="quiz-mode" value="mix" class="text-mana-500 focus:ring-0">
-                                <div>
-                                    <div class="text-sm font-semibold text-white">Mixed (Multiple Choice)</div>
-                                    <div class="text-xs text-slate-400">Randomize question types</div>
-                                </div>
-                            </label>
-                            <label class="frieren-glass p-3.5 rounded-xl border border-slate-700 hover:border-mana-400 cursor-pointer flex items-center space-x-3 transition-all">
-                                <input type="radio" name="quiz-mode" value="fillin" class="text-mana-500 focus:ring-0">
-                                <div>
-                                    <div class="text-sm font-semibold text-elven-300">Type the Word</div>
-                                    <div class="text-xs text-slate-400">Type the exact word</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Question Count Selector -->
-                    <div class="space-y-3">
-                        <label class="text-xs font-semibold text-mana-300 uppercase tracking-wider">Number of Questions</label>
-                        <div class="flex items-center space-x-3">
-                            <button onclick="setQuizCount(10)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">10 questions</button>
-                            <button onclick="setQuizCount(20)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">20 questions</button>
-                            <button onclick="setQuizCount(30)" class="q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all">30 questions</button>
-                            <button onclick="setQuizCount('all')" class="q-count-btn flex-1 py-2 rounded-lg bg-mana-600 border border-mana-400 text-xs font-semibold text-white shadow">All</button>
-                        </div>
-                    </div>
-
-                    <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-mana-600 via-emerald-600 to-elven-500 hover:opacity-95 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-base flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-play"></i>
-                        <span>Start Quiz</span>
+            <section id="anki-setup-panel" class="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200 shadow-sm space-y-5">
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-800">Chuẩn bị phiên học</h3>
+                    <p id="anki-schedule-message" class="text-sm text-slate-500 mt-1">Thêm từ vựng ở mục Nguồn từ để bắt đầu.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="block">
+                        <span class="block text-sm font-bold text-slate-700 mb-2">Mặt trước của thẻ</span>
+                        <select id="anki-direction" class="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="term-def">Từ tiếng Anh → nghĩa</option>
+                            <option value="def-term">Nghĩa → từ tiếng Anh</option>
+                        </select>
+                    </label>
+                    <label class="block">
+                        <span class="block text-sm font-bold text-slate-700 mb-2">Số từ mới tối đa mỗi phiên</span>
+                        <select id="anki-new-limit" class="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="10">10 từ mới</option>
+                            <option value="20" selected>20 từ mới</option>
+                            <option value="30">30 từ mới</option>
+                            <option value="50">50 từ mới</option>
+                            <option value="999999">Tất cả từ mới</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="startAnkiSession()" class="flex-1 py-3.5 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white font-extrabold rounded-xl shadow-md transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-play mr-2"></i>Bắt đầu ôn tập
+                    </button>
+                    <button onclick="resetAnkiProgress()" class="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 hover:text-rose-600 hover:border-rose-300 text-sm font-semibold transition-all">
+                        <i class="fa-solid fa-rotate-left mr-1.5"></i>Đặt lại tiến độ
                     </button>
                 </div>
-
-                <!-- Active Quiz View -->
-                <div id="active-quiz-panel" class="hidden max-w-2xl mx-auto space-y-4">
-                    
-                    <!-- Progress Bar & Header -->
-                    <div class="frieren-glass rounded-xl p-4 flex items-center justify-between">
-                        <div class="flex items-center space-x-4 w-full">
-                            <div class="flex-1">
-                                <div class="flex justify-between text-xs text-slate-300 mb-1">
-                                    <span>Progress: <strong id="current-q-num">1</strong>/<span id="total-q-num">10</span></span>
-                                    <span class="text-emerald-400">Correct: <strong id="score-correct">0</strong> | Incorrect: <strong id="score-wrong" class="text-rose-400">0</strong></span>
-                                </div>
-                                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                                    <div id="quiz-progress-bar" class="bg-gradient-to-r from-mana-400 to-emerald-400 h-2 rounded-full transition-all duration-300 w-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Question Card -->
-                    <div id="question-card" class="frieren-glass rounded-2xl p-6 md:p-8 space-y-6 frieren-card-glow relative">
-                        
-                        <div class="flex items-center justify-between">
-                            <span id="question-type-badge" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-mana-500/20 text-mana-300 border border-mana-500/30">
-                                Multiple Choice
-                            </span>
-                            <div id="auto-advance-indicator" class="hidden flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i> Moving to the next question...
-                            </div>
-                        </div>
-
-                        <!-- Question Prompt -->
-                        <div class="text-center py-4">
-                            <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Question</p>
-                            <h3 id="question-text" class="text-2xl md:text-4xl font-bold text-white font-fantasy">
-                                ...
-                            </h3>
-                        </div>
-
-                        <!-- Option Buttons Container (ABCD) -->
-                        <div id="options-container" class="grid grid-cols-1 gap-3">
-                            <!-- Rendered dynamically -->
-                        </div>
-
-                        <!-- Fill-in-the-blank Form Container (Type word mode) -->
-                        <div id="fillin-container" class="hidden space-y-4">
-                            <div class="flex gap-2">
-                                <input type="text" id="type-answer-input" placeholder="Type the exact word here..." class="flex-1 bg-slate-900 border border-slate-700 focus:border-mana-400 rounded-xl px-4 py-3 text-white focus:outline-none text-base">
-                                <button id="type-submit-btn" onclick="submitTypedAnswer()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 rounded-xl transition-all">
-                                    Submit
-                                </button>
-                            </div>
-                            <div id="type-correct-reveal" class="hidden p-3 rounded-xl bg-slate-900 border text-center text-sm">
-                                <!-- Dynamic correctness prompt -->
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
+                <p class="text-xs leading-relaxed text-slate-400">Lịch ôn dùng thuật toán SM-2 phiên bản đơn giản hóa. Đánh giá thẻ trung thực giúp lịch ôn hợp lý hơn; đây là công cụ hỗ trợ ghi nhớ, không phải cam kết tăng tốc độ học cố định.</p>
             </section>
 
-            <!-- ================= TAB 4: RESULTS & REVIEW ================= -->
-            <section id="tab-stats" class="hidden space-y-6">
-                
-                <!-- Empty State -->
-                <div id="no-stats-view" class="frieren-glass rounded-2xl p-12 text-center max-w-xl mx-auto space-y-4">
-                    <i class="fa-solid fa-chart-pie text-5xl text-slate-600"></i>
-                    <h3 class="text-xl font-bold text-white">No Quiz Results Yet</h3>
-                    <p class="text-slate-400 text-sm">Complete at least one quiz to see your results and detailed analysis here.</p>
-                    <button onclick="switchTab('tab-quiz')" class="bg-mana-600 hover:bg-mana-500 text-white text-sm font-semibold py-2 px-5 rounded-lg transition-all">
-                        Take a Quiz Now
-                    </button>
-                </div>
-
-                <!-- Active Stats View -->
-                <div id="stats-view" class="hidden space-y-6 max-w-4xl mx-auto">
-                    
-                    <!-- Summary Grid -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-mana-500">
-                            <p class="text-xs text-slate-400">Total Questions</p>
-                            <p id="stat-total-q" class="text-2xl font-bold text-white mt-1">0</p>
-                        </div>
-                        <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-emerald-500">
-                            <p class="text-xs text-slate-400">Correct Answers</p>
-                            <p id="stat-correct-q" class="text-2xl font-bold text-emerald-400 mt-1">0</p>
-                        </div>
-                        <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-elven-500">
-                            <p class="text-xs text-slate-400">Accuracy Rate</p>
-                            <p id="stat-accuracy" class="text-2xl font-bold text-elven-300 mt-1">0%</p>
-                        </div>
-                        <div class="frieren-glass p-4 rounded-xl text-center border-l-4 border-purple-500">
-                            <p class="text-xs text-slate-400">Average Time</p>
-                            <p id="stat-speed" class="text-2xl font-bold text-purple-300 mt-1">0s</p>
-                        </div>
-                    </div>
-
-                    <!-- Review Section with Filter Tabs -->
-                    <div class="frieren-glass rounded-2xl p-6 space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-magnifying-glass text-mana-400"></i>
-                                <span>Review Questions in Detail</span>
-                            </h3>
-
-                            <!-- Filters -->
-                            <div class="flex items-center space-x-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs">
-                                <button onclick="filterReviewList('all')" id="filter-all-btn" class="px-3 py-1 rounded-md bg-mana-600 text-white font-medium">All</button>
-                                <button onclick="filterReviewList('correct')" id="filter-correct-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Correct Only</button>
-                                <button onclick="filterReviewList('incorrect')" id="filter-incorrect-btn" class="px-3 py-1 rounded-md text-slate-400 hover:text-white">Incorrect Only</button>
-                            </div>
-                        </div>
-
-                        <!-- Review Item List -->
-                        <div id="review-items-container" class="space-y-3 max-h-[450px] overflow-y-auto pr-1">
-                            <!-- Items dynamically populated -->
-                        </div>
-
-                        <!-- Action Bar -->
-                        <div class="pt-2 flex justify-between items-center">
-                            <button onclick="practiceIncorrectWords()" id="practice-wrong-btn" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition-all flex items-center gap-1.5 shadow">
-                                <i class="fa-solid fa-rotate-right"></i>
-                                <span>Review Incorrect Words</span>
-                            </button>
-                            <button onclick="switchTab('tab-quiz')" class="bg-mana-600 hover:bg-mana-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition-all">
-                                Take a New Quiz
-                            </button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- ================= TAB 5: VOCABULARY HEATMAP ================= -->
-            <section id="tab-heatmap" class="hidden space-y-6">
-                <div class="frieren-glass rounded-2xl p-6 border border-mana-500/30">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <section id="anki-session-panel" class="hidden space-y-4">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+                    <div class="flex items-center justify-between gap-3 mb-3">
                         <div>
-                            <span class="text-xs font-semibold uppercase tracking-widest text-emerald-400">Consistency Tracker</span>
-                            <h2 class="font-fantasy text-2xl md:text-3xl font-bold text-white mt-1">Vocabulary Heatmap</h2>
-                            <p class="text-sm text-slate-400 mt-2">Each square represents one day. The brighter the color, the more vocabulary reviews completed that day.</p>
+                            <p class="text-xs text-slate-500 font-semibold">Tiến độ phiên học</p>
+                            <p class="text-sm font-extrabold text-slate-800"><span id="anki-session-position">1</span> / <span id="anki-session-total">1</span></p>
                         </div>
-                        <button onclick="exportHeatmapData()" class="bg-mana-600 hover:bg-mana-500 text-white text-sm font-semibold py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> Export Data
-                        </button>
+                        <button onclick="endAnkiSession()" class="text-xs font-bold text-slate-500 hover:text-rose-500 px-3 py-2 rounded-lg hover:bg-rose-50 transition-colors">Kết thúc phiên</button>
+                    </div>
+                    <div class="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
+                        <div id="anki-progress-bar" class="h-full rounded-full bg-gradient-to-r from-blue-600 to-teal-500 transition-all" style="width:0%"></div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-emerald-500">
-                        <p class="text-xs text-slate-400">Active Study Days</p>
-                        <p id="heatmap-active-days" class="text-3xl font-bold text-emerald-400 mt-1">0</p>
+                <div id="anki-active-card" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-7">
+                    <div class="flex items-center justify-between mb-4 gap-2">
+                        <span id="anki-card-kind" class="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-700 px-3 py-1.5 text-xs font-bold"><i class="fa-solid fa-layer-group"></i>Flashcard</span>
+                        <span class="text-xs text-slate-400">Chạm vào thẻ để lật</span>
                     </div>
-                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-mana-500">
-                        <p class="text-xs text-slate-400">Vocabulary Reviews</p>
-                        <p id="heatmap-total-reviews" class="text-3xl font-bold text-mana-400 mt-1">0</p>
-                    </div>
-                    <div class="frieren-glass rounded-xl p-5 border-l-4 border-elven-400">
-                        <p class="text-xs text-slate-400">Current Study Streak</p>
-                        <p id="heatmap-current-streak" class="text-3xl font-bold text-elven-300 mt-1">0 days</p>
-                    </div>
-                </div>
-
-                <div class="frieren-glass rounded-2xl p-5 md:p-6">
-                    <div class="flex items-center justify-between gap-3 mb-4">
-                        <h3 class="font-semibold text-white">Activity Over the Past 365 Days</h3>
-                        <span id="heatmap-year-label" class="text-xs text-slate-400"></span>
-                    </div>
-                    <div class="overflow-x-auto pb-2">
-                        <div id="vocab-heatmap-grid" class="grid gap-1 min-w-max" style="grid-template-rows: repeat(7, 13px); grid-auto-flow: column; grid-auto-columns: 13px;"></div>
-                    </div>
-                    <div class="flex flex-wrap items-center justify-between gap-3 mt-4 text-xs text-slate-400">
-                        <span>Less</span>
-                        <div class="flex items-center gap-1.5">
-                            <span class="heatmap-cell" style="background:#1e293b"></span>
-                            <span class="heatmap-cell" style="background:#14532d"></span>
-                            <span class="heatmap-cell" style="background:#15803d"></span>
-                            <span class="heatmap-cell" style="background:#22c55e"></span>
-                            <span class="heatmap-cell" style="background:#86efac"></span>
+                    <div id="anki-flashcard" class="anki-flashcard rounded-2xl border-2 border-slate-200 bg-slate-50 px-5 py-8 text-center transition-all" role="button" tabindex="0" aria-label="Lật thẻ từ vựng" onclick="flipAnkiCard()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();flipAnkiCard();}">
+                        <p id="anki-front-label" class="text-xs uppercase tracking-widest font-bold text-slate-400 mb-5">TỪ VỰNG</p>
+                        <p id="anki-front-text" class="text-2xl sm:text-4xl font-extrabold leading-snug text-slate-800 break-words">--</p>
+                        <div id="anki-back-panel" class="hidden mt-7 pt-6 border-t border-slate-200">
+                            <p id="anki-back-label" class="text-xs uppercase tracking-widest font-bold text-emerald-600 mb-3">ĐÁP ÁN</p>
+                            <p id="anki-back-text" class="text-lg sm:text-2xl font-semibold text-slate-700 leading-relaxed break-words">--</p>
                         </div>
-                        <span>More</span>
                     </div>
-                    <p class="text-xs text-slate-500 mt-4">Reviews are recorded automatically when you rate an SRS flashcard or answer a quiz question. Days with no activity remain dark.</p>
-                </div>
-
-                <div class="frieren-glass rounded-2xl p-5 md:p-6">
-                    <h3 class="font-semibold text-white mb-3">Selected Day Details</h3>
-                    <div id="heatmap-selected-day" class="text-sm text-slate-300">Click a square on the heatmap to view that day’s activity.</div>
+                    <button id="anki-show-answer-btn" onclick="flipAnkiCard()" class="w-full mt-4 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-sm transition-all"><i class="fa-solid fa-eye mr-2"></i>Hiện đáp án</button>
+                    <div id="anki-rating-panel" class="hidden mt-5">
+                        <p class="text-sm font-bold text-slate-700 text-center mb-3">Bạn nhớ từ này ở mức nào?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                            <button onclick="rateAnkiCard('again')" class="anki-grade-btn rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-3 transition-colors"><span class="block font-extrabold">Again</span><span class="block text-xs mt-1">1 phút</span></button>
+                            <button onclick="rateAnkiCard('hard')" class="anki-grade-btn rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-800 px-3 py-3 transition-colors"><span class="block font-extrabold">Hard</span><span id="anki-hard-interval" class="block text-xs mt-1">10 phút</span></button>
+                            <button onclick="rateAnkiCard('good')" class="anki-grade-btn rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-3 transition-colors"><span class="block font-extrabold">Good</span><span id="anki-good-interval" class="block text-xs mt-1">1 ngày</span></button>
+                            <button onclick="rateAnkiCard('easy')" class="anki-grade-btn rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-3 transition-colors"><span class="block font-extrabold">Easy</span><span id="anki-easy-interval" class="block text-xs mt-1">4 ngày</span></button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-        </main>
+            <section id="anki-done-panel" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-8 sm:p-12 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fa-solid fa-check-double"></i></div>
+                <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Hoàn thành phiên ôn tập!</h3>
+                <p id="anki-done-message" class="text-sm text-slate-500 mb-6">Tiến độ đã được lưu.</p>
+                <button onclick="returnToAnkiSetup()" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all"><i class="fa-solid fa-arrow-rotate-right mr-2"></i>Quay lại bảng ôn tập</button>
+            </section>
+        </div>
 
-        <!-- FOOTER -->
-        <footer class="frieren-glass border-t border-slate-800 py-4 px-6 text-center text-xs text-slate-500 mt-auto">
-            <p>VocabMaster • Frieren: Beyond Journey's End Interactive Theme • SuperMemo-2 SRS Algorithm</p>
-        </footer>
+        <!-- TAB 4: STATS & RESULTS -->
+        <div id="tab-stats" class="hidden max-w-4xl mx-auto space-y-6">
+            <div id="no-stats-view" class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm">
+                <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-1">Chưa có kết quả bài tập</h3>
+                <p class="text-slate-500 text-sm mb-6">Hãy hoàn thành ít nhất 1 bài kiểm tra để xem thống kê chi tiết.</p>
+                <button onclick="switchTab('quiz')" class="px-5 py-2.5 bg-blue-600 text-white font-bold text-sm rounded-xl hover:bg-blue-700 transition-all shadow-md">
+                    Luyện tập ngay
+                </button>
+            </div>
 
+            <div id="stats-view" class="hidden space-y-6">
+                <!-- Result Overview Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold">Tỷ lệ chính xác</p>
+                            <p id="stat-score-percent" class="text-2xl font-black text-slate-800">0%</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold">Số câu đúng</p>
+                            <p id="stat-correct-count" class="text-2xl font-black text-slate-800">0 / 0</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold">Số câu sai</p>
+                            <p id="stat-wrong-count" class="text-2xl font-black text-slate-800">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Questions Container -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 flex items-center text-base">
+                                <i class="fa-solid fa-list-check text-blue-600 mr-2"></i>Xem lại chi tiết bài làm
+                            </h3>
+                            <p class="text-xs text-slate-500">Đối chiếu chi tiết đáp án bạn gõ/chọn với kết quả chuẩn</p>
+                        </div>
+
+                        <!-- Filters -->
+                        <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-semibold self-start sm:self-auto">
+                            <button onclick="filterReview('all', this)" class="review-filter-btn px-3 py-1.5 rounded-lg bg-white text-blue-600 shadow-sm transition-all">
+                                Tất cả (<span id="count-filter-all">0</span>)
+                            </button>
+                            <button onclick="filterReview('correct', this)" class="review-filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+                                Đúng (<span id="count-filter-correct">0</span>)
+                            </button>
+                            <button onclick="filterReview('wrong', this)" class="review-filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+                                Sai (<span id="count-filter-wrong">0</span>)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Review Questions Scroll Container -->
+                    <div id="review-questions-container" class="space-y-3 custom-scrollbar max-h-[500px] overflow-y-auto pr-1">
+                        <!-- Questions review items -->
+                    </div>
+                </div>
+
+                <!-- Retest Wrong Words Section -->
+                <div id="wrong-summary-box" class="bg-amber-50/70 rounded-2xl p-5 border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Cần luyện tập lại các từ làm sai?</h4>
+                            <p class="text-xs text-slate-600">Tạo ngay bài kiểm tra mới chỉ bao gồm các từ chưa trả lời đúng.</p>
+                        </div>
+                    </div>
+                    <button id="retest-wrong-btn" onclick="startQuizWithWrongWords()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl transition-all shadow-md shrink-0 flex items-center">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i>Ôn lại các từ sai
+                    </button>
+                </div>
+
+                <!-- Action button -->
+                <div class="flex justify-center pt-2">
+                    <button onclick="switchTab('quiz')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-all">
+                        <i class="fa-solid fa-arrow-rotate-right mr-2"></i>Làm bài kiểm tra mới
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Global Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl transition-all transform translate-y-20 opacity-0 flex items-center space-x-3 z-50">
+        <i id="toast-icon" class="fa-solid fa-circle-info text-blue-400"></i>
+        <span id="toast-msg" class="text-sm font-medium">Thông báo</span>
     </div>
 
-    <!-- ================= JAVASCRIPT APP ENGINE ================= -->
+    <!-- Application JavaScript Code -->
     <script>
-        /* -------------------------------------------------------------
-           1. APP STATE MANAGEMENT & LOCAL STORAGE
-        ------------------------------------------------------------- */
-        let state = {
-            vocabList: [], // Array of { id, word, def, interval, repetition, efactor, dueDate }
-            soundEnabled: true,
-            userXP: 0,
-            selectedQuizCount: 'all',
-            currentQuiz: {
-                questions: [],
-                currentIndex: 0,
-                correctCount: 0,
-                wrongCount: 0,
-                answers: [], // Stores user choice results for detailed review
-                startTime: null
-            },
-            currentReviewFilter: 'all',
-            ankiQueue: [],
-            currentAnkiIndex: 0,
-            isAnkiRevealed: false
-        };
+        // --- APP STATE ---
+        let vocabList = [];
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizMode = 'def-word'; // 'def-word', 'word-def', 'mix', 'type-word'
+        let selectedQuestionCount = 10;
+        let lastQuizResults = null;
+        let activeReviewFilter = 'all';
+        let isAnswering = false;
+        let soundEnabled = true;
 
-        // 30 Sample Words - Frieren Theme
-        const SAMPLE_WORDS = [
-            { word: "Zoltraak", def: "Basic offensive magic (Ordinary Attack Magic)" },
-            { word: "Spell", def: "A spoken formula / magic spell" },
-            { word: "Grimoire", def: "An ancient book of spells" },
-            { word: "Mage", def: "Mage / sorcerer" },
-            { word: "Mana", def: "Magical energy" },
-            { word: "Staff", def: "Magic staff" },
-            { word: "Barrier", def: "Defensive barrier" },
-            { word: "Aura", def: "Aura / magical presence" },
-            { word: "Eternity", def: "Eternity" },
-            { word: "Journey", def: "Journey / trip" },
-            { word: "Companion", def: "Companion" },
-            { word: "Hero", def: "Hero" },
-            { word: "Demons", def: "Demons" },
-            { word: "Frenzy", def: "Frenzy / intense enthusiasm" },
-            { word: "Perception", def: "Perception / awareness" },
-            { word: "Suppression", def: "Suppression / concealing mana" },
-            { word: "Immortality", def: "Immortality" },
-            { word: "Reminiscence", def: "Reminiscence / memory" },
-            { word: "Resilience", def: "Resilience" },
-            { word: "Wisdom", def: "Knowledge / wisdom" },
-            { word: "Dungeon", def: "Dungeon / maze" },
-            { word: "Mimic", def: "A monster disguised as a treasure chest (mimic)" },
-            { word: "Nostalgia", def: "Nostalgia" },
-            { word: "Ephemerality", def: "Ephemerality / transience" },
-            { word: "Resolve", def: "Resolve / determination" },
-            { word: "Legacy", def: "Legacy" },
-            { word: "Serenity", def: "Serenity" },
-            { word: "Labyrinth", def: "Complex labyrinth" },
-            { word: "Enchantment", def: "Enchantment / bewitchment" },
-            { word: "Endurance", def: "Endurance" }
-        ];
+        // Anki-style spaced repetition state (stored locally in this browser).
+        let ankiProgress = {};
+        let ankiDailyCounts = {};
+        let ankiSessionQueue = [];
+        let ankiCurrentIndex = 0;
+        let ankiAnswerRevealed = false;
+        let ankiSessionReviewed = 0;
 
-        /* -------------------------------------------------------------
-           2. WEB AUDIO API SOUND SYNTHESIZER
-        ------------------------------------------------------------- */
-        const AudioEngine = {
-            ctx: null,
-            init() {
-                if (!this.ctx) {
-                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        // Web Audio API Context
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    audioCtx = new AudioContext();
                 }
-            },
-            playCorrect() {
-                if (!state.soundEnabled) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, now); // C5
-                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
-                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.25); // G5
-                
-                gain.gain.setValueAtTime(0.15, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.4);
-            },
-            playWrong() {
-                if (!state.soundEnabled) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(220, now); // A3
-                osc.frequency.exponentialRampToValueAtTime(140, now + 0.25);
-
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.3);
-            },
-            playFlip() {
-                if (!state.soundEnabled) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(400, now);
-                osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-
-                gain.gain.setValueAtTime(0.1, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.08);
             }
-        };
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
 
-        // Sound Toggle
-        document.getElementById('sound-toggle-btn').addEventListener('click', () => {
-            state.soundEnabled = !state.soundEnabled;
+        // Sound Synthesis (Pure JS Web Audio API - No external files)
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                if (type === 'correct') {
+                    // Happy two-tone chime (E5 -> A5)
+                    const now = ctx.currentTime;
+                    const osc1 = ctx.createOscillator();
+                    const gain1 = ctx.createGain();
+
+                    osc1.type = 'sine';
+                    osc1.frequency.setValueAtTime(659.25, now); // E5
+                    osc1.frequency.setValueAtTime(880.00, now + 0.1); // A5
+
+                    gain1.gain.setValueAtTime(0.15, now);
+                    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                    osc1.connect(gain1);
+                    gain1.connect(ctx.destination);
+
+                    osc1.start(now);
+                    osc1.stop(now + 0.35);
+
+                } else if (type === 'wrong') {
+                    // Low error buzzer tone (180Hz)
+                    const now = ctx.currentTime;
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                }
+            } catch (e) {
+                console.log('Audio playback error:', e);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
             const icon = document.getElementById('sound-icon');
             const text = document.getElementById('sound-text');
-            if (state.soundEnabled) {
-                icon.className = 'fa-solid fa-volume-high text-emerald-400';
-                text.textContent = 'Sound: On';
+            const btn = document.getElementById('sound-toggle-btn');
+
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high text-blue-600 sm:mr-1.5 text-sm";
+                text.textContent = "Âm thanh: Bật";
+                btn.classList.remove('bg-slate-200', 'text-slate-500');
+                showToast('Đã BẬT âm thanh hiệu ứng', 'info');
+                playSound('correct');
             } else {
-                icon.className = 'fa-solid fa-volume-xmark text-rose-400';
-                text.textContent = 'Sound: Off';
+                icon.className = "fa-solid fa-volume-xmark text-slate-400 sm:mr-1.5 text-sm";
+                text.textContent = "Âm thanh: Tắt";
+                btn.classList.add('bg-slate-200', 'text-slate-500');
+                showToast('Đã TẮT âm thanh', 'info');
             }
-        });
-
-        /* -------------------------------------------------------------
-           3. FRIEREN MANA CANVAS BACKGROUND ANIMATION
-        ------------------------------------------------------------- */
-        function initManaCanvas() {
-            const canvas = document.getElementById('mana-canvas');
-            const ctx = canvas.getContext('2d');
-
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resize();
-            window.addEventListener('resize', resize);
-
-            const particles = Array.from({ length: 45 }, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 3 + 1,
-                speedY: -(Math.random() * 0.6 + 0.2),
-                speedX: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.7 + 0.3,
-                color: Math.random() > 0.5 ? '#38bdf8' : '#34d399'
-            }));
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                particles.forEach(p => {
-                    p.y += p.speedY;
-                    p.x += p.speedX;
-
-                    if (p.y < -10) {
-                        p.y = canvas.height + 10;
-                        p.x = Math.random() * canvas.width;
-                    }
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.globalAlpha = p.opacity;
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = p.color;
-                    ctx.fill();
-                });
-
-                requestAnimationFrame(animate);
-            }
-            animate();
         }
 
-        /* -------------------------------------------------------------
-           4. TAB NAVIGATION SYSTEM
-        ------------------------------------------------------------- */
-        function switchTab(tabId) {
-            ['tab-input', 'tab-anki', 'tab-quiz', 'tab-stats', 'tab-heatmap'].forEach(id => {
-                const el = document.getElementById(id);
-                const btn = document.getElementById(`${id}-btn`);
-                if (id === tabId) {
-                    el.classList.remove('hidden');
-                    if (btn) {
-                        btn.className = 'px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 flex items-center gap-1.5 bg-mana-600 text-white shadow-md';
-                    }
-                } else {
-                    el.classList.add('hidden');
-                    if (btn) {
-                        btn.className = 'px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 text-slate-400 hover:text-mana-300 hover:bg-slate-800/60 flex items-center gap-1.5';
-                    }
+        // Sample Vocabulary Data (30 items)
+        const sampleVocabulary = [
+            { term: "Abandon", def: "Từ bỏ, ruồng bỏ, hủy bỏ" },
+            { term: "Accumulate", def: "Tích lũy, gom góp" },
+            { term: "Beneficial", def: "Có lợi, có ích" },
+            { term: "Candidate", def: "Ứng cử viên, người dự thi" },
+            { term: "Diligent", def: "Cần cù, siêng năng, chăm chỉ" },
+            { term: "Evaluate", def: "Đánh giá, định giá" },
+            { term: "Fluctuate", def: "Dao động, biến động liên tục" },
+            { term: "Guarantee", def: "Bảo hành, cam đoan, đảm bảo" },
+            { term: "Hesitate", def: "Ngập ngừng, do dự" },
+            { term: "Inevitable", def: "Không thể tránh khỏi, tất yếu" },
+            { term: "Justify", def: "Bào chữa, thanh minh, giải trình" },
+            { term: "Linger", def: "Níu kéo, đắn đo, nán lại" },
+            { term: "Mandatory", def: "Bắt buộc, cưỡng chế" },
+            { term: "Negotiate", def: "Đàm phán, thương lượng" },
+            { term: "Obstacle", def: "Chướng ngại vật, rào cản" },
+            { term: "Prominent", def: "Nổi bật, xuất sắc, quan trọng" },
+            { term: "Qualify", def: "Đủ điều kiện, tư cách" },
+            { term: "Reluctant", def: "Miễn cưỡng, không sẵn lòng" },
+            { term: "Substantial", def: "Đáng kể, quan trọng, lớn lao" },
+            { term: "Tremendous", def: "To lớn, ghê gớm, tuyệt vời" },
+            { term: "Ultimate", def: "Cuối cùng, sau cùng, tối thượng" },
+            { term: "Vague", def: "Mơ hồ, mập mờ, không rõ ràng" },
+            { term: "Withdraw", def: "Rút tiền, rút khỏi, thu hồi" },
+            { term: "Abundant", def: "Dồi dào, phong phú, nhiều" },
+            { term: "Comprehend", def: "Hiểu thấu, lĩnh hội" },
+            { term: "Detrimental", def: "Có hại, gây bất lợi" },
+            { term: "Enhance", def: "Nâng cao, tăng cường, cải thiện" },
+            { term: "Feasible", def: "Khả thi, có thể thực hiện" },
+            { term: "Grasp", def: "Nắm bắt, hiểu rõ" },
+            { term: "Hazardous", def: "Nguy hiểm, độc hại" }
+        ];
+
+        // --- INIT & TABS ---
+        window.onload = function() {
+            setupDragAndDrop();
+            initThemeToggle();
+            try {
+                ankiProgress = JSON.parse(localStorage.getItem('vocab_master_anki_progress') || '{}') || {};
+                ankiDailyCounts = JSON.parse(localStorage.getItem('vocab_master_anki_daily') || '{}') || {};
+            } catch (e) {
+                ankiProgress = {};
+                ankiDailyCounts = {};
+            }
+            const saved = localStorage.getItem('vocab_master_data');
+            if (saved) {
+                try {
+                    vocabList = JSON.parse(saved);
+                    renderVocabPreview();
+                } catch(e) {
+                    vocabList = [];
                 }
+            }
+            renderAnkiDashboard();
+        };
+
+        function initThemeToggle() {
+            const dark = document.documentElement.classList.contains('dark');
+            updateThemeToggle(dark);
+        }
+
+        function updateThemeToggle(isDark) {
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            const button = document.getElementById('theme-toggle-btn');
+            if (!icon || !text || !button) return;
+            icon.className = `${isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'} sm:mr-1.5 text-sm`;
+            text.textContent = isDark ? 'Giao diện: Tối' : 'Giao diện: Sáng';
+            button.title = isDark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối';
+            button.setAttribute('aria-label', button.title);
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            try { localStorage.setItem('vocab_master_theme', isDark ? 'dark' : 'light'); } catch (e) {}
+            updateThemeToggle(isDark);
+            showToast(isDark ? 'Đã bật giao diện tối' : 'Đã bật giao diện sáng', 'info');
+        }
+
+        function switchTab(tabName) {
+            ['input', 'quiz', 'anki', 'stats'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-${t}-btn`);
+                btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                btn.classList.add('text-slate-600');
             });
 
-            if (tabId === 'tab-anki') initAnkiSession();
-            if (tabId === 'tab-heatmap') renderVocabularyHeatmap();
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabName}-btn`);
+            activeBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            activeBtn.classList.remove('text-slate-600');
         }
 
-        /* -------------------------------------------------------------
-           5. MASCOT & XP PROGRESSION SYSTEM
-        ------------------------------------------------------------- */
-        function addXP(amount) {
-            state.userXP += amount;
-            document.getElementById('mascot-xp').textContent = state.userXP;
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const msg = document.getElementById('toast-msg');
 
-            const rankEl = document.getElementById('mascot-rank');
-            if (state.userXP >= 300) rankEl.textContent = '1st Class Mage';
-            else if (state.userXP >= 150) rankEl.textContent = '2nd Class Mage';
-            else if (state.userXP >= 50) rankEl.textContent = '3rd Class Mage';
-            else rankEl.textContent = 'Novice Mage';
-        }
-
-        function triggerMascotReaction(type) {
-            const avatar = document.getElementById('mascot-avatar');
-            if (type === 'correct') {
-                avatar.textContent = '(•̀ᴗ•́)o ✨';
-                setTimeout(() => avatar.textContent = '( -_ -) zzz', 2000);
-            } else if (type === 'wrong') {
-                avatar.textContent = '(⊙_⊙) 💥';
-                setTimeout(() => avatar.textContent = '( -_ -) zzz', 2000);
+            msg.textContent = message;
+            if (type === 'success') {
+                icon.className = 'fa-solid fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                icon.className = 'fa-solid fa-triangle-exclamation text-rose-400';
+            } else {
+                icon.className = 'fa-solid fa-circle-info text-blue-400';
             }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
         }
 
-        /* -------------------------------------------------------------
-           6. VOCABULARY INPUT & PROCESSING
-        ------------------------------------------------------------- */
-        function processRawText() {
-            const text = document.getElementById('raw-text-input').value.trim();
-            if (!text) return;
-
+        // --- PARSING DATA ---
+        function parseVocabText(text) {
             const lines = text.split('\n');
-            const newWords = [];
+            const results = [];
 
             lines.forEach(line => {
-                const trimmed = line.trim();
+                let trimmed = line.trim();
                 if (!trimmed) return;
 
-                // Split by -, :, =, or Tab
-                const parts = trimmed.split(/[-:=	]/);
-                if (parts.length >= 2) {
-                    const word = parts[0].trim();
-                    const def = parts.slice(1).join(' ').trim();
-                    if (word && def) {
-                        newWords.push(createVocabItem(word, def));
-                    }
+                trimmed = trimmed.replace(/^\d+[\.\)\/]\s*/, '');
+                let term = '', def = '';
+
+                if (trimmed.includes('\t')) {
+                    const parts = trimmed.split('\t');
+                    term = parts[0];
+                    def = parts.slice(1).join(' ');
+                } else if (trimmed.includes(' - ')) {
+                    const parts = trimmed.split(' - ');
+                    term = parts[0];
+                    def = parts.slice(1).join(' - ');
+                } else if (trimmed.includes(' : ')) {
+                    const parts = trimmed.split(' : ');
+                    term = parts[0];
+                    def = parts.slice(1).join(' : ');
+                } else if (trimmed.includes(' = ')) {
+                    const parts = trimmed.split(' = ');
+                    term = parts[0];
+                    def = parts.slice(1).join(' = ');
+                } else if (trimmed.includes('-')) {
+                    const parts = trimmed.split('-');
+                    term = parts[0];
+                    def = parts.slice(1).join('-');
+                } else if (trimmed.includes(':')) {
+                    const parts = trimmed.split(':');
+                    term = parts[0];
+                    def = parts.slice(1).join(':');
+                } else if (trimmed.includes(',')) {
+                    const parts = trimmed.split(',');
+                    term = parts[0];
+                    def = parts.slice(1).join(',');
+                }
+
+                if (term && def) {
+                    results.push({
+                        term: term.trim(),
+                        def: def.trim()
+                    });
                 }
             });
 
-            if (newWords.length > 0) {
-                state.vocabList = [...state.vocabList, ...newWords];
-                saveToLocalStorage();
-                renderVocabPreview();
-                document.getElementById('raw-text-input').value = '';
-            }
+            return results;
         }
 
-        function createVocabItem(word, def) {
-            return {
-                id: 'v_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-                word,
-                def,
-                interval: 0,
-                repetition: 0,
-                efactor: 2.5,
-                dueDate: Date.now()
-            };
+        function processInputText() {
+            const text = document.getElementById('raw-text-input').value;
+            if (!text.trim()) {
+                showToast('Vui lòng dán hoặc nhập từ vựng!', 'error');
+                return;
+            }
+
+            let newWords = [];
+            if (text.trim().startsWith('[') || text.trim().startsWith('{')) {
+                try {
+                    const parsed = JSON.parse(text);
+                    if (Array.isArray(parsed)) {
+                        newWords = parsed.map(item => ({
+                            term: item.term || item.word || item.key || '',
+                            def: item.def || item.definition || item.meaning || item.val || ''
+                        })).filter(x => x.term && x.def);
+                    }
+                } catch(e) {
+                    newWords = parseVocabText(text);
+                }
+            } else {
+                newWords = parseVocabText(text);
+            }
+
+            if (newWords.length === 0) {
+                showToast('Không nhận diện được từ vựng nào! Kiểm tra lại dấu phân cách.', 'error');
+                return;
+            }
+
+            vocabList = [...vocabList, ...newWords];
+            const uniqueMap = new Map();
+            vocabList.forEach(item => uniqueMap.set(item.term.toLowerCase(), item));
+            vocabList = Array.from(uniqueMap.values());
+
+            saveAndUpdateVocabUI();
+            showToast(`Cập nhật thành công từ vựng!`, 'success');
+            document.getElementById('raw-text-input').value = '';
         }
 
         function loadSampleData() {
-            state.vocabList = SAMPLE_WORDS.map(item => createVocabItem(item.word, item.def));
-            saveToLocalStorage();
+            vocabList = [...sampleVocabulary];
+            saveAndUpdateVocabUI();
+            showToast('Đã nạp thành công 30 từ vựng mẫu!', 'success');
+        }
+
+        function clearVocabList() {
+            if (confirm('Xác nhận xóa toàn bộ danh sách từ vựng?')) {
+                vocabList = [];
+                saveAndUpdateVocabUI();
+                showToast('Đã xóa danh sách từ vựng.', 'info');
+            }
+        }
+
+        function removeVocabItem(index) {
+            vocabList.splice(index, 1);
+            saveAndUpdateVocabUI();
+        }
+
+        function saveAndUpdateVocabUI() {
+            localStorage.setItem('vocab_master_data', JSON.stringify(vocabList));
             renderVocabPreview();
+            renderAnkiDashboard();
         }
 
         function renderVocabPreview() {
             const container = document.getElementById('vocab-preview-list');
-            const countEl = document.getElementById('vocab-count');
-            countEl.textContent = `${state.vocabList.length} words`;
+            const countElem = document.getElementById('vocab-count');
+            const startBtn = document.getElementById('start-quiz-from-input');
 
-            if (state.vocabList.length === 0) {
+            countElem.textContent = vocabList.length;
+            startBtn.disabled = vocabList.length < 4;
+
+            if (vocabList.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center text-slate-500 py-12 text-sm">
-                        <i class="fa-solid fa-scroll text-3xl mb-2 text-slate-600"></i>
-                        <p>No vocabulary has been loaded yet.</p>
-                        <p class="text-xs mt-1">Paste text or click "Load 30 Sample Words".</p>
+                    <div class="text-center py-12 text-slate-400 text-sm">
+                        <i class="fa-solid fa-book-open text-3xl mb-2 text-slate-300"></i>
+                        <p>Chưa có từ vựng nào.</p>
+                        <p class="text-xs mt-1">Dán văn bản hoặc tải file lên.</p>
                     </div>`;
                 return;
             }
 
-            container.innerHTML = state.vocabList.map((item, index) => `
-                <div class="frieren-glass p-2.5 rounded-lg border border-slate-800 flex items-center justify-between hover:border-mana-500/40 transition-all text-xs">
-                    <div class="truncate max-w-[80%]">
-                        <span class="font-bold text-mana-300">${escapeHtml(item.word)}</span>
+            container.innerHTML = vocabList.map((item, idx) => `
+                <div class="flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100/80 rounded-xl border border-slate-200/60 text-xs transition-colors group">
+                    <div class="truncate mr-2">
+                        <span class="font-bold text-slate-800">${escapeHtml(item.term)}</span>
                         <span class="text-slate-400 mx-1">-</span>
-                        <span class="text-slate-300">${escapeHtml(item.def)}</span>
+                        <span class="text-slate-600">${escapeHtml(item.def)}</span>
                     </div>
-                    <button onclick="removeVocabItem('${item.id}')" class="text-slate-500 hover:text-rose-400 p-1">
+                    <button onclick="removeVocabItem(${idx})" class="text-slate-300 hover:text-rose-500 p-1 transition-colors opacity-0 group-hover:opacity-100">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             `).join('');
         }
 
-        function removeVocabItem(id) {
-            state.vocabList = state.vocabList.filter(item => item.id !== id);
-            saveToLocalStorage();
-            renderVocabPreview();
+        function setupDragAndDrop() {
+            const zone = document.getElementById('drop-zone');
+            ['dragenter', 'dragover'].forEach(eventName => {
+                zone.addEventListener(eventName, (e) => { e.preventDefault(); zone.classList.add('border-blue-500', 'bg-blue-50/50'); }, false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                zone.addEventListener(eventName, (e) => { e.preventDefault(); zone.classList.remove('border-blue-500', 'bg-blue-50/50'); }, false);
+            });
+            zone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                if (dt.files.length) handleFile(dt.files[0]);
+            });
+            zone.addEventListener('click', () => {
+                document.getElementById('file-input').click();
+            });
         }
 
-        function clearAllVocab() {
-            if (confirm('Are you sure you want to delete all vocabulary?')) {
-                state.vocabList = [];
-                saveToLocalStorage();
-                renderVocabPreview();
-            }
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) handleFile(file);
         }
 
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
+        function handleFile(file) {
             const reader = new FileReader();
-            reader.onload = function(evt) {
-                const content = evt.target.result;
-                if (file.name.endsWith('.json')) {
-                    try {
-                        const parsed = JSON.parse(content);
-                        if (Array.isArray(parsed)) {
-                            state.vocabList = parsed.map(item => createVocabItem(item.word || item.term, item.def || item.definition));
-                            saveToLocalStorage();
-                            renderVocabPreview();
-                        }
-                    } catch (err) {
-                        alert('Invalid JSON file format!');
-                    }
-                } else {
-                    document.getElementById('raw-text-input').value = content;
-                    processRawText();
-                }
+            reader.onload = function(e) {
+                document.getElementById('raw-text-input').value = e.target.result;
+                processInputText();
             };
             reader.readAsText(file);
         }
 
-        function startAnkiFromInput() {
-            if (state.vocabList.length === 0) return alert('Please add vocabulary first!');
-            switchTab('tab-anki');
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        function startQuizFromInput() {
-            if (state.vocabList.length === 0) return alert('Please add vocabulary first!');
-            switchTab('tab-quiz');
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
-        /* -------------------------------------------------------------
-           7. ANKI SRS SUPERMEMO-2 ENGINE
-        ------------------------------------------------------------- */
-        function initAnkiSession() {
-            state.ankiQueue = [...state.vocabList];
-            state.currentAnkiIndex = 0;
-            state.isAnkiRevealed = false;
-            updateAnkiStats();
-            renderAnkiCard();
+        // --- ANKI / SPACED REPETITION LOGIC ---
+        function localDateKey(timestamp = Date.now()) {
+            const d = new Date(timestamp);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
         }
 
-        function updateAnkiStats() {
+        function ankiKey(term) {
+            return String(term || '').trim().toLocaleLowerCase();
+        }
+
+        function getAnkiRecord(term) {
+            const key = ankiKey(term);
+            if (!ankiProgress[key]) {
+                ankiProgress[key] = {
+                    repetitions: 0,
+                    intervalDays: 0,
+                    easeFactor: 2.5,
+                    dueAt: null,
+                    lastReviewedAt: null,
+                    reviewCount: 0,
+                    lapses: 0,
+                    lastGrade: null
+                };
+            }
+            return ankiProgress[key];
+        }
+
+        function saveAnkiProgress() {
+            try {
+                localStorage.setItem('vocab_master_anki_progress', JSON.stringify(ankiProgress));
+                localStorage.setItem('vocab_master_anki_daily', JSON.stringify(ankiDailyCounts));
+            } catch (e) {
+                showToast('Không thể lưu tiến độ. Hãy kiểm tra dung lượng bộ nhớ trình duyệt.', 'error');
+            }
+        }
+
+        function renderAnkiDashboard() {
             const now = Date.now();
-            const due = state.vocabList.filter(v => v.dueDate <= now).length;
-            const learning = state.vocabList.filter(v => v.repetition > 0 && v.repetition < 4).length;
-            const mastered = state.vocabList.filter(v => v.repetition >= 4).length;
+            const today = localDateKey(now);
+            const records = vocabList.map(item => ({ item, record: ankiProgress[ankiKey(item.term)] || null }));
+            const newCount = records.filter(x => !x.record || !x.record.lastReviewedAt).length;
+            const dueCount = records.filter(x => x.record && x.record.lastReviewedAt && Number(x.record.dueAt || 0) <= now).length;
+            const learnedCount = records.filter(x => x.record && x.record.lastReviewedAt && Number(x.record.dueAt || 0) > now).length;
 
-            document.getElementById('srs-due-count').textContent = due;
-            document.getElementById('srs-learning-count').textContent = learning;
-            document.getElementById('srs-mastered-count').textContent = mastered;
+            const ids = {
+                'anki-new-count': newCount,
+                'anki-due-count': dueCount,
+                'anki-learned-count': learnedCount,
+                'anki-today-count': Number(ankiDailyCounts[today] || 0)
+            };
+            Object.entries(ids).forEach(([id, value]) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            });
+
+            const message = document.getElementById('anki-schedule-message');
+            if (message) {
+                if (vocabList.length === 0) {
+                    message.textContent = 'Danh sách đang trống. Hãy thêm từ ở mục Nguồn từ trước khi học Anki.';
+                } else if (dueCount === 0 && newCount === 0) {
+                    message.textContent = 'Bạn đã hoàn thành các thẻ hiện có. Hãy quay lại khi đến lịch ôn tiếp theo hoặc thêm từ mới.';
+                } else {
+                    message.textContent = `Hiện có ${dueCount} thẻ đến hạn và ${newCount} từ mới. Thẻ đến hạn được ưu tiên trước; giới hạn từ mới áp dụng cho mỗi phiên.`;
+                }
+            }
+        }
+
+        function startAnkiSession() {
+            if (!vocabList.length) {
+                showToast('Hãy thêm danh sách từ vựng trước khi học Anki.', 'error');
+                switchTab('input');
+                return;
+            }
+
+            const now = Date.now();
+            const newLimit = Number(document.getElementById('anki-new-limit').value || 20);
+            const dueCards = [];
+            const newCards = [];
+
+            vocabList.forEach(item => {
+                const record = ankiProgress[ankiKey(item.term)];
+                if (!record || !record.lastReviewedAt) {
+                    newCards.push(item);
+                } else if (Number(record.dueAt || 0) <= now) {
+                    dueCards.push(item);
+                }
+            });
+
+            dueCards.sort((a, b) => Number((ankiProgress[ankiKey(a.term)] || {}).dueAt || 0) - Number((ankiProgress[ankiKey(b.term)] || {}).dueAt || 0));
+            const selectedNew = shuffle(newCards).slice(0, newLimit);
+            ankiSessionQueue = [...dueCards, ...selectedNew];
+            ankiCurrentIndex = 0;
+            ankiAnswerRevealed = false;
+            ankiSessionReviewed = 0;
+
+            if (!ankiSessionQueue.length) {
+                renderAnkiDashboard();
+                showToast('Chưa có thẻ đến hạn. Hãy quay lại khi lịch ôn tới hạn.', 'info');
+                return;
+            }
+
+            document.getElementById('anki-setup-panel').classList.add('hidden');
+            document.getElementById('anki-done-panel').classList.add('hidden');
+            document.getElementById('anki-session-panel').classList.remove('hidden');
+            renderAnkiCard();
         }
 
         function renderAnkiCard() {
-            const cardBox = document.getElementById('anki-card-container');
-            const emptyMsg = document.getElementById('anki-empty-msg');
-
-            if (state.ankiQueue.length === 0 || state.currentAnkiIndex >= state.ankiQueue.length) {
-                cardBox.classList.add('hidden');
-                emptyMsg.classList.remove('hidden');
+            const item = ankiSessionQueue[ankiCurrentIndex];
+            if (!item) {
+                finishAnkiSession();
                 return;
             }
 
-            cardBox.classList.remove('hidden');
-            emptyMsg.classList.add('hidden');
-
-            const current = state.ankiQueue[state.currentAnkiIndex];
-            document.getElementById('anki-front-text').querySelector('h2').textContent = current.word;
-            document.getElementById('anki-back-text').textContent = current.def;
-
-            document.getElementById('anki-back-container').classList.add('hidden');
-            document.getElementById('anki-reveal-btn-box').classList.remove('hidden');
-            document.getElementById('anki-rating-btn-box').classList.add('hidden');
-            state.isAnkiRevealed = false;
+            ankiAnswerRevealed = false;
+            const direction = document.getElementById('anki-direction').value;
+            const frontIsTerm = direction === 'term-def';
+            document.getElementById('anki-front-label').textContent = frontIsTerm ? 'TỪ TIẾNG ANH' : 'NGHĨA';
+            document.getElementById('anki-front-text').textContent = frontIsTerm ? item.term : item.def;
+            document.getElementById('anki-back-label').textContent = frontIsTerm ? 'NGHĨA' : 'TỪ TIẾNG ANH';
+            document.getElementById('anki-back-text').textContent = frontIsTerm ? item.def : item.term;
+            document.getElementById('anki-back-panel').classList.add('hidden');
+            document.getElementById('anki-show-answer-btn').classList.remove('hidden');
+            document.getElementById('anki-rating-panel').classList.add('hidden');
+            document.getElementById('anki-session-position').textContent = ankiCurrentIndex + 1;
+            document.getElementById('anki-session-total').textContent = ankiSessionQueue.length;
+            document.getElementById('anki-progress-bar').style.width = `${(ankiCurrentIndex / ankiSessionQueue.length) * 100}%`;
+            document.getElementById('anki-hard-interval').textContent = intervalLabel('hard', item);
+            document.getElementById('anki-good-interval').textContent = intervalLabel('good', item);
+            document.getElementById('anki-easy-interval').textContent = intervalLabel('easy', item);
+            const card = document.getElementById('anki-flashcard');
+            card.classList.remove('border-emerald-400');
+            card.classList.add('border-slate-200');
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function revealAnkiCard() {
-            if (state.isAnkiRevealed) return;
-            AudioEngine.playFlip();
-            state.isAnkiRevealed = true;
-            document.getElementById('anki-back-container').classList.remove('hidden');
-            document.getElementById('anki-reveal-btn-box').classList.add('hidden');
-            document.getElementById('anki-rating-btn-box').classList.remove('hidden');
+        function flipAnkiCard() {
+            if (ankiAnswerRevealed || !ankiSessionQueue[ankiCurrentIndex]) return;
+            ankiAnswerRevealed = true;
+            document.getElementById('anki-back-panel').classList.remove('hidden');
+            document.getElementById('anki-show-answer-btn').classList.add('hidden');
+            document.getElementById('anki-rating-panel').classList.remove('hidden');
         }
 
-        // SuperMemo-2 Rating Logic
-        function rateAnkiCard(quality) {
-            const item = state.ankiQueue[state.currentAnkiIndex];
+        function intervalLabel(grade, item) {
+            const record = ankiProgress[ankiKey(item.term)] || { repetitions: 0, intervalDays: 0, easeFactor: 2.5 };
+            if (grade === 'again') return '1 phút';
+            if (grade === 'hard') {
+                if (!record.repetitions || !record.intervalDays) return '10 phút';
+                return formatInterval(Math.max(1, record.intervalDays * 1.2));
+            }
+            if (grade === 'good') {
+                if (!record.repetitions || !record.intervalDays) return '1 ngày';
+                return formatInterval(Math.max(1, record.intervalDays * record.easeFactor));
+            }
+            if (!record.repetitions || !record.intervalDays) return '4 ngày';
+            return formatInterval(Math.max(4, record.intervalDays * record.easeFactor * 1.3));
+        }
+
+        function formatInterval(days) {
+            if (days < 1) return `${Math.max(1, Math.round(days * 24 * 60))} phút`;
+            if (days < 2) return `${Math.round(days * 24)} giờ`;
+            return `${Math.round(days)} ngày`;
+        }
+
+        function rateAnkiCard(grade) {
+            if (!ankiAnswerRevealed) {
+                showToast('Hãy hiện đáp án trước khi đánh giá thẻ.', 'error');
+                return;
+            }
+            const item = ankiSessionQueue[ankiCurrentIndex];
             if (!item) return;
 
-            recordVocabularyActivity(1);
+            const now = Date.now();
+            const record = getAnkiRecord(item.term);
+            const previousInterval = Number(record.intervalDays || 0);
+            const previousRepetitions = Number(record.repetitions || 0);
+            const ease = Number(record.easeFactor || 2.5);
 
-            // SM-2 Calculation
-            if (quality >= 3) {
-                if (item.repetition === 0) item.interval = 1;
-                else if (item.repetition === 1) item.interval = 6;
-                else item.interval = Math.round(item.interval * item.efactor);
-                item.repetition += 1;
-                addXP(10);
-            } else {
-                item.repetition = 0;
-                item.interval = 1;
+            if (grade === 'again') {
+                record.repetitions = 0;
+                record.intervalDays = 0;
+                record.easeFactor = Math.max(1.3, ease - 0.2);
+                record.lapses = Number(record.lapses || 0) + 1;
+                record.dueAt = now + 60 * 1000;
+            } else if (grade === 'hard') {
+                record.easeFactor = Math.max(1.3, ease - 0.15);
+                if (previousRepetitions === 0 || previousInterval === 0) {
+                    record.dueAt = now + 10 * 60 * 1000;
+                    record.intervalDays = 0;
+                } else {
+                    record.intervalDays = Math.max(1, previousInterval * 1.2);
+                    record.dueAt = now + record.intervalDays * 24 * 60 * 60 * 1000;
+                }
+                record.repetitions = previousRepetitions + 1;
+            } else if (grade === 'good') {
+                record.intervalDays = (!previousRepetitions || !previousInterval)
+                    ? 1
+                    : Math.max(1, previousInterval * ease);
+                record.dueAt = now + record.intervalDays * 24 * 60 * 60 * 1000;
+                record.repetitions = previousRepetitions + 1;
+            } else if (grade === 'easy') {
+                record.easeFactor = ease + 0.15;
+                record.intervalDays = (!previousRepetitions || !previousInterval)
+                    ? 4
+                    : Math.max(4, previousInterval * record.easeFactor * 1.3);
+                record.dueAt = now + record.intervalDays * 24 * 60 * 60 * 1000;
+                record.repetitions = previousRepetitions + 1;
             }
 
-            item.efactor = item.efactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-            if (item.efactor < 1.3) item.efactor = 1.3;
+            record.lastReviewedAt = now;
+            record.reviewCount = Number(record.reviewCount || 0) + 1;
+            record.lastGrade = grade;
+            ankiDailyCounts[localDateKey(now)] = Number(ankiDailyCounts[localDateKey(now)] || 0) + 1;
+            saveAnkiProgress();
+            ankiSessionReviewed++;
+            ankiCurrentIndex++;
 
-            item.dueDate = Date.now() + item.interval * 24 * 60 * 60 * 1000;
-
-            saveToLocalStorage();
-            state.currentAnkiIndex++;
-            updateAnkiStats();
-            renderAnkiCard();
+            if (ankiCurrentIndex < ankiSessionQueue.length) {
+                renderAnkiCard();
+            } else {
+                finishAnkiSession();
+            }
         }
 
-        /* -------------------------------------------------------------
-           8. QUIZ ENGINE (4 MODES + INSTANT ADVANCE)
-        ------------------------------------------------------------- */
-        function setQuizCount(count) {
-            state.selectedQuizCount = count;
-            document.querySelectorAll('.q-count-btn').forEach(btn => {
-                btn.className = 'q-count-btn flex-1 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-semibold hover:border-mana-400 transition-all';
+        function finishAnkiSession() {
+            document.getElementById('anki-session-panel').classList.add('hidden');
+            document.getElementById('anki-done-panel').classList.remove('hidden');
+            document.getElementById('anki-done-message').textContent = `Bạn đã đánh giá ${ankiSessionReviewed} thẻ. Lịch ôn tiếp theo đã được lưu tự động.`;
+            document.getElementById('anki-progress-bar').style.width = '100%';
+            renderAnkiDashboard();
+        }
+
+        function endAnkiSession() {
+            document.getElementById('anki-session-panel').classList.add('hidden');
+            document.getElementById('anki-setup-panel').classList.remove('hidden');
+            renderAnkiDashboard();
+        }
+
+        function returnToAnkiSetup() {
+            document.getElementById('anki-done-panel').classList.add('hidden');
+            document.getElementById('anki-setup-panel').classList.remove('hidden');
+            renderAnkiDashboard();
+        }
+
+        function resetAnkiProgress() {
+            if (!confirm('Bạn có chắc muốn xóa toàn bộ lịch ôn Anki? Danh sách từ vựng sẽ được giữ nguyên.')) return;
+            ankiProgress = {};
+            ankiDailyCounts = {};
+            ankiSessionQueue = [];
+            ankiCurrentIndex = 0;
+            saveAnkiProgress();
+            document.getElementById('anki-session-panel').classList.add('hidden');
+            document.getElementById('anki-done-panel').classList.add('hidden');
+            document.getElementById('anki-setup-panel').classList.remove('hidden');
+            renderAnkiDashboard();
+            showToast('Đã đặt lại lịch ôn Anki.', 'success');
+        }
+
+        // --- QUIZ LOGIC ---
+        function prepareAndStartQuiz() {
+            switchTab('quiz');
+        }
+
+        function selectMode(mode, element) {
+            quizMode = mode;
+            document.querySelectorAll('.mode-option').forEach(el => {
+                el.classList.remove('border-blue-600', 'bg-blue-50/50');
+                el.classList.add('border-slate-200');
             });
-            event.target.className = 'q-count-btn flex-1 py-2 rounded-lg bg-mana-600 border border-mana-400 text-xs font-semibold text-white shadow';
+            element.classList.remove('border-slate-200');
+            element.classList.add('border-blue-600', 'bg-blue-50/50');
         }
 
-        function startQuiz() {
-            if (state.vocabList.length < 2) {
-                alert('At least 2 vocabulary items are required to start a quiz!');
+        function setQuestionCount(count, element) {
+            selectedQuestionCount = count;
+            document.querySelectorAll('.q-count-btn').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-600');
+                btn.classList.add('border-slate-200', 'text-slate-600');
+            });
+            element.classList.remove('border-slate-200', 'text-slate-600');
+            element.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-600');
+        }
+
+        function startQuiz(customVocabList = null) {
+            const sourceList = customVocabList || vocabList;
+
+            if (sourceList.length < 4) {
+                showToast('Danh sách từ vựng cần có ít nhất 4 từ!', 'error');
                 return;
             }
 
-            const mode = document.querySelector('input[name="quiz-mode"]:checked').value;
-            let pool = [...state.vocabList].sort(() => Math.random() - 0.5);
+            // Initialize Audio Context on user click
+            getAudioContext();
 
-            if (state.selectedQuizCount !== 'all') {
-                pool = pool.slice(0, parseInt(state.selectedQuizCount));
-            }
+            let total = selectedQuestionCount === 'all' ? sourceList.length : parseInt(selectedQuestionCount);
+            total = Math.min(total, sourceList.length);
 
-            state.currentQuiz = {
-                questions: pool.map(item => createQuestion(item, mode)),
-                currentIndex: 0,
-                correctCount: 0,
-                wrongCount: 0,
-                answers: [],
-                startTime: Date.now()
-            };
+            const shuffledPool = shuffle(sourceList).slice(0, total);
+
+            currentQuizQuestions = shuffledPool.map(item => {
+                if (quizMode === 'type-word') {
+                    return {
+                        originalTerm: item.term,
+                        originalDef: item.def,
+                        type: 'type-word',
+                        prompt: item.def,
+                        correctAnswer: item.term
+                    };
+                }
+
+                let isDefToWord = true;
+                if (quizMode === 'word-def') isDefToWord = false;
+                else if (quizMode === 'mix') isDefToWord = Math.random() < 0.5;
+
+                const prompt = isDefToWord ? item.def : item.term;
+                const correctAnswer = isDefToWord ? item.term : item.def;
+
+                const otherItems = sourceList.filter(v => v.term !== item.term);
+                const shuffledOthers = shuffle(otherItems).slice(0, 3);
+                const distractors = shuffledOthers.map(v => isDefToWord ? v.term : v.def);
+
+                const options = shuffle([correctAnswer, ...distractors]);
+
+                return {
+                    originalTerm: item.term,
+                    originalDef: item.def,
+                    type: isDefToWord ? 'def-to-word' : 'word-to-def',
+                    prompt: prompt,
+                    correctAnswer: correctAnswer,
+                    options: options
+                };
+            });
+
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            isAnswering = false;
 
             document.getElementById('quiz-setup-panel').classList.add('hidden');
             document.getElementById('active-quiz-panel').classList.remove('hidden');
-            renderQuestion();
+
+            renderCurrentQuestion();
         }
 
-        function createQuestion(item, mode) {
-            let type = mode;
-            if (mode === 'mix') {
-                type = Math.random() > 0.5 ? 'def-word' : 'word-def';
-            }
+        function renderCurrentQuestion() {
+            isAnswering = false;
+            const q = currentQuizQuestions[currentQuestionIndex];
+            const total = currentQuizQuestions.length;
 
-            if (type === 'fillin') {
-                return {
-                    item,
-                    type: 'fillin',
-                    prompt: item.def,
-                    correctAnswer: item.word
-                };
-            }
+            document.getElementById('current-q-num').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-q-num').textContent = total;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex) / total) * 100}%`;
 
-            // Create ABCD options
-            const isDefWord = type === 'def-word';
-            const prompt = isDefWord ? item.def : item.word;
-            const correctAnswer = isDefWord ? item.word : item.def;
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const wrongCount = userAnswers.filter(a => !a.isCorrect).length;
+            document.getElementById('score-correct').textContent = correctCount;
+            document.getElementById('score-wrong').textContent = wrongCount;
 
-            const wrongOptions = state.vocabList
-                .filter(v => v.id !== item.id)
-                .map(v => isDefWord ? v.word : v.def)
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 3);
-
-            const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
-
-            return {
-                item,
-                type,
-                prompt,
-                correctAnswer,
-                options
-            };
-        }
-
-        function renderQuestion() {
-            const quiz = state.currentQuiz;
-            const q = quiz.questions[quiz.currentIndex];
-
-            document.getElementById('current-q-num').textContent = quiz.currentIndex + 1;
-            document.getElementById('total-q-num').textContent = quiz.questions.length;
-            document.getElementById('score-correct').textContent = quiz.correctCount;
-            document.getElementById('score-wrong').textContent = quiz.wrongCount;
-
-            const progressPct = ((quiz.currentIndex) / quiz.questions.length) * 100;
-            document.getElementById('quiz-progress-bar').style.width = `${progressPct}%`;
+            const badge = document.getElementById('question-type-badge');
+            const optionsContainer = document.getElementById('options-container');
+            const fillinContainer = document.getElementById('fillin-container');
 
             document.getElementById('question-text').textContent = q.prompt;
             document.getElementById('auto-advance-indicator').classList.add('hidden');
 
-            const optionsBox = document.getElementById('options-container');
-            const fillinBox = document.getElementById('fillin-container');
+            if (q.type === 'type-word') {
+                // Fill-in-the-blank UI Setup
+                badge.textContent = "Điền từ: Gõ từ Tiếng Anh tương ứng";
+                badge.className = "inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold rounded-full mb-4";
 
-            if (q.type === 'fillin') {
-                optionsBox.classList.add('hidden');
-                fillinBox.classList.remove('hidden');
+                optionsContainer.classList.add('hidden');
+                fillinContainer.classList.remove('hidden');
+
                 const input = document.getElementById('type-answer-input');
+                const submitBtn = document.getElementById('type-submit-btn');
+                const statusIcon = document.getElementById('type-status-icon');
+                const revealBox = document.getElementById('type-correct-reveal');
+
                 input.value = '';
                 input.disabled = false;
-                document.getElementById('type-submit-btn').disabled = false;
-                document.getElementById('type-correct-reveal').classList.add('hidden');
-                document.getElementById('question-type-badge').textContent = 'Type the Word';
-                setTimeout(() => input.focus(), 100);
+                input.className = "w-full p-4 pr-12 text-lg font-bold text-slate-800 bg-slate-50 rounded-xl border-2 border-slate-200 focus:outline-none focus:border-blue-500 focus:bg-white transition-all";
+                
+                submitBtn.disabled = false;
+                submitBtn.className = "w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-all flex items-center justify-center";
+
+                statusIcon.classList.add('hidden');
+                revealBox.classList.add('hidden');
+
+                setTimeout(() => { input.focus(); }, 100);
+
             } else {
-                fillinBox.classList.add('hidden');
-                optionsBox.classList.remove('hidden');
-                document.getElementById('question-type-badge').textContent = q.type === 'def-word' ? 'Definition ➔ Word' : 'Word ➔ Definition';
+                // Multiple Choice ABCD UI Setup
+                if (q.type === 'def-to-word') {
+                    badge.textContent = "Trắc nghiệm: Cho Def ➔ Chọn Word";
+                    badge.className = "inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-4";
+                } else {
+                    badge.textContent = "Trắc nghiệm: Cho Word ➔ Chọn Def";
+                    badge.className = "inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full mb-4";
+                }
 
-                optionsBox.innerHTML = q.options.map((opt, i) => `
-                    <button onclick="handleOptionClick(this, '${escapeHtml(opt)}')" class="quiz-option-btn w-full p-4 rounded-xl frieren-glass border border-slate-700 hover:border-mana-400 text-left font-medium text-slate-200 transition-all flex items-center justify-between">
-                        <span>${escapeHtml(opt)}</span>
-                        <span class="text-xs text-slate-500 font-mono">${['A', 'B', 'C', 'D'][i]}</span>
-                    </button>
-                `).join('');
-            }
-        }
+                fillinContainer.classList.add('hidden');
+                optionsContainer.classList.remove('hidden');
+                optionsContainer.innerHTML = '';
 
-        function handleOptionClick(btnEl, selectedOption) {
-            const quiz = state.currentQuiz;
-            const q = quiz.questions[quiz.currentIndex];
-
-            // Disable all option buttons
-            document.querySelectorAll('.quiz-option-btn').forEach(b => b.onclick = null);
-
-            const isCorrect = selectedOption === q.correctAnswer;
-            if (isCorrect) {
-                btnEl.className = 'quiz-option-btn w-full p-4 rounded-xl bg-emerald-900/80 border-2 border-emerald-400 text-white font-bold text-left transition-all flex items-center justify-between';
-                AudioEngine.playCorrect();
-                triggerMascotReaction('correct');
-                quiz.correctCount++;
-                addXP(15);
-            } else {
-                btnEl.className = 'quiz-option-btn w-full p-4 rounded-xl bg-rose-900/80 border-2 border-rose-400 text-white font-bold text-left transition-all flex items-center justify-between';
-                AudioEngine.playWrong();
-                triggerMascotReaction('wrong');
-                quiz.wrongCount++;
-
-                // Highlight correct button
-                document.querySelectorAll('.quiz-option-btn').forEach(b => {
-                    if (b.textContent.includes(q.correctAnswer)) {
-                        b.className = 'quiz-option-btn w-full p-4 rounded-xl bg-emerald-900/40 border-2 border-emerald-500 text-emerald-200 font-bold text-left flex items-center justify-between';
-                    }
+                const prefixes = ['A', 'B', 'C', 'D'];
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50/30 transition-all flex items-center space-x-3 group text-slate-800 font-semibold text-sm sm:text-base cursor-pointer";
+                    btn.onclick = () => selectOptionAnswer(opt, btn);
+                    btn.innerHTML = `
+                        <span class="w-8 h-8 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-bold text-sm flex items-center justify-center transition-colors shrink-0">
+                            ${prefixes[idx]}
+                        </span>
+                        <span class="flex-1">${escapeHtml(opt)}</span>
+                    `;
+                    optionsContainer.appendChild(btn);
                 });
             }
 
-            quiz.answers.push({
-                question: q.prompt,
-                userAnswer: selectedOption,
-                correctAnswer: q.correctAnswer,
-                isCorrect,
-                wordItem: q.item
+            // Pop Animation
+            const card = document.getElementById('question-card');
+            card.classList.remove('animate-pop');
+            void card.offsetWidth;
+            card.classList.add('animate-pop');
+        }
+
+        // Multiple Choice Answer Selection
+        function selectOptionAnswer(selectedOption, buttonElem) {
+            if (isAnswering) return;
+            isAnswering = true;
+
+            const q = currentQuizQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption === q.correctAnswer;
+
+            // Sound feedback
+            playSound(isCorrect ? 'correct' : 'wrong');
+
+            userAnswers.push({
+                questionIndex: currentQuestionIndex + 1,
+                question: q,
+                selected: selectedOption,
+                isCorrect: isCorrect
             });
 
-            recordVocabularyActivity(1);
+            const buttons = document.getElementById('options-container').querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.onclick = null;
+                btn.classList.remove('hover:border-blue-500', 'hover:bg-blue-50/30', 'cursor-pointer');
+                btn.classList.add('cursor-default');
+
+                const optionText = btn.querySelector('span:nth-child(2)').textContent;
+                if (optionText === q.correctAnswer) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+                    const badge = btn.querySelector('span:nth-child(1)');
+                    badge.classList.remove('bg-slate-100', 'text-slate-600');
+                    badge.classList.add('bg-emerald-600', 'text-white');
+                } else if (optionText === selectedOption && !isCorrect) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900', 'font-bold');
+                    const badge = btn.querySelector('span:nth-child(1)');
+                    badge.classList.remove('bg-slate-100', 'text-slate-600');
+                    badge.classList.add('bg-rose-600', 'text-white');
+                } else {
+                    btn.classList.add('opacity-40');
+                }
+            });
 
             document.getElementById('auto-advance-indicator').classList.remove('hidden');
 
-            // Auto advance delay 800ms
             setTimeout(() => {
-                quiz.currentIndex++;
-                if (quiz.currentIndex < quiz.questions.length) {
-                    renderQuestion();
-                } else {
-                    finishQuiz();
-                }
-            }, 800);
+                nextQuestion();
+            }, 850);
         }
 
-        function submitTypedAnswer() {
-            const input = document.getElementById('type-answer-input');
-            const userVal = input.value.trim();
-            if (!userVal) return;
+        // Fill-in-the-blank Answer Submission
+        function submitFillInAnswer(e) {
+            e.preventDefault();
+            if (isAnswering) return;
 
-            const quiz = state.currentQuiz;
-            const q = quiz.questions[quiz.currentIndex];
+            const input = document.getElementById('type-answer-input');
+            const typedVal = input.value.trim();
+
+            if (!typedVal) {
+                showToast('Vui lòng gõ từ tiếng Anh trước khi gửi!', 'error');
+                return;
+            }
+
+            isAnswering = true;
+            const q = currentQuizQuestions[currentQuestionIndex];
+
+            // Normalize strings (case-insensitive & space trimmed)
+            const normalizedTyped = typedVal.toLowerCase().replace(/\s+/g, ' ');
+            const normalizedCorrect = q.correctAnswer.trim().toLowerCase().replace(/\s+/g, ' ');
+
+            const isCorrect = normalizedTyped === normalizedCorrect;
+
+            // Sound feedback
+            playSound(isCorrect ? 'correct' : 'wrong');
+
+            userAnswers.push({
+                questionIndex: currentQuestionIndex + 1,
+                question: q,
+                selected: typedVal,
+                isCorrect: isCorrect
+            });
 
             input.disabled = true;
             document.getElementById('type-submit-btn').disabled = true;
 
-            const isCorrect = userVal.toLowerCase() === q.correctAnswer.toLowerCase();
-            const revealBox = document.getElementById('type-correct-reveal');
-            revealBox.classList.remove('hidden');
+            const statusIcon = document.getElementById('type-status-icon');
+            statusIcon.classList.remove('hidden');
 
             if (isCorrect) {
-                revealBox.className = 'p-3 rounded-xl bg-emerald-900/80 border border-emerald-400 text-emerald-200 text-center text-sm font-bold';
-                revealBox.textContent = '✨ Correct!';
-                AudioEngine.playCorrect();
-                triggerMascotReaction('correct');
-                quiz.correctCount++;
-                addXP(20);
+                input.className = "w-full p-4 pr-12 text-lg font-bold text-emerald-900 bg-emerald-50 rounded-xl border-2 border-emerald-500 transition-all";
+                statusIcon.className = "fa-solid fa-circle-check text-emerald-500 text-xl absolute right-4 top-1/2 -translate-y-1/2";
             } else {
-                revealBox.className = 'p-3 rounded-xl bg-rose-900/80 border border-rose-400 text-rose-200 text-center text-sm font-bold';
-                revealBox.textContent = `💥 Incorrect! Correct answer: "${q.correctAnswer}"`;
-                AudioEngine.playWrong();
-                triggerMascotReaction('wrong');
-                quiz.wrongCount++;
+                input.className = "w-full p-4 pr-12 text-lg font-bold text-rose-900 bg-rose-50 rounded-xl border-2 border-rose-500 transition-all";
+                statusIcon.className = "fa-solid fa-circle-xmark text-rose-500 text-xl absolute right-4 top-1/2 -translate-y-1/2";
+
+                // Reveal correct word
+                const revealBox = document.getElementById('type-correct-reveal');
+                document.getElementById('type-correct-word').textContent = q.correctAnswer;
+                revealBox.classList.remove('hidden');
             }
-
-            quiz.answers.push({
-                question: q.prompt,
-                userAnswer: userVal,
-                correctAnswer: q.correctAnswer,
-                isCorrect,
-                wordItem: q.item
-            });
-
-            recordVocabularyActivity(1);
 
             document.getElementById('auto-advance-indicator').classList.remove('hidden');
 
             setTimeout(() => {
-                quiz.currentIndex++;
-                if (quiz.currentIndex < quiz.questions.length) {
-                    renderQuestion();
-                } else {
-                    finishQuiz();
-                }
-            }, 1200);
+                nextQuestion();
+            }, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuizQuestions.length) {
+                renderCurrentQuestion();
+            } else {
+                finishQuiz();
+            }
         }
 
         function finishQuiz() {
-            document.getElementById('active-quiz-panel').classList.add('hidden');
-            document.getElementById('quiz-setup-panel').classList.remove('hidden');
-            switchTab('tab-stats');
-            renderStatsView();
-        }
+            const total = userAnswers.length;
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+            const scorePercent = Math.round((correctCount / total) * 100);
 
-        /* -------------------------------------------------------------
-           9. STATS & REVIEW FILTER ENGINE
-        ------------------------------------------------------------- */
-        function renderStatsView() {
-            const quiz = state.currentQuiz;
-            if (!quiz.answers || quiz.answers.length === 0) {
-                document.getElementById('no-stats-view').classList.remove('hidden');
-                document.getElementById('stats-view').classList.add('hidden');
-                return;
+            lastQuizResults = {
+                total,
+                correctCount,
+                wrongAnswers,
+                scorePercent
+            };
+
+            document.getElementById('stat-score-percent').textContent = `${scorePercent}%`;
+            document.getElementById('stat-correct-count').textContent = `${correctCount} / ${total}`;
+            document.getElementById('stat-wrong-count').textContent = wrongAnswers.length;
+
+            document.getElementById('count-filter-all').textContent = total;
+            document.getElementById('count-filter-correct').textContent = correctCount;
+            document.getElementById('count-filter-wrong').textContent = wrongAnswers.length;
+
+            const wrongSummaryBox = document.getElementById('wrong-summary-box');
+            if (wrongAnswers.length === 0) {
+                wrongSummaryBox.classList.add('hidden');
+            } else {
+                wrongSummaryBox.classList.remove('hidden');
             }
+
+            activeReviewFilter = 'all';
+            renderDetailedReview();
 
             document.getElementById('no-stats-view').classList.add('hidden');
             document.getElementById('stats-view').classList.remove('hidden');
 
-            const total = quiz.answers.length;
-            const correct = quiz.correctCount;
-            const pct = Math.round((correct / total) * 100);
-            const durationSec = Math.round((Date.now() - quiz.startTime) / 1000);
-            const avgSpeed = (durationSec / total).toFixed(1);
+            document.getElementById('active-quiz-panel').classList.add('hidden');
+            document.getElementById('quiz-setup-panel').classList.remove('hidden');
 
-            document.getElementById('stat-total-q').textContent = total;
-            document.getElementById('stat-correct-q').textContent = correct;
-            document.getElementById('stat-accuracy').textContent = `${pct}%`;
-            document.getElementById('stat-speed').textContent = `${avgSpeed}s`;
-
-            filterReviewList('all');
+            switchTab('stats');
+            showToast('Đã hoàn thành bài kiểm tra!', 'success');
         }
 
-        function filterReviewList(filter) {
-            state.currentReviewFilter = filter;
-            ['all', 'correct', 'incorrect'].forEach(f => {
-                const btn = document.getElementById(`filter-${f}-btn`);
-                if (f === filter) {
-                    btn.className = 'px-3 py-1 rounded-md bg-mana-600 text-white font-medium';
-                } else {
-                    btn.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white';
-                }
+        // --- STATS & DETAILED REVIEW ---
+        function filterReview(filterType, element) {
+            activeReviewFilter = filterType;
+            document.querySelectorAll('.review-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                btn.classList.add('text-slate-600');
             });
+            element.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            element.classList.remove('text-slate-600');
 
-            const container = document.getElementById('review-items-container');
-            let items = state.currentQuiz.answers;
+            renderDetailedReview();
+        }
 
-            if (filter === 'correct') items = items.filter(i => i.isCorrect);
-            if (filter === 'incorrect') items = items.filter(i => !i.isCorrect);
+        function renderDetailedReview() {
+            const container = document.getElementById('review-questions-container');
+            if (!userAnswers || userAnswers.length === 0) return;
 
-            if (items.length === 0) {
-                container.innerHTML = `<div class="text-center text-slate-500 py-6 text-sm">No questions match this filter.</div>`;
+            let filtered = userAnswers;
+            if (activeReviewFilter === 'correct') {
+                filtered = userAnswers.filter(a => a.isCorrect);
+            } else if (activeReviewFilter === 'wrong') {
+                filtered = userAnswers.filter(a => !a.isCorrect);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-sm">
+                        <i class="fa-solid fa-filter-circle-xmark text-2xl mb-2 text-slate-300"></i>
+                        <p>Không có câu hỏi nào thuộc mục này.</p>
+                    </div>`;
                 return;
             }
 
-            container.innerHTML = items.map((item, index) => `
-                <div class="frieren-glass p-3.5 rounded-xl border ${item.isCorrect ? 'border-emerald-500/30 bg-emerald-950/20' : 'border-rose-500/30 bg-rose-950/20'} flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                    <div class="space-y-1">
-                        <div class="text-slate-400">Question: <span class="text-white font-semibold">${escapeHtml(item.question)}</span></div>
-                        <div class="flex items-center gap-3">
-                            <span class="${item.isCorrect ? 'text-emerald-400' : 'text-rose-400'} font-bold">
-                                Your answer: ${escapeHtml(item.userAnswer)}
+            container.innerHTML = filtered.map(item => {
+                const isCorrect = item.isCorrect;
+                const q = item.question;
+                
+                let modeLabel = "Def ➔ Word";
+                if (q.type === 'word-to-def') modeLabel = "Word ➔ Def";
+                else if (q.type === 'type-word') modeLabel = "Điền từ";
+
+                return `
+                    <div class="p-4 rounded-xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-rose-200 bg-rose-50/30'} space-y-3">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-extrabold text-xs px-2 py-0.5 rounded-md ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                    Câu ${item.questionIndex}
+                                </span>
+                                <span class="text-xs text-slate-500 font-semibold">
+                                    (${modeLabel})
+                                </span>
+                            </div>
+                            <span class="text-xs font-bold flex items-center ${isCorrect ? 'text-emerald-600' : 'text-rose-600'}">
+                                <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'} mr-1"></i>
+                                ${isCorrect ? 'Đúng' : 'Sai'}
                             </span>
-                            ${!item.isCorrect ? `<span class="text-elven-300">Correct answer: ${escapeHtml(item.correctAnswer)}</span>` : ''}
+                        </div>
+
+                        <!-- Question Prompt -->
+                        <div>
+                            <p class="text-[11px] text-slate-400 uppercase font-bold">CÂU HỎI / ĐỀ BÀI:</p>
+                            <p class="font-bold text-slate-800 text-sm sm:text-base">${escapeHtml(q.prompt)}</p>
+                        </div>
+
+                        <!-- Answer Comparison -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1 border-t border-slate-200/50">
+                            <div class="p-2 rounded-lg ${isCorrect ? 'bg-emerald-100/60 text-emerald-900' : 'bg-rose-100/60 text-rose-900'}">
+                                <span class="font-medium block text-[11px] opacity-75">Bạn đã chọn/gõ:</span>
+                                <span class="font-bold">${escapeHtml(item.selected)}</span>
+                            </div>
+
+                            <div class="p-2 rounded-lg bg-emerald-100/60 text-emerald-900">
+                                <span class="font-medium block text-[11px] opacity-75">Đáp án chuẩn:</span>
+                                <span class="font-bold">${escapeHtml(q.correctAnswer)}</span>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div class="text-[11px] text-slate-500 italic">
+                            <i class="fa-solid fa-circle-info mr-1 text-slate-400"></i>Từ gốc: <strong>${escapeHtml(q.originalTerm)}</strong> = ${escapeHtml(q.originalDef)}
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded ${item.isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'} text-[10px] font-bold">
-                            ${item.isCorrect ? 'CORRECT' : 'INCORRECT'}
-                        </span>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function practiceIncorrectWords() {
-            const incorrectItems = state.currentQuiz.answers.filter(a => !a.isCorrect).map(a => a.wordItem);
-            if (incorrectItems.length === 0) {
-                alert('All of your answers are correct!');
-                return;
-            }
+        function startQuizWithWrongWords() {
+            if (!lastQuizResults || lastQuizResults.wrongAnswers.length === 0) return;
 
-            state.currentQuiz = {
-                questions: incorrectItems.map(item => createQuestion(item, 'def-word')),
-                currentIndex: 0,
-                correctCount: 0,
-                wrongCount: 0,
-                answers: [],
-                startTime: Date.now()
-            };
+            const wrongTerms = new Set(lastQuizResults.wrongAnswers.map(a => a.question.originalTerm));
+            const wrongVocabList = vocabList.filter(v => wrongTerms.has(v.term));
 
-            switchTab('tab-quiz');
-            document.getElementById('quiz-setup-panel').classList.add('hidden');
-            document.getElementById('active-quiz-panel').classList.remove('hidden');
-            renderQuestion();
-        }
-
-        /* -------------------------------------------------------------
-           10. UTILITIES & KEYBOARD LISTENERS
-        ------------------------------------------------------------- */
-        /* -------------------------------------------------------------
-           11. VOCABULARY ACTIVITY TRACKER & HEATMAP
-        ------------------------------------------------------------- */
-        const HEATMAP_STORAGE_KEY = 'vocabmaster_frieren_activity_v1';
-
-        function getLocalDateKey(date = new Date()) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-
-        function loadVocabularyActivity() {
-            try {
-                const saved = localStorage.getItem(HEATMAP_STORAGE_KEY);
-                return saved ? JSON.parse(saved) : {};
-            } catch (error) {
-                return {};
-            }
-        }
-
-        function saveVocabularyActivity(activity) {
-            localStorage.setItem(HEATMAP_STORAGE_KEY, JSON.stringify(activity));
-        }
-
-        // One activity unit is logged for each SRS rating or quiz answer.
-        function recordVocabularyActivity(amount = 1) {
-            const activity = loadVocabularyActivity();
-            const today = getLocalDateKey();
-            if (!activity[today]) activity[today] = 0;
-            activity[today] += amount;
-            saveVocabularyActivity(activity);
-
-            const heatmapSection = document.getElementById('tab-heatmap');
-            if (heatmapSection && !heatmapSection.classList.contains('hidden')) {
-                renderVocabularyHeatmap();
-            }
-        }
-
-        function getHeatmapLevel(count) {
-            if (!count) return 0;
-            if (count < 5) return 1;
-            if (count < 15) return 2;
-            if (count < 30) return 3;
-            return 4;
-        }
-
-        function getCurrentStudyStreak(activity) {
-            const today = new Date();
-            const todayKey = getLocalDateKey(today);
-            const yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 1);
-
-            // If there has been no activity today, a streak can still continue from yesterday.
-            let cursor = new Date(activity[todayKey] ? today : yesterday);
-            let streak = 0;
-            while (activity[getLocalDateKey(cursor)] > 0) {
-                streak++;
-                cursor.setDate(cursor.getDate() - 1);
-            }
-            return streak;
-        }
-
-        function renderVocabularyHeatmap() {
-            const grid = document.getElementById('vocab-heatmap-grid');
-            if (!grid) return;
-
-            const activity = loadVocabularyActivity();
-            const today = new Date();
-            const start = new Date(today);
-            start.setHours(0, 0, 0, 0);
-            start.setDate(start.getDate() - 364);
-
-            // Align the first cell to Sunday so the grid has seven weekday rows.
-            start.setDate(start.getDate() - start.getDay());
-
-            const palette = ['#1e293b', '#14532d', '#15803d', '#22c55e', '#86efac'];
-            const cells = [];
-            const cursor = new Date(start);
-
-            while (cursor <= today) {
-                const dateKey = getLocalDateKey(cursor);
-                const count = activity[dateKey] || 0;
-                const level = getHeatmapLevel(count);
-                const label = `${dateKey}: ${count} reviews`;
-                cells.push(
-                    `<button type="button" class="heatmap-day" style="background:${palette[level]}" title="${label}" aria-label="${label}" onclick="showHeatmapDay('${dateKey}')"></button>`
-                );
-                cursor.setDate(cursor.getDate() + 1);
-            }
-
-            grid.innerHTML = cells.join('');
-            document.getElementById('heatmap-year-label').textContent =
-                `${start.getFullYear()} – ${today.getFullYear()}`;
-
-            const activeDays = Object.values(activity).filter(value => value > 0).length;
-            const totalReviews = Object.values(activity).reduce((sum, value) => sum + (Number(value) || 0), 0);
-            document.getElementById('heatmap-active-days').textContent = activeDays;
-            document.getElementById('heatmap-total-reviews').textContent = totalReviews;
-            document.getElementById('heatmap-current-streak').textContent = `${getCurrentStudyStreak(activity)} days`;
-
-            showHeatmapDay(getLocalDateKey(today));
-        }
-
-        function showHeatmapDay(dateKey) {
-            const activity = loadVocabularyActivity();
-            const count = activity[dateKey] || 0;
-            const displayDate = new Date(`${dateKey}T00:00:00`).toLocaleDateString('vi-VN', {
-                weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
-            });
-            const message = count > 0
-                ? `<strong class="text-emerald-400">${count} reviews</strong> have been recorded.`
-                : 'No reviews recorded on this day.';
-            document.getElementById('heatmap-selected-day').innerHTML =
-                `<div class="font-semibold text-white mb-1">${displayDate}</div><div>${message}</div>`;
-        }
-
-        function exportHeatmapData() {
-            const activity = loadVocabularyActivity();
-            const rows = [['date', 'review_count'], ...Object.keys(activity).sort().map(date => [date, activity[date]])];
-            const csv = rows.map(row => row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(',')).join('\\n');
-            const blob = new Blob(['\\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'vocabmaster-heatmap.csv';
-            link.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem('vocabmaster_frieren_data', JSON.stringify(state.vocabList));
-        }
-
-        function loadFromLocalStorage() {
-            const saved = localStorage.getItem('vocabmaster_frieren_data');
-            if (saved) {
-                try {
-                    state.vocabList = JSON.parse(saved);
-                } catch (e) {
-                    loadSampleData();
-                }
+            if (wrongVocabList.length < 4) {
+                const remaining = vocabList.filter(v => !wrongTerms.has(v.term));
+                const needed = 4 - wrongVocabList.length;
+                const padding = shuffle(remaining).slice(0, needed);
+                const paddedList = [...wrongVocabList, ...padding];
+                switchTab('quiz');
+                startQuiz(paddedList);
             } else {
-                loadSampleData();
+                switchTab('quiz');
+                startQuiz(wrongVocabList);
             }
         }
-
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-
-        // Global Keyboard Shortcut Listeners for Anki SRS
-        window.addEventListener('keydown', (e) => {
-            const ankiTabActive = !document.getElementById('tab-anki').classList.contains('hidden');
-            if (!ankiTabActive) return;
-
-            if (e.code === 'Space' || e.code === 'Enter') {
-                if (!state.isAnkiRevealed) {
-                    e.preventDefault();
-                    revealAnkiCard();
-                }
-            } else if (state.isAnkiRevealed) {
-                if (e.key === '1') rateAnkiCard(1);
-                if (e.key === '2') rateAnkiCard(2);
-                if (e.key === '3') rateAnkiCard(3);
-                if (e.key === '4') rateAnkiCard(4);
-            }
-        });
-
-        // Initialize App on Page Load
-        window.onload = function() {
-            initManaCanvas();
-            loadFromLocalStorage();
-            renderVocabPreview();
-        };
     </script>
 </body>
 </html>
