@@ -1403,7 +1403,7 @@
                 statusIcon.classList.add('hidden');
                 revealBox.classList.add('hidden');
 
-                setTimeout(() => { input.focus(); }, 100);
+                requestAnimationFrame(() => input.focus());
 
             } else {
                 // Multiple Choice ABCD UI Setup
@@ -1487,7 +1487,7 @@
 
             setTimeout(() => {
                 nextQuestion();
-            }, 850);
+            }, 250);
         }
 
         // Fill-in-the-blank Answer Submission
@@ -1545,7 +1545,7 @@
 
             setTimeout(() => {
                 nextQuestion();
-            }, 1000);
+            }, 250);
         }
 
         function nextQuestion() {
